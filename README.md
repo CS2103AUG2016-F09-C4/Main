@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/CS2103AUG2016-F09-C4/Main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-F09-C4/Main)
 
 
-# dowat (Level 4)
+# dowat (TaskBook)
 
 <img src="docs/images/MockUI.png" width="600"><br>
 
