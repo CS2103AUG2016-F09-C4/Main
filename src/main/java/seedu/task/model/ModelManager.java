@@ -81,7 +81,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void addEvent(Event event) throws DuplicateEventException {
-        // TODO Auto-generated method stub
+        taskBook.addEvent(event);
         
     }
 
