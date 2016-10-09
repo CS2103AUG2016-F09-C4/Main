@@ -4,9 +4,9 @@ import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.item.*;
 
 /**
- * Adds a person to the address book.
+ * Adds a task to the task book.
  */
-public class AddCommand extends Command {
+public class AddTaskCommand extends Command {
 
 	public static final String COMMAND_WORD = "add";
 
@@ -15,7 +15,7 @@ public class AddCommand extends Command {
 			+ " CS2103 Lab 6 /desc hand in through codecrunch /by 30-12-16";
 
 	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
+	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task book";
 
 	private final Task toAdd;
 
@@ -27,7 +27,7 @@ public class AddCommand extends Command {
 	 * @throws IllegalValueException
 	 *             if any of the raw values are invalid
 	 */
-	public AddCommand(String name, String description) throws IllegalValueException {
+	public AddTaskCommand(String name, String description) throws IllegalValueException {
 		this.toAdd = new Task(new Name(name), new Description(description)); //TODO: more flexible of tasks type
 	}
 

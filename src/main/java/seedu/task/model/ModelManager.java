@@ -3,8 +3,10 @@ package seedu.task.model;
 import javafx.collections.transformation.FilteredList;
 import seedu.task.commons.events.model.TaskBookChangedEvent;
 import seedu.task.commons.util.StringUtil;
+import seedu.task.model.item.Event;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.Task;
+import seedu.task.model.item.UniqueEventList.DuplicateEventException;
 import seedu.task.model.item.UniqueTaskList;
 import seedu.task.model.item.UniqueTaskList.TaskNotFoundException;
 import seedu.taskcommons.core.ComponentManager;
@@ -75,6 +77,12 @@ public class ModelManager extends ComponentManager implements Model {
         taskBook.addTask(task);
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
+    }
+    
+    @Override
+    public void addEvent(Event event) throws DuplicateEventException {
+        // TODO Auto-generated method stub
+        
     }
 
     //=========== Filtered Task List Accessors ===============================================================
@@ -149,5 +157,6 @@ public class ModelManager extends ComponentManager implements Model {
             return "task=" + String.join(", ", taskKeyWords);
         }
     }
+
 
 }
