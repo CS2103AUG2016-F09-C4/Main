@@ -61,7 +61,7 @@ public class AddParser implements Parser {
                 return new IncorrectCommand(ive.getMessage());
             }
         }else {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE, AddEventCommand.MESSAGE_USAGE));
         }
     }
     

@@ -1,6 +1,7 @@
 package seedu.task.model;
 
 import seedu.task.model.item.Event;
+import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.Task;
 import seedu.task.model.item.UniqueEventList;
@@ -30,6 +31,9 @@ public interface Model {
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    /** Returns the filtered event list as an {@code UnmodifiableObservableList<ReadOnlyEvent>} */
+    UnmodifiableObservableList<ReadOnlyEvent> getFilteredEventList();
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
