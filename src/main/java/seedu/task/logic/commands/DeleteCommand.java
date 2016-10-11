@@ -1,7 +1,7 @@
 package seedu.task.logic.commands;
 
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes an item identified using it's last displayed index from the address book.
  */
 public abstract class DeleteCommand extends Command {
 

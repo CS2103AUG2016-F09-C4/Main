@@ -6,7 +6,7 @@ import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes a Task identified using it's last displayed index from the address book.
  */
 public class DeleteTaskCommand extends DeleteCommand {
 

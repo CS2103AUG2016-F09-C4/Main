@@ -49,7 +49,6 @@ public class DeleteParser implements Parser {
                 return new IncorrectCommand(ive.getMessage());
             }
         }else {
-            System.out.print("success");
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
     }
