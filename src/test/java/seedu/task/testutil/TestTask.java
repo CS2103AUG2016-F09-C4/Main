@@ -1,5 +1,7 @@
 package seedu.task.testutil;
 
+import java.util.Optional;
+
 import seedu.task.model.item.*;
 
 /**
@@ -9,6 +11,7 @@ public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private Description description;
+    private Optional<Deadline> deadline;
     private Boolean isTaskCompleted;
 
     public TestTask() {
@@ -48,6 +51,11 @@ public class TestTask implements ReadOnlyTask {
         sb.append("add " + this.getTask().fullName + " ");
         sb.append("/desc " + this.getDescription().value + " ");
         return sb.toString();
+    }
+
+    @Override
+    public Optional<Deadline> getDeadline() {
+        return deadline;
     }
 
 }

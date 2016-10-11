@@ -143,8 +143,6 @@ public class LogicManagerTest {
         assertEquals(expectedTaskBook, latestSavedTaskBook);
     }
     
-
-    @Ignore
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
@@ -187,16 +185,18 @@ public class LogicManagerTest {
     public void execute_addTask_invalidTaskData() throws Exception {
         assertCommandBehavior(
                 "add []\\[;] /desc nil /by 30-12-16", Name.MESSAGE_NAME_CONSTRAINTS);
-//        assertCommandBehavior(
-//                "add Valid Name /desc nil /by 30-12-111", Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
+        assertCommandBehavior(
+                "add []\\[;] /desc nil", Name.MESSAGE_NAME_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name /desc nil /by 30-12-111", Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
     }
     
     @Test
     public void execute_addEvent_invalidEventData() throws Exception {
         assertCommandBehavior(
                 "add []\\[;] /desc nil /from 30-12-16 31-12-16", Name.MESSAGE_NAME_CONSTRAINTS);
-//        assertCommandBehavior(
-//                "add Valid Name /desc nil /by 30-12-111", Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name /desc nil /from 30-12-111 30-12-111", Duration.MESSAGE_DURATION_CONSTRAINTS);
     }
 
     @Test
@@ -209,6 +209,22 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertTaskCommandBehavior(helper.generateAddTaskCommand(toBeAdded),
+                String.format(AddTaskCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+
+    }
+    
+    @Test
+    public void execute_addFloatTask_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.computingFloatTask();
+        TaskBook expectedAB = new TaskBook();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertTaskCommandBehavior(helper.generateAddFloatTaskCommand(toBeAdded),
                 String.format(AddTaskCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
@@ -475,7 +491,14 @@ public class LogicManagerTest {
 
         Task computingTask() throws Exception {
             Name name = new Name("Do CS2103 Project");
-//            Deadline deadline = new Deadline("01-01-16");
+            Deadline deadline = new Deadline("01-01-16");
+            Description des = new Description("post on Github");
+            
+            return new Task(name, des, deadline, false);
+        }
+        
+        Task computingFloatTask() throws Exception {
+            Name name = new Name("Do CS2103 Project");
             Description des = new Description("post on Github");
             
             return new Task(name, des, false);
@@ -484,8 +507,9 @@ public class LogicManagerTest {
         Task completedTask() throws Exception {
         	Name name = new Name("Run tests");
         	Description des = new Description("for task");
+        	Deadline dl = new Deadline ("01-01-01");
         	
-        	return new Task(name, des, true);
+        	return new Task(name, des, dl, true);
         }
         
         Event computingEvent() throws Exception {
@@ -507,12 +531,26 @@ public class LogicManagerTest {
             return new Task(
                     new Name("Task " + seed),
                     new Description("Description" + Math.abs(seed)),
+                    new Deadline ("01-01-01"),  //dummy deadline
                     false
                    );
         }
 
         /** Generates the correct add task command based on the task given */
         String generateAddTaskCommand(Task p) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("add ");
+
+            cmd.append(p.getTask().toString());
+            cmd.append(" /desc ").append(p.getDescription().toString());
+            cmd.append(" /by ").append(p.getDeadline().get().toString());
+
+            return cmd.toString();
+        }
+        
+        /** Generates the correct add task command based on the task given */
+        String generateAddFloatTaskCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
@@ -610,6 +648,7 @@ public class LogicManagerTest {
             return new Task(
                     new Name(name),
                     new Description("dummy description"),
+                    new Deadline("01-01-01"),   //dummy deadline
                     false
             );
         }
