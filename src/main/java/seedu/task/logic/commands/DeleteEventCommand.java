@@ -1,27 +1,27 @@
 package seedu.task.logic.commands;
 
-import seedu.task.model.item.ReadOnlyTask;
-import seedu.task.model.item.UniqueTaskList.*;
+import seedu.task.model.item.*;
+import seedu.task.model.item.UniqueEventList.EventNotFoundException;
 import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class DeleteEventCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes an existing task/event in the TaskBook.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " task|event" + " 1";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
 
     public final int targetIndex;
 
-    public DeleteCommand(int targetIndex) {
+    public DeleteEventCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -29,22 +29,22 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyEvent> lastShownList = model.getFilteredEventList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+        ReadOnlyEvent eventToDelete = lastShownList.get(targetIndex - 1);
 
         try {
-            model.deleteTask(taskToDelete);
-        } catch (TaskNotFoundException tnfe) {
+            model.deleteEvent(eventToDelete);
+        } catch (EventNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete));
     }
 
 }
