@@ -11,6 +11,11 @@ import seedu.task.logic.commands.AddTaskCommand;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.IncorrectCommand;
 
+/**
+ * Responsible for validating and preparing the arguments for AddCommand execution
+ * @author kian ming
+ */
+
 public class AddParser implements Parser {
 
     public AddParser() {}
