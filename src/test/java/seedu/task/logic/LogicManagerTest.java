@@ -331,7 +331,7 @@ public class LogicManagerTest {
      * targeting a single task in the shown list, using visible index.
      * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
      */
-    private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
+    private void assertTaskIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Task> taskList = helper.generateTaskList(2);
@@ -345,6 +345,25 @@ public class LogicManagerTest {
         assertTaskCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskBook(), taskList);
     }
     
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single task in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
+     */
+    private void assertEventIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
+        String expectedMessage = MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+        List<Event> eventList = helper.generateEventList(2);
+
+        // set AB state to 2 tasks
+        model.resetData(new TaskBook());
+        for (Event t : eventList) {
+            model.addEvent(t);
+        }
+
+        assertEventCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskBook(), eventList);
+    }
+    
     @Ignore
     @Test
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
@@ -354,7 +373,7 @@ public class LogicManagerTest {
     @Ignore
     @Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("select");
+        assertTaskIndexNotFoundBehaviorForCommand("select");
     }
 
     @Ignore
@@ -375,14 +394,25 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
+    public void execute_deleteTaskInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTaskCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
     }
 
     @Test
-    public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("delete");
+    public void execute_deleteTaskIndexNotFound_errorMessageShown() throws Exception {
+        assertTaskIndexNotFoundBehaviorForCommand("delete task");
+    }
+    
+    @Test
+    public void execute_deleteEventInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
+    }
+
+    @Test
+    public void execute_deleteEventIndexNotFound_errorMessageShown() throws Exception {
+        assertEventIndexNotFoundBehaviorForCommand("delete event");
     }
 
     @Test
@@ -511,6 +541,20 @@ public class LogicManagerTest {
                    );
         }
 
+        /**
+         * Generates a valid event using the given seed.
+         * Running this function with the same parameter values guarantees the returned task will have the same state.
+         * Each unique seed will generate a unique Event object.
+         *
+         * @param seed used to generate the event data field values
+         */
+        Event generateEvent(int seed) throws Exception {
+            return new Event(
+                    new Name("Event " + seed),
+                    new Description("Description" + Math.abs(seed))
+                   );
+        }
+        
         /** Generates the correct add task command based on the task given */
         String generateAddTaskCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
@@ -603,6 +647,21 @@ public class LogicManagerTest {
             return Arrays.asList(tasks);
         }
 
+        /**
+         * Generates a list of Events based on the flags.
+         */
+        List<Event> generateEventList(int numGenerated) throws Exception{
+            List<Event> events = new ArrayList<>();
+            for(int i = 1; i <= numGenerated; i++){
+                events.add(generateEvent(i));
+            }
+            return events;
+        }
+
+        List<Event> generateEventList(Event... events) {
+            return Arrays.asList(events);
+        }
+        
         /**
          * Generates a Task object with given name. Other fields will have some dummy values.
          */

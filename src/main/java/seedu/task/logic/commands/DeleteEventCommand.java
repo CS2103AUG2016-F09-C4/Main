@@ -8,18 +8,9 @@ import seedu.taskcommons.core.UnmodifiableObservableList;
 /**
  * Deletes a person identified using it's last displayed index from the address book.
  */
-public class DeleteEventCommand extends Command {
-
-    public static final String COMMAND_WORD = "delete";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes an existing task/event in the TaskBook.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " task|event" + " 1";
+public class DeleteEventCommand extends DeleteCommand {
 
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
-
-    public final int targetIndex;
 
     public DeleteEventCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -41,7 +32,7 @@ public class DeleteEventCommand extends Command {
         try {
             model.deleteEvent(eventToDelete);
         } catch (EventNotFoundException tnfe) {
-            assert false : "The target task cannot be missing";
+            assert false : "The target event cannot be missing";
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete));
