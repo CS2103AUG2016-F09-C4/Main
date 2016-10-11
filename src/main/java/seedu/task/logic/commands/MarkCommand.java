@@ -31,12 +31,12 @@ public class MarkCommand extends Command {
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
-        if (lastShownList.size() < targetIndex) {
+        if (lastShownList.size() < targetIndex || targetIndex == 0) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        model.markTask(targetIndex);
+        model.markTask(targetIndex-1); // list starts at zero
         return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, targetIndex));
 
     }
