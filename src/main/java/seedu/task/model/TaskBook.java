@@ -103,6 +103,10 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
     }
 
+    public void markTask(int index){
+        tasks.mark(index);
+    }
+    
 //// util methods
 
     @Override

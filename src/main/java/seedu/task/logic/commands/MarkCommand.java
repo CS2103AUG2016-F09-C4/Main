@@ -7,22 +7,22 @@ import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
 /**
- * Selects a person identified using it's last displayed index from the address book.
+ * Marks a task as completed using it's last displayed index from the task book.
  */
-public class SelectCommand extends Command {
+public class MarkCommand extends Command {
 
     public final int targetIndex;
 
-    public static final String COMMAND_WORD = "select";
+    public static final String COMMAND_WORD = "mark";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the person identified by the index number used in the last person listing.\n"
+            + ": marks the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected Task: %1$s";
+    public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked Task: %1$s";
 
-    public SelectCommand(int targetIndex) {
+    public MarkCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -36,8 +36,8 @@ public class SelectCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
-        return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
+        model.markTask(targetIndex);
+        return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, targetIndex));
 
     }
 

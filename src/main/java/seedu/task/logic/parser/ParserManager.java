@@ -46,7 +46,7 @@ public class ParserManager {
         case AddTaskCommand.COMMAND_WORD:
             return new AddParser().prepare(arguments);
 
-        case SelectCommand.COMMAND_WORD:
+        case MarkCommand.COMMAND_WORD:
             return prepareSelect(arguments);
 
         case DeleteCommand.COMMAND_WORD:
@@ -99,10 +99,10 @@ public class ParserManager {
         Optional<Integer> index = parseIndex(args);
         if(!index.isPresent()){
             return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
         }
 
-        return new SelectCommand(index.get());
+        return new MarkCommand(index.get());
     }
 
     /**
