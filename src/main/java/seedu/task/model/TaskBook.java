@@ -103,8 +103,17 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
     }
 
+
     public void markTask(int index){
         tasks.mark(index);
+	}
+
+    public boolean removeEvent(ReadOnlyEvent key) throws UniqueEventList.EventNotFoundException {
+        if (events.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueEventList.EventNotFoundException();
+        }
     }
     
 //// util methods
