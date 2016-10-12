@@ -11,7 +11,7 @@ public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private Description description;
-    private Optional<Deadline> deadline;
+    private Deadline deadline;
     private Boolean isTaskCompleted;
 
     public TestTask() {
@@ -25,6 +25,10 @@ public class TestTask implements ReadOnlyTask {
     public void setDescription(Description description) {
         this.description = description;
     }
+    
+    public void setDeadline(Deadline deadline) {
+        this.deadline = deadline;
+    }
 
     @Override
     public Name getTask() {
@@ -34,6 +38,10 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Description getDescription() {
         return description;
+    }
+
+    public Deadline getDeadlineRaw() {
+        return deadline;
     }
 
     @Override
@@ -55,7 +63,9 @@ public class TestTask implements ReadOnlyTask {
 
     @Override
     public Optional<Deadline> getDeadline() {
-        return deadline;
+        return null;
     }
+    
+    
 
 }

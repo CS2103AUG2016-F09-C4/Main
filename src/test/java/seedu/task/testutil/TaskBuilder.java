@@ -30,6 +30,13 @@ public class TaskBuilder {
         this.task.setDescription(new Description(description));
         return this;
     }
+    
+    public TaskBuilder withDeadline(String deadline) throws IllegalValueException {
+        assert deadline != null;
+        this.task.setDeadline(new Deadline(deadline));
+        System.out.println(deadline);
+        return this;
+    }
 
     public TestTask build() {
         return this.task;

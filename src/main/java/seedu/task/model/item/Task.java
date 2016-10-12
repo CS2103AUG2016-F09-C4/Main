@@ -12,7 +12,7 @@ import java.util.Optional;
  */
 
 public class Task implements ReadOnlyTask {
-
+    
     private Name name;
     private Description description;
     private Deadline deadline;

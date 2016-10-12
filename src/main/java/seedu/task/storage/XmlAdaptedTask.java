@@ -11,15 +11,6 @@ import java.util.List;
  * JAXB-friendly version of the Task.
  */
 public class XmlAdaptedTask {
-
-//    @XmlElement(required = true)
-//    private String name;
-//    @XmlElement(required = true)
-//    private String phone;
-//    @XmlElement(required = true)
-//    private String email;
-//    @XmlElement(required = true)
-//    private String address;
 	
 	@XmlElement(required = true)
 	private String name;
@@ -29,9 +20,9 @@ public class XmlAdaptedTask {
 	
 	@XmlElement
 	private Boolean status;
-//	
-//	@XmlElement
-//	private String deadline;
+	
+	@XmlElement
+	private String deadline;
 
 //    @XmlElement
 //    private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -51,7 +42,7 @@ public class XmlAdaptedTask {
         name = source.getTask().fullName;
         description = source.getDescription().value;
         status = source.getTaskStatus();
-//        deadline = source.getDealine().value;
+        deadline = source.getDeadlineValue();
     }
 
     /**
@@ -63,8 +54,9 @@ public class XmlAdaptedTask {
 
         final Name name = new Name(this.name);
         final Description description = new Description(this.description);
+        final Deadline deadline = new Deadline(this.deadline);
         final Boolean status = new Boolean(this.status);
         
-        return new Task(name, description, status);
+        return new Task(name, description, deadline, status);
     }
 }
