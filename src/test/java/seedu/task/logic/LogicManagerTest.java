@@ -357,7 +357,7 @@ public class LogicManagerTest {
         assertIndexNotFoundBehaviorForCommand("select");
     }
 
-/*    @Ignore
+    @Ignore
     @Test
     public void execute_select_jumpsToCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -367,12 +367,12 @@ public class LogicManagerTest {
         helper.addToModel(model, threeTasks);
 
         assertTaskCommandBehavior("select 2",
-                String.format(MarkCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
+                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredTaskList().get(1), threeTasks.get(1));
-    }*/
+    }
 
     @Test
     public void execute_MarkInvalidArgsFormat_errorMessageShown() throws Exception {
