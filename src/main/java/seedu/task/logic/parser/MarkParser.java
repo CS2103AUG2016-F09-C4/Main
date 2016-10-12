@@ -9,7 +9,7 @@ import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.MarkCommand;
 
 public class MarkParser implements Parser {
-    private static final Pattern MARK_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\d+$)");
+    private static final Pattern MARK_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[1-9]{1}\\d*$)");
 	
     /**
      * Parses arguments in the context of the mark task command.
