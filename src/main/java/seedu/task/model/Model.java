@@ -45,6 +45,9 @@ public interface Model {
     void updateFilteredTaskList(Set<String> keywords);
     
     /** Updates the filter of the filtered task list to filter by the status*/
-    void updateFilteredTaskListToShowWithStatus(boolean status);
+    void updateFilteredTaskListToShowWithStatus(boolean statusCompleted);
+
+    /** Updates the filter of the filtered task list to filter by the status*/
+	void updateFilteredEventListToShowWithStatus(boolean statusPassed);
 
 }

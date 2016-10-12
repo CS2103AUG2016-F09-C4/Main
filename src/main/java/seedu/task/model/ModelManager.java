@@ -117,21 +117,32 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
-
-    private void updateFilteredTaskList(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
-    }
     
     @Override
 	public void updateFilteredTaskListToShowWithStatus(boolean status) {
 		updateFilteredTaskList(new PredicateExpression(new StatusQualifier(status)));
 		
 	}
+    
+    @Override
+	public void updateFilteredEventListToShowWithStatus(boolean status) {
+    	updateFilteredEventList(new PredicateExpression(new StatusQualifier(status)));
+	}
+    
+
+    private void updateFilteredTaskList(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    private void updateFilteredEventList(Expression expression) {
+        filteredEvents.setPredicate(expression::satisfies);
+    }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
+        boolean satisfies(ReadOnlyEvent event);
         String toString();
     }
 
@@ -149,6 +160,10 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
+		public boolean satisfies(ReadOnlyEvent event) {
+			return qualifier.run(event);
+		}
+        @Override
         public String toString() {
             return qualifier.toString();
         }
@@ -156,6 +171,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     interface Qualifier {
         boolean run(ReadOnlyTask task);
+        boolean run(ReadOnlyEvent event);
         String toString();
     }
 
@@ -178,6 +194,12 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "task=" + String.join(", ", taskKeyWords);
         }
+
+		@Override
+		public boolean run(ReadOnlyEvent event) {
+			// TODO Auto-generated method stub
+			return false;
+		}
     }
     
     private class StatusQualifier implements Qualifier {
@@ -194,7 +216,12 @@ public class ModelManager extends ComponentManager implements Model {
 		
 		@Override 
 		public String toString() {
-			return "task is" + (status ? "completed" : "not yet completed");  
+			return (status ? "completed" : "not yet completed");  
+		}
+
+		@Override
+		public boolean run(ReadOnlyEvent event) {
+			return event.isEventCompleted() != status;
 		}
     	
     }
