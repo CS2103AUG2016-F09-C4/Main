@@ -48,6 +48,9 @@ public class ParserManager {
 
         case MarkCommand.COMMAND_WORD:
             return new MarkParser().prepare(arguments);
+            
+        case SelectCommand.COMMAND_WORD:
+            return prepareSelect(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
