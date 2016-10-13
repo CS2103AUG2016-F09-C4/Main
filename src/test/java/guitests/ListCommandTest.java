@@ -31,11 +31,11 @@ public class ListCommandTest extends TaskBookGuiTest {
 		// list all events
 		assertListEventSuccess(OPTION_SHOW_ALL, allEventList);
 
-//		// list tasks
-//		assertListTaskSuccess(OPTION_NOT_SHOW_ALL, incompletedTaskList);
-//
-//		// list all tasks
-//		assertListTaskSuccess(OPTION_SHOW_ALL, allTaskList);
+		// list tasks
+		assertListTaskSuccess(OPTION_NOT_SHOW_ALL, incompletedTaskList);
+
+		// list all tasks
+		assertListTaskSuccess(OPTION_SHOW_ALL, allTaskList);
 	}
 
 	private void assertListEventSuccess(boolean showAll, final TestEvent[] currentList) {

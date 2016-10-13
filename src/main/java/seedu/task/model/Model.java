@@ -45,10 +45,10 @@ public interface Model {
     void updateFilteredTaskList(Set<String> keywords);
     
     /** Updates the filter of the filtered task list to filter by the status*/
-    void updateFilteredTaskListToShowWithStatus(boolean statusCompleted);
+    void updateFilteredTaskListToShowWithStatus(Boolean statusCompleted);
 
     /** Updates the filter of the filtered event list to filter by the status*/
-	void updateFilteredEventListToShowWithStatus(boolean statusPassed);
+	void updateFilteredEventListToShowWithStatus(Boolean statusPassed);
 	
 	/** Updates the filter of the filtered event list to show all events*/
 	void updateFilteredEventListToShowAll();

@@ -37,13 +37,10 @@ public class TypicalTestTasks {
     public static void loadTestBookWithSampleData(TaskBook tb) {
 
         try {
+            tb.addTask(new Task(music));
+            tb.addTask(new Task(engine));
             tb.addTask(new Task(cs1010));
             tb.addTask(new Task(cs1020));
-            tb.addTask(new Task(computing));
-            tb.addTask(new Task(science));
-            tb.addTask(new Task(biz));
-            tb.addTask(new Task(engine));
-            tb.addTask(new Task(music));
             tb.addTask(new Task(slack));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
@@ -51,12 +48,13 @@ public class TypicalTestTasks {
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{cs1010, cs1020, computing, science, biz, engine, music};
+        return new TestTask[]{music, engine, cs1010, cs1020};
     }
     
     public TestTask[] getTypicalAllTasks() {
-    	return new TestTask[]{cs1010, cs1020, computing, science, biz, engine, music, slack};
+    	return new TestTask[] {music, engine, cs1010, cs1020,slack};
     }
+    
 
     public TaskBook getTypicalTaskBook(){
         TaskBook tb = new TaskBook();

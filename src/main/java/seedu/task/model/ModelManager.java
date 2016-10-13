@@ -74,12 +74,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskBook.removeTask(target);
+        updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
     
     @Override
     public synchronized void deleteEvent(ReadOnlyEvent target) throws EventNotFoundException {
         taskBook.removeEvent(target);
+        updateFilteredEventListToShowWithStatus(false);
         indicateTaskBookChanged();
     }    
 
@@ -120,13 +122,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-	public void updateFilteredTaskListToShowWithStatus(boolean status) {
+	public void updateFilteredTaskListToShowWithStatus(Boolean status) {
 		updateFilteredTaskList(new PredicateExpression(new StatusQualifier(status)));
 		
 	}
     
     @Override
-	public void updateFilteredEventListToShowWithStatus(boolean status) {
+	public void updateFilteredEventListToShowWithStatus(Boolean status) {
     	updateFilteredEventList(new PredicateExpression(new StatusQualifier(status)));
 	}
     
@@ -217,7 +219,7 @@ public class ModelManager extends ComponentManager implements Model {
     	
 		@Override
 		public boolean run(ReadOnlyTask task) {
-			return task.getTaskStatus() == status;
+			return task.getTaskStatus().equals(status);
 		}
 		
 		@Override 

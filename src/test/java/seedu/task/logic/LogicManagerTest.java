@@ -632,7 +632,8 @@ public class LogicManagerTest {
         Event generateEvent(int seed) throws Exception {
             return new Event(
                     new Name("Event " + seed),
-                    new Description("Description" + Math.abs(seed))
+                    new Description("Description" + Math.abs(seed)),
+                    new EventDuration("tomorrow " + seed + "pm")
                    );
         }
         
