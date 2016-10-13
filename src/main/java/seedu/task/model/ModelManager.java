@@ -98,6 +98,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredEventListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
+    
+    @Override
+    public void markTask(int index){
+        taskBook.markTask(index);
+        indicateTaskBookChanged();
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
 
