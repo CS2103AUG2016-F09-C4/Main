@@ -86,14 +86,15 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskBook.addTask(task);
-        updateFilteredListToShowAll();
+        updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
     
     @Override
     public void addEvent(Event event) throws DuplicateEventException {
         taskBook.addEvent(event);
-        
+        updateFilteredEventListToShowWithStatus(false);
+        indicateTaskBookChanged();
     }
 
     //=========== Filtered Task List Accessors ===============================================================
@@ -109,7 +110,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredListToShowAll() {
+    public void updateFilteredTaskListToShowAll() {
         filteredTasks.setPredicate(null);
     }
 
@@ -127,6 +128,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
 	public void updateFilteredEventListToShowWithStatus(boolean status) {
     	updateFilteredEventList(new PredicateExpression(new StatusQualifier(status)));
+	}
+    
+    @Override
+	public void updateFilteredEventListToShowAll() {
+    	filteredEvents.setPredicate(null);
 	}
     
 

@@ -27,6 +27,7 @@ public class EventDuration {
 	private Duration duration;
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
+	
 
 	/**
 	 * Validates given duration.

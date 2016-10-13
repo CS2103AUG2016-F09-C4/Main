@@ -39,7 +39,7 @@ public interface Model {
     UnmodifiableObservableList<ReadOnlyEvent> getFilteredEventList();
 
     /** Updates the filter of the filtered task list to show all tasks */
-    void updateFilteredListToShowAll();
+    void updateFilteredTaskListToShowAll();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
@@ -47,7 +47,10 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the status*/
     void updateFilteredTaskListToShowWithStatus(boolean statusCompleted);
 
-    /** Updates the filter of the filtered task list to filter by the status*/
+    /** Updates the filter of the filtered event list to filter by the status*/
 	void updateFilteredEventListToShowWithStatus(boolean statusPassed);
+	
+	/** Updates the filter of the filtered event list to show all events*/
+	void updateFilteredEventListToShowAll();
 
 }

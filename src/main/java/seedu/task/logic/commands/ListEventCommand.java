@@ -24,9 +24,10 @@ public class ListEventCommand extends ListCommand {
 	public CommandResult execute() {
 		if (!shouldShowAll()) {
 			model.updateFilteredEventListToShowWithStatus(STATUS_UPCOMING);
+			
 			return new CommandResult(MESSAGE_INCOMPLETED_SUCCESS);
 		} else {
-			model.updateFilteredListToShowAll();
+			model.updateFilteredEventListToShowAll();
 			return new CommandResult(MESSAGE_ALL_SUCCESS);
 		}
 	}

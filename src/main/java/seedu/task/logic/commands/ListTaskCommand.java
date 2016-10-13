@@ -26,7 +26,7 @@ public class ListTaskCommand extends ListCommand {
 			model.updateFilteredTaskListToShowWithStatus(STATUS_INCOMPLETED);
 			return new CommandResult(MESSAGE_INCOMPLETED_SUCCESS);
 		} else {
-			model.updateFilteredListToShowAll();
+			model.updateFilteredTaskListToShowAll();
 			return new CommandResult(MESSAGE_ALL_SUCCESS);
 		}
 	}
