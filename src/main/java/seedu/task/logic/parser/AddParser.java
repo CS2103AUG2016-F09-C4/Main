@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.task.commons.exceptions.IllegalValueException;
+import seedu.task.logic.commands.AddCommand;
 import seedu.task.logic.commands.AddEventCommand;
 import seedu.task.logic.commands.AddTaskCommand;
 import seedu.task.logic.commands.Command;
@@ -66,7 +67,7 @@ public class AddParser implements Parser {
                 return new IncorrectCommand(ive.getMessage());
             }
         }else {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE, AddEventCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
     }
     
