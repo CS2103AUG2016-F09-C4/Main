@@ -27,7 +27,7 @@ public class Task implements ReadOnlyTask {
         this.name = name;
         this.description = description;
         this.deadline = null;
-        isTaskCompleted = status;
+        this.isTaskCompleted = status;
     }
     
     /**
@@ -39,7 +39,7 @@ public class Task implements ReadOnlyTask {
         this.name = name;
         this.description = description;
         this.deadline = deadline;
-        isTaskCompleted = status;
+        this.isTaskCompleted = status;
     }
 
     /**
@@ -60,8 +60,8 @@ public class Task implements ReadOnlyTask {
     }
     
    @Override
-    public Optional <Deadline> getDeadline() { 
-       return Optional.ofNullable(deadline);
+    public Optional<Deadline> getDeadline() { 
+       return Optional.ofNullable(this.deadline);
     }
 
     @Override

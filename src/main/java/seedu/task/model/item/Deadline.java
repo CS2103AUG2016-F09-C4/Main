@@ -23,6 +23,7 @@ public class Deadline {
     public Deadline(String deadline) throws IllegalValueException {
         assert deadline != null;
         deadline = deadline.trim();
+   
         if (!isValidDeadline(deadline)) {
             throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
         }

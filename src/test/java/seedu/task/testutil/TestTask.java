@@ -11,11 +11,13 @@ public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private Description description;
-    private Deadline deadline;
+    private Optional<Deadline> deadline;
     private Boolean isTaskCompleted;
 
     public TestTask() {
-        isTaskCompleted = false;
+    	//default fields
+        this.isTaskCompleted = false;
+        this.deadline = Optional.empty();
     }
 
     public void setName(Name name) {
@@ -27,7 +29,7 @@ public class TestTask implements ReadOnlyTask {
     }
     
     public void setDeadline(Deadline deadline) {
-        this.deadline = deadline;
+        this.deadline = Optional.of(deadline);
     
     }
     
@@ -46,7 +48,7 @@ public class TestTask implements ReadOnlyTask {
     }
 
     public Deadline getDeadlineRaw() {
-        return deadline;
+        return this.deadline.get();
     }
 
     @Override
@@ -68,7 +70,7 @@ public class TestTask implements ReadOnlyTask {
 
     @Override
     public Optional<Deadline> getDeadline() {
-        return null;
+        return this.deadline;
     }
     
     

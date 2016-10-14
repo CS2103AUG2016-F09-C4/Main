@@ -47,14 +47,14 @@ public class XmlAdaptedTask {
 
     /**
      * Converts this jaxb-friendly adapted task object into the model's Task object.
-     *
+     * 	- if a deadline is a string, make it null.
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
     public Task toModelType() throws IllegalValueException {
 
         final Name name = new Name(this.name);
         final Description description = new Description(this.description);
-        final Deadline deadline = new Deadline(this.deadline);
+        final Deadline deadline = this.deadline.isEmpty()? null : new Deadline(this.deadline);
         final Boolean status = new Boolean(this.status);
         
         return new Task(name, description, deadline, status);

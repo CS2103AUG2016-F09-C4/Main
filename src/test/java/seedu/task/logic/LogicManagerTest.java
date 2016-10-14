@@ -201,7 +201,6 @@ public class LogicManagerTest {
         assertTaskCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), Collections.emptyList());
     }
 
-
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
@@ -270,7 +269,7 @@ public class LogicManagerTest {
     public void execute_addEvent_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Event toBeAdded = helper.computingEvent();
+        Event toBeAdded = helper.computingUpComingEvent();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addEvent(toBeAdded);
 
@@ -306,7 +305,7 @@ public class LogicManagerTest {
     public void execute_addEventDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Event toBeAdded = helper.computingEvent();
+        Event toBeAdded = helper.computingUpComingEvent();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addEvent(toBeAdded);
 
@@ -727,10 +726,10 @@ public class LogicManagerTest {
         	return new Task(name, des, dl, true);
         }
         
-        Event computingEvent() throws Exception {
+        Event computingUpComingEvent() throws Exception {
             Name name = new Name("Attend CS2103 Workshop");
             Description des = new Description("post on Github");
-            EventDuration dur = new EventDuration("13 Oct 3pm > 14 Oct 4pm");
+            EventDuration dur = new EventDuration("tomorrow 3pm > tomorrow 4pm");
             
             return new Event(name, des, dur);
         }
