@@ -36,6 +36,12 @@ public class TaskBuilder {
         this.task.setDeadline(new Deadline(deadline));
         System.out.println(deadline);
         return this;
+    
+    }
+    
+    public TaskBuilder withStatus(boolean status) {
+    	this.task.setStatus(status);
+    	return this;
     }
 
     public TestTask build() {

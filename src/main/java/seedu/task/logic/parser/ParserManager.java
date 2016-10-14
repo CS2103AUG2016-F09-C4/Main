@@ -22,8 +22,7 @@ public class ParserManager {
 
     private static final Pattern ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
-    private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+    
 
     public ParserManager() {}
     
@@ -46,17 +45,20 @@ public class ParserManager {
         case AddTaskCommand.COMMAND_WORD:
             return new AddParser().prepare(arguments);
 
+        case MarkCommand.COMMAND_WORD:
+            return new MarkParser().prepare(arguments);
+            
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return prepareDelete(arguments);
+        case DeleteTaskCommand.COMMAND_WORD:
+            return new DeleteParser().prepare(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
-            return prepareFind(arguments);
+            return new SearchParser().prepare(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListParser().prepare(arguments);
@@ -70,23 +72,6 @@ public class ParserManager {
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
-    }
-
-    /**
-     * Parses arguments in the context of the delete person command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareDelete(String args) {
-
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        }
-
-        return new DeleteCommand(index.get());
     }
 
     /**
@@ -123,23 +108,6 @@ public class ParserManager {
 
     }
 
-    /**
-     * Parses arguments in the context of the find person command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareFind(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindCommand.MESSAGE_USAGE));
-        }
 
-        // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
-    }
 
 }

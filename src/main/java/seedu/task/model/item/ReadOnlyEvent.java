@@ -11,7 +11,8 @@ public interface ReadOnlyEvent {
 
     Name getEvent();
     Description getDescription();
-    Duration getDuration();
+    EventDuration getDuration();
+    boolean isEventCompleted();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -36,5 +37,6 @@ public interface ReadOnlyEvent {
                .append(getDuration());
         return builder.toString();
     }
+	
 
 }

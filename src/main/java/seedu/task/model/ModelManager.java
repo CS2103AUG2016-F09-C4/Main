@@ -8,6 +8,7 @@ import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.Task;
 import seedu.task.model.item.UniqueEventList.DuplicateEventException;
+import seedu.task.model.item.UniqueEventList.EventNotFoundException;
 import seedu.task.model.item.UniqueTaskList;
 import seedu.task.model.item.UniqueTaskList.TaskNotFoundException;
 import seedu.taskcommons.core.ComponentManager;
@@ -73,20 +74,35 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskBook.removeTask(target);
+        updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
+    
+    @Override
+    public synchronized void deleteEvent(ReadOnlyEvent target) throws EventNotFoundException {
+        taskBook.removeEvent(target);
+        updateFilteredEventListToShowWithStatus(false);
+        indicateTaskBookChanged();
+    }    
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskBook.addTask(task);
-        updateFilteredListToShowAll();
+        updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
     
     @Override
     public void addEvent(Event event) throws DuplicateEventException {
         taskBook.addEvent(event);
-        
+        updateFilteredEventListToShowWithStatus(false);
+        indicateTaskBookChanged();
+    }
+    
+    @Override
+    public void markTask(int index){
+        taskBook.markTask(index);
+        indicateTaskBookChanged();
     }
 
     //=========== Filtered Task List Accessors ===============================================================
@@ -102,7 +118,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredListToShowAll() {
+    public void updateFilteredTaskListToShowAll() {
         filteredTasks.setPredicate(null);
     }
 
@@ -110,21 +126,42 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
+    
+    @Override
+    public void updateFilteredEventList(Set<String> keywords){
+        updateFilteredEventList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+    
+    @Override
+	public void updateFilteredTaskListToShowWithStatus(Boolean status) {
+		updateFilteredTaskList(new PredicateExpression(new StatusQualifier(status)));
+		
+	}
+    
+    @Override
+	public void updateFilteredEventListToShowWithStatus(Boolean status) {
+    	updateFilteredEventList(new PredicateExpression(new StatusQualifier(status)));
+	}
+    
+    @Override
+	public void updateFilteredEventListToShowAll() {
+    	filteredEvents.setPredicate(null);
+	}
+    
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
     
-    @Override
-	public void updateFilteredTaskListToShowWithStatus(boolean status) {
-		updateFilteredTaskList(new PredicateExpression(new StatusQualifier(status)));
-		
-	}
+    private void updateFilteredEventList(Expression expression) {
+        filteredEvents.setPredicate(expression::satisfies);
+    }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
+        boolean satisfies(ReadOnlyEvent event);
         String toString();
     }
 
@@ -142,6 +179,10 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
+		public boolean satisfies(ReadOnlyEvent event) {
+			return qualifier.run(event);
+		}
+        @Override
         public String toString() {
             return qualifier.toString();
         }
@@ -149,6 +190,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     interface Qualifier {
         boolean run(ReadOnlyTask task);
+        boolean run(ReadOnlyEvent event);
         String toString();
     }
 
@@ -162,7 +204,8 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return taskKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTask().fullName, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTask().fullName, keyword) 
+                    		|| StringUtil.containsIgnoreCase(task.getDescription().value, keyword))
                     .findAny()
                     .isPresent();
         }
@@ -171,6 +214,15 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "task=" + String.join(", ", taskKeyWords);
         }
+
+		@Override
+		public boolean run(ReadOnlyEvent event) {
+			return taskKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(event.getEvent().fullName, keyword)
+                    		|| StringUtil.containsIgnoreCase(event.getDescription().value, keyword))
+                    .findAny()
+                    .isPresent();
+		}
     }
     
     private class StatusQualifier implements Qualifier {
@@ -182,12 +234,17 @@ public class ModelManager extends ComponentManager implements Model {
     	
 		@Override
 		public boolean run(ReadOnlyTask task) {
-			return task.getTaskStatus() == status;
+			return task.getTaskStatus().equals(status);
 		}
 		
 		@Override 
 		public String toString() {
-			return "task is" + (status ? "completed" : "not yet completed");  
+			return (status ? "completed" : "not yet completed");  
+		}
+
+		@Override
+		public boolean run(ReadOnlyEvent event) {
+			return event.isEventCompleted() != status;
 		}
     	
     }

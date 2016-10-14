@@ -23,11 +23,17 @@ public interface Model {
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
+    /** Deletes the given event. */
+    void deleteEvent(ReadOnlyEvent target) throws UniqueEventList.EventNotFoundException;
+
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
     /** Adds the given event */
     void addEvent(Event event) throws UniqueEventList.DuplicateEventException;
+    
+    /** Marks the given task */
+    void markTask(int index);
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
@@ -36,12 +42,21 @@ public interface Model {
     UnmodifiableObservableList<ReadOnlyEvent> getFilteredEventList();
 
     /** Updates the filter of the filtered task list to show all tasks */
-    void updateFilteredListToShowAll();
+    void updateFilteredTaskListToShowAll();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
     
+    /** Updates the filter of the filtered event list to filter by the given keywords*/
+    void updateFilteredEventList(Set<String> keywords);
+    
     /** Updates the filter of the filtered task list to filter by the status*/
-    void updateFilteredTaskListToShowWithStatus(boolean status);
+    void updateFilteredTaskListToShowWithStatus(Boolean statusCompleted);
+
+    /** Updates the filter of the filtered event list to filter by the status*/
+	void updateFilteredEventListToShowWithStatus(Boolean statusPassed);
+	
+	/** Updates the filter of the filtered event list to show all events*/
+	void updateFilteredEventListToShowAll();
 
 }

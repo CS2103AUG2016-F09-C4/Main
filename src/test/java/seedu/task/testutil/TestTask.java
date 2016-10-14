@@ -28,6 +28,11 @@ public class TestTask implements ReadOnlyTask {
     
     public void setDeadline(Deadline deadline) {
         this.deadline = deadline;
+    
+    }
+    
+    public void setStatus(Boolean status) {
+        this.isTaskCompleted = status;
     }
 
     @Override
