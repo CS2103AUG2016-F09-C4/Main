@@ -1,5 +1,7 @@
 package seedu.task.logic.commands;
 
+import java.util.ArrayList;
+
 import seedu.task.model.ReadOnlyTaskBook;
 import seedu.task.model.TaskBook;
 import seedu.task.model.item.ReadOnlyEvent;
@@ -36,19 +38,15 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         
-        model.updateFilteredTaskListToShowWithStatus(false);
-        model.updateFilteredEventListToShowWithStatus(false);
-        UnmodifiableObservableList<ReadOnlyTask> lastShownTaskList = model.getFilteredTaskList();
-        UnmodifiableObservableList<ReadOnlyEvent> lastShownEventList = model.getFilteredEventList();
         if(isTask == "t & e" && !isAll){ // clears completed tasks and events
-            deleteTasks(lastShownTaskList);
-            deleteEvents(lastShownEventList);
+            model.clearTasks();
+            model.clearEvents();
             return new CommandResult(String.format(MESSAGE_SUCCESS, MESSAGE_COMPLETED, MESSAGE_TASKS_EVENTS));
         }else if (isTask == "t" && !isAll){ // clears completed tasks
-            deleteTasks(lastShownTaskList);
+            model.clearTasks();
             return new CommandResult(String.format(MESSAGE_SUCCESS, MESSAGE_COMPLETED, MESSAGE_TASKS));
         }else if (isTask == "e" && !isAll){ // clears completed events
-            deleteEvents(lastShownEventList);
+            model.clearEvents();
             return new CommandResult(String.format(MESSAGE_SUCCESS, MESSAGE_COMPLETED, MESSAGE_EVENTS));
         }else if (isTask == "t" && isAll){ // clears all completed and uncompleted tasks
             assert model != null;
@@ -67,29 +65,5 @@ public class ClearCommand extends Command {
         }
         return null;       
         
-    }
-    
-    private void deleteTasks(UnmodifiableObservableList<ReadOnlyTask> list){
-        for(int i=0;i<list.size();i++){
-            ReadOnlyTask task = list.get(i);
-            try {
-                model.deleteTask(task);
-            } catch (TaskNotFoundException tnfe) {
-                assert false : "The target task cannot be missing";
-            }
-        }
-        model.updateFilteredTaskListToShowAll();
-    }
-    
-    private void deleteEvents(UnmodifiableObservableList<ReadOnlyEvent> list){
-        for(int i=0;i<list.size();i++){
-            ReadOnlyEvent event = list.get(i);
-            try {
-                model.deleteEvent(event);
-            } catch (EventNotFoundException tnfe) {
-                assert false : "The target task cannot be missing";
-            }
-        }
-        model.updateFilteredEventListToShowAll();
     }
 }

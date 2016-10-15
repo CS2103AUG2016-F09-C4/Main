@@ -9,7 +9,7 @@ public class ListTaskCommand extends ListCommand {
 	public static final String MESSAGE_INCOMPLETED_SUCCESS = "Listed undone tasks";
 	public static final String MESSAGE_ALL_SUCCESS = "Listed all tasks";
 	
-	private static final Boolean STATUS_INCOMPLETED = false;
+	private static final Boolean STATUS_INCOMPLETED = true;
 
 	public ListTaskCommand(boolean showAll) {
 		this.showAll = showAll;
