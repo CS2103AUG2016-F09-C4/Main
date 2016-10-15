@@ -24,10 +24,11 @@ public class ClearParser implements Parser {
 		}
 
 		boolean isAll = (matcher.group("isAll") == null) ? false : true;
-
+		if(matcher.group("type")==null){
+		    return new ClearCommand("t & e", isAll);
+		}
+		
 		switch (matcher.group("type")) {
-		case "":
-		    return new ClearCommand("t & e",isAll);
 		case CLEAR_TYPE_TASK:
 			return new ClearCommand("t", isAll);
 		case CLEAR_TYPE_EVENT:

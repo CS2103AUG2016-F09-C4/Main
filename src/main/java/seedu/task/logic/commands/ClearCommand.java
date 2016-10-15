@@ -24,12 +24,12 @@ public class ClearCommand extends Command {
     public static final String MESSAGE_TASKS_EVENTS = "tasks and events";
     public static final String MESSAGE_USAGE = "asd ";
     
-    String isTask;
-    boolean isAll;
+    private final String isTask;
+    private final boolean isAll;
 
     public ClearCommand(String tag_1, boolean tag_2) {
-        String isTask = tag_1;
-        boolean isAll = tag_2;
+        this.isTask = tag_1;
+        this.isAll = tag_2;
     }
 
 
@@ -40,7 +40,6 @@ public class ClearCommand extends Command {
         model.updateFilteredEventListToShowWithStatus(false);
         UnmodifiableObservableList<ReadOnlyTask> lastShownTaskList = model.getFilteredTaskList();
         UnmodifiableObservableList<ReadOnlyEvent> lastShownEventList = model.getFilteredEventList();
-
         if(isTask == "t & e" && !isAll){ // clears completed tasks and events
             deleteTasks(lastShownTaskList);
             deleteEvents(lastShownEventList);
@@ -71,7 +70,8 @@ public class ClearCommand extends Command {
     }
     
     private void deleteTasks(UnmodifiableObservableList<ReadOnlyTask> list){
-        for(ReadOnlyTask task : list){
+        for(int i=0;i<list.size();i++){
+            ReadOnlyTask task = list.get(i);
             try {
                 model.deleteTask(task);
             } catch (TaskNotFoundException tnfe) {
@@ -82,7 +82,8 @@ public class ClearCommand extends Command {
     }
     
     private void deleteEvents(UnmodifiableObservableList<ReadOnlyEvent> list){
-        for(ReadOnlyEvent event : list){
+        for(int i=0;i<list.size();i++){
+            ReadOnlyEvent event = list.get(i);
             try {
                 model.deleteEvent(event);
             } catch (EventNotFoundException tnfe) {
