@@ -59,11 +59,11 @@ public class HelpParser implements Parser {
 		case MarkCommand.COMMAND_WORD:
 			return new HelpCommand(MarkCommand.MESSAGE_USAGE, false);
 		case ClearCommand.COMMAND_WORD:
-			return new HelpCommand(HelpCommand.SHOWING_HELP_CLEAR_MESSAGE, false);
+			return new HelpCommand(ClearCommand.MESSAGE_USAGE, false);
 		case ExitCommand.COMMAND_WORD:
-			return new HelpCommand(HelpCommand.SHOWING_HELP_EXIT_MESSAGE, false);
+			return new HelpCommand(ExitCommand.MESSAGE_USAGE, false);
 		default:
-			return new HelpCommand(HelpCommand.SHOWING_HELP_MESSAGE, true);
+			return new HelpCommand(HelpCommand.MESSAGE_USAGE, true);
 		}
 	}
 }

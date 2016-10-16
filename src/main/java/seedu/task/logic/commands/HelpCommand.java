@@ -17,20 +17,14 @@ public class HelpCommand extends Command {
 	public boolean isPopUp;
 	public static final String COMMAND_WORD = "help";
 
-	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n" + "Example: "
-			+ COMMAND_WORD;
-
-	public static final String SHOWING_HELP_CLEAR_MESSAGE = COMMAND_WORD + ": Clear all completed task.\n"
-			+ "Parameters:  help [KEY_WORD]\n" + "Example: " + COMMAND_WORD + " clear";
-
-	public static final String SHOWING_HELP_EXIT_MESSAGE = COMMAND_WORD + ": Exit the program.\n "
-			+ "Parameters:  help [KEY_WORD]\n" + "Example: " + COMMAND_WORD + " exit";
-
-	public static final String SHOWING_HELP_MESSAGE = "Parameters: help [KEY_WORD]\n"
-
+	public static final String MESSAGE_USAGE = COMMAND_WORD + "\n"
+			+ "Shows program commands usage instructions.\n" 
+			+ "Example: " + COMMAND_WORD + "\n\n"  
 			+ "List of available commands for help\n" + COMMAND_WORD + " add\n" + COMMAND_WORD + " delete\n"
 			+ COMMAND_WORD + " find\n" + COMMAND_WORD + " list\n" + COMMAND_WORD + " select\n" + COMMAND_WORD
-			+ " mark\n" + COMMAND_WORD + " clear\n" + COMMAND_WORD + " exit";
+			+ " mark\n" + COMMAND_WORD + " clear\n" + COMMAND_WORD + " exit"
+			+ "Parameters: help [KEY_WORD]\n"
+			+ "Example: "+COMMAND_WORD+"add\n\n";
 
 	public HelpCommand(String commandWord, boolean helpWindowPopUp) {
 		// TODO Auto-generated constructor stub
