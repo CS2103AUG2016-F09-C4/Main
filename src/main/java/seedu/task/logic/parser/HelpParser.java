@@ -29,7 +29,7 @@ public class HelpParser implements Parser {
 	}
 
 	private static final Pattern HELP_ARGS_FORMAT = Pattern.compile("(?<arguments>.*)");
-	
+
 	/**
 	 * Parses arguments in the context of the help command.
 	 *
@@ -47,23 +47,23 @@ public class HelpParser implements Parser {
 		switch (matcher.group("arguments")) {
 
 		case AddCommand.COMMAND_WORD:
-			return new HelpCommand(AddCommand.MESSAGE_USAGE,false);
+			return new HelpCommand(AddCommand.MESSAGE_USAGE, false);
 		case DeleteCommand.COMMAND_WORD:
-			return new HelpCommand(DeleteCommand.MESSAGE_USAGE,false);
+			return new HelpCommand(DeleteCommand.MESSAGE_USAGE, false);
 		case FindCommand.COMMAND_WORD:
-			return new HelpCommand(FindCommand.MESSAGE_USAGE,false);
+			return new HelpCommand(FindCommand.MESSAGE_USAGE, false);
 		case ListCommand.COMMAND_WORD:
-			return new HelpCommand(ListCommand.MESSAGE_USAGE,false);
+			return new HelpCommand(ListCommand.MESSAGE_USAGE, false);
 		case SelectCommand.COMMAND_WORD:
-			return new HelpCommand(SelectCommand.MESSAGE_USAGE,false);
+			return new HelpCommand(SelectCommand.MESSAGE_USAGE, false);
 		case MarkCommand.COMMAND_WORD:
-			return new HelpCommand(MarkCommand.MESSAGE_USAGE,false);
+			return new HelpCommand(MarkCommand.MESSAGE_USAGE, false);
 		case ClearCommand.COMMAND_WORD:
-			return new HelpCommand(HelpCommand.SHOWING_HELP_CLEAR_MESSAGE,false);
+			return new HelpCommand(HelpCommand.SHOWING_HELP_CLEAR_MESSAGE, false);
 		case ExitCommand.COMMAND_WORD:
-			return new HelpCommand(HelpCommand.SHOWING_HELP_EXIT_MESSAGE,false);
+			return new HelpCommand(HelpCommand.SHOWING_HELP_EXIT_MESSAGE, false);
 		default:
-			return new HelpCommand(HelpCommand.SHOWING_HELP_MESSAGE,true);
+			return new HelpCommand(HelpCommand.SHOWING_HELP_MESSAGE, true);
 		}
 	}
 }
