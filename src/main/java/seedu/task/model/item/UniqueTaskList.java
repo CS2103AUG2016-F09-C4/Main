@@ -74,9 +74,6 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     /**
-
-    
-    /**
      * Marks a task in the list
      */
     public void mark(int toMark){

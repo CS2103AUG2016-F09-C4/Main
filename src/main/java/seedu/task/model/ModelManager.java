@@ -101,7 +101,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void editTask(Task task, int index) throws DuplicateTaskException {
+    public void editTask(Task task, int index) throws UniqueTaskList.DuplicateTaskException {
         taskBook.editTask(task, index);
         updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();   

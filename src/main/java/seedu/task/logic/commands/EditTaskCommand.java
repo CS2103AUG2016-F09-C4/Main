@@ -5,6 +5,7 @@ import seedu.task.model.item.Description;
 import seedu.task.model.item.Name;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.Task;
+import seedu.task.model.item.UniqueTaskList;
 import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
 import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
@@ -73,12 +74,12 @@ public class EditTaskCommand extends EditCommand  {
             
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editTask));
 
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (IndexOutOfBoundsException ie) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        } catch (DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        }
+        } 
     }
 
     /**
