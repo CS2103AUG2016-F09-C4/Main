@@ -11,7 +11,9 @@ import seedu.taskcommons.core.UnmodifiableObservableList;
 public class DeleteEventCommand extends DeleteCommand {
 
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
-
+    
+    private ReadOnlyEvent eventToDelete;
+    
     public DeleteEventCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
@@ -27,15 +29,23 @@ public class DeleteEventCommand extends DeleteCommand {
             return new CommandResult(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
-        ReadOnlyEvent eventToDelete = lastShownList.get(targetIndex - 1);
+        eventToDelete = lastShownList.get(targetIndex - 1);
 
         try {
             model.deleteEvent(eventToDelete);
         } catch (EventNotFoundException tnfe) {
             assert false : "The target event cannot be missing";
         }
-
+        reverseCommand = prepareUndoCommand();
         return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete));
     }
+
+	@Override
+	public UndoableCommand prepareUndoCommand() {
+		UndoableCommand command = new AddEventCommand(eventToDelete); 
+		command.setData(model);
+		
+		return command;
+	}
 
 }

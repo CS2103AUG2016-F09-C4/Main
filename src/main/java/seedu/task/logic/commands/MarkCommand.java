@@ -9,7 +9,7 @@ import seedu.taskcommons.core.UnmodifiableObservableList;
 /**
  * Marks a task as completed using it's last displayed index from the task book.
  */
-public class MarkCommand extends Command {
+public class MarkCommand extends UndoableCommand {
 
     public final int targetIndex;
 
@@ -37,8 +37,17 @@ public class MarkCommand extends Command {
         }
 
         model.markTask(targetIndex-1); // list starts at zero
+        reverseCommand = prepareUndoCommand();
         return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, targetIndex));
 
     }
+
+	@Override
+	public UndoableCommand prepareUndoCommand() {
+		UndoableCommand command = new MarkCommand(targetIndex);
+		command.setData(model);
+		
+		return command;
+	}
 
 }

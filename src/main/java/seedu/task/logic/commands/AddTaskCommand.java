@@ -30,16 +30,30 @@ public class AddTaskCommand extends AddCommand {
         this.toAdd = new Task(new Name(name), new Description(description), DEFAULT_STATUS);
     }
 
+	public AddTaskCommand(ReadOnlyTask t) {
+		this.toAdd = new Task(t.getTask(), t.getDescription(), t.getDeadline().orElse(null), t.getTaskStatus());
+	}
+
 	@Override
 	public CommandResult execute() {
 		assert model != null;
 		try {
 			model.addTask(toAdd);
+			reverseCommand = prepareUndoCommand();
 			return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 		} catch (UniqueTaskList.DuplicateTaskException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);
 		}
 
+	}
+
+	@Override
+	public UndoableCommand prepareUndoCommand() {
+		int index = model.getTaskBook().getTaskList().size();
+		UndoableCommand command = new DeleteTaskCommand(index);
+		
+		command.setData(model);
+		return command;
 	}
 
 }
