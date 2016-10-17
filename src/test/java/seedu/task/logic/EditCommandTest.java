@@ -10,9 +10,6 @@ import seedu.taskcommons.core.Messages;
 
 public class EditCommandTest extends CommandTest {
 
-    /* Need help with this test to test for duplicates not allowed. By running the program, the exception can be caught
-     * */
-    @Ignore
     @Test
     public void execute_editFloatTask_duplicate() throws Exception {
         // setup expectations
@@ -20,17 +17,12 @@ public class EditCommandTest extends CommandTest {
         Task toBeAdded = helper.computingFloatTask();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
-        toBeAdded = helper.computingEditedNameFloatTask();
-        expectedAB.addTask(toBeAdded);
-        
-        // setup model
-        model.addTask(helper.computingFloatTask());
-        model.addTask(helper.computingEditedNameFloatTask());
+        Task toBeAdded2 = helper.computingEditedNameFloatTask();
+        expectedAB.addTask(toBeAdded2);
         Task toBeEdited = helper.computingFloatTask();
-        model.editTask(toBeEdited, toBeAdded);
 
         // execute command and verify result
-        assertEditTaskCommandBehavior(helper.generateAddTaskCommand(toBeAdded),helper.generateListTaskCommand(),
+        assertEditTaskCommandBehavior(helper.generateAddFloatTaskCommand(toBeAdded), helper.generateAddFloatTaskCommand(toBeAdded2),helper.generateListTaskCommand(),
                 helper.generateEditTaskCommand(toBeEdited,1),
                 String.format(EditTaskCommand.MESSAGE_DUPLICATE_TASK, toBeEdited),
                 expectedAB,
