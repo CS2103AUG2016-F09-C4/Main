@@ -33,7 +33,7 @@ public interface Model {
     void addEvent(Event event) throws UniqueEventList.DuplicateEventException;
     
     /** Marks the given task */
-    void markTask(int index);
+    void markTask(ReadOnlyTask target);
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

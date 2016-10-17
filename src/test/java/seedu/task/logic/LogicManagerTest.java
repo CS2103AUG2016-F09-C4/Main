@@ -113,7 +113,12 @@ public class LogicManagerTest {
         
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
+        
+        for(int i=0;i<model.getFilteredTaskList().size();i++){
+            System.out.print(model.getFilteredTaskList().get(i));
+        }
         assertEquals(expectedShownList, model.getFilteredTaskList());
+        
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTaskBook, model.getTaskBook());
@@ -511,16 +516,24 @@ public class LogicManagerTest {
     @Test
     public void execute_mark_marksCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
+        
+        Task t1 = helper.generateTask(1);
+        Task t2 = helper.generateTask(2);
+        Task t3 = helper.generateTask(3);
+        
         List<Task> threeTasks = helper.generateTaskList(3);
-
-        TaskBook expectedAB = helper.generateTaskBook_Tasks(threeTasks);
-        expectedAB.markTask(1);
+        List<Task> expectedABList = helper.generateTaskList(3);
+        List<Task> expectedList = helper.generateTaskList(t1, t3);
         helper.addTaskToModel(model, threeTasks);
+
+        TaskBook expectedAB = helper.generateTaskBook_Tasks(expectedABList);
+        expectedAB.markTask(t2);
+
 
         assertTaskCommandBehavior("mark 2",
                 String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, 2),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedList);
     }
     
     public void execute_deleteTaskInvalidArgsFormat_errorMessageShown() throws Exception {
@@ -754,6 +767,22 @@ public class LogicManagerTest {
                     new Description("Description" + Math.abs(seed)),
                     new Deadline ("01-01-01"),  //dummy deadline
                     false
+                   );
+        }
+        
+        /**
+         * Generates a valid completed task using the given seed.
+         * Running this function with the same parameter values guarantees the returned task will have the same state.
+         * Each unique seed will generate a unique Task object.
+         *
+         * @param seed used to generate the task data field values
+         */
+        Task generateCompletedTask(int seed) throws Exception {
+            return new Task(
+                    new Name("Task " + seed),
+                    new Description("Description" + Math.abs(seed)),
+                    new Deadline ("01-01-01"),  //dummy deadline
+                    true
                    );
         }
 

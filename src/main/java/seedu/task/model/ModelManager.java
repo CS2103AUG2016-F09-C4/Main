@@ -100,8 +100,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void markTask(int index){
-        taskBook.markTask(index);
+    public void markTask(ReadOnlyTask target){
+        taskBook.markTask(target);
+        updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
 
