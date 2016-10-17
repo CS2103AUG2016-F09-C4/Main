@@ -113,10 +113,6 @@ public class LogicManagerTest {
         
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        
-        for(int i=0;i<model.getFilteredTaskList().size();i++){
-            System.out.print(model.getFilteredTaskList().get(i));
-        }
         assertEquals(expectedShownList, model.getFilteredTaskList());
         
 
