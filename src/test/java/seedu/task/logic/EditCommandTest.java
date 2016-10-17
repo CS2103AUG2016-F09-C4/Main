@@ -27,7 +27,7 @@ public class EditCommandTest extends CommandTest {
         model.addTask(helper.computingFloatTask());
         model.addTask(helper.computingEditedNameFloatTask());
         Task toBeEdited = helper.computingFloatTask();
-        model.editTask(toBeEdited, 0);
+        model.editTask(toBeEdited, toBeAdded);
 
         // execute command and verify result
         assertEditTaskCommandBehavior(helper.generateAddTaskCommand(toBeAdded),helper.generateListTaskCommand(),
@@ -46,7 +46,7 @@ public class EditCommandTest extends CommandTest {
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
         Task toBeEdited = helper.computingEditedFloatTask();
-        expectedAB.editTask(toBeEdited, 0);
+        expectedAB.editTask(toBeEdited, toBeAdded);
 
         // execute command and verify result
         assertEditTaskCommandBehavior(helper.generateAddTaskCommand(toBeAdded),helper.generateListTaskCommand(),
@@ -66,7 +66,7 @@ public class EditCommandTest extends CommandTest {
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
         Task toBeEdited = helper.computingEditedNameFloatTask();
-        expectedAB.editTask(toBeEdited, 0);
+        expectedAB.editTask(toBeEdited, toBeAdded);
 
         // execute command and verify result
         assertEditTaskCommandBehavior(helper.generateAddTaskCommand(toBeAdded),helper.generateListTaskCommand(),
@@ -86,7 +86,7 @@ public class EditCommandTest extends CommandTest {
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
         Task toBeEdited = helper.computingEditedDescFloatTask();
-        expectedAB.editTask(toBeEdited, 0);
+        expectedAB.editTask(toBeEdited, toBeAdded);
 
         // execute command and verify result
         assertEditTaskCommandBehavior(helper.generateAddTaskCommand(toBeAdded),helper.generateListTaskCommand(),
