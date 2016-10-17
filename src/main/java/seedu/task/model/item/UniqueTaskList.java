@@ -64,6 +64,8 @@ public class UniqueTaskList implements Iterable<Task> {
      * Marks a task in the list
      */
     public void mark(ReadOnlyTask toMark){
+        assert toMark != null;
+        
         int index = internalList.indexOf(toMark);
         Task targetTask = internalList.get(index);
         targetTask.setCompleted();
