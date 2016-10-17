@@ -10,6 +10,7 @@ import seedu.task.model.item.Task;
 import seedu.task.model.item.UniqueEventList.DuplicateEventException;
 import seedu.task.model.item.UniqueEventList.EventNotFoundException;
 import seedu.task.model.item.UniqueTaskList;
+import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
 import seedu.task.model.item.UniqueTaskList.TaskNotFoundException;
 import seedu.taskcommons.core.ComponentManager;
 import seedu.taskcommons.core.LogsCenter;
@@ -100,12 +101,22 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+
     public void markTask(ReadOnlyTask target){
         taskBook.markTask(target);
         updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
+    
+        
+    public void editTask(Task task, int index) throws UniqueTaskList.DuplicateTaskException {
+        taskBook.editTask(task, index);
+        updateFilteredTaskListToShowWithStatus(false);
+        indicateTaskBookChanged();   
+    }
 
+        
+   
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override

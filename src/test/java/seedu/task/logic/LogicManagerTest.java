@@ -1,112 +1,13 @@
 package seedu.task.logic;
 
-import com.google.common.eventbus.Subscribe;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-
-import seedu.task.commons.events.model.TaskBookChangedEvent;
-import seedu.task.commons.events.ui.JumpToListRequestEvent;
-import seedu.task.commons.events.ui.ShowHelpEvent;
-import seedu.task.logic.Logic;
-import seedu.task.logic.LogicManager;
-import seedu.task.logic.commands.*;
-import seedu.task.model.TaskBook;
-import seedu.task.model.item.*;
-import seedu.task.model.Model;
-import seedu.task.model.ModelManager;
-import seedu.task.model.ReadOnlyTaskBook;
-import seedu.task.storage.StorageManager;
-import seedu.taskcommons.core.EventsCenter;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.taskcommons.core.Messages.*;
 
 public class LogicManagerTest {
 
     /**
      * See https://github.com/junit-team/junit4/wiki/rules#temporaryfolder-rule
      */
-    @Rule
-    public TemporaryFolder saveFolder = new TemporaryFolder();
 
-    private Model model;
-    private Logic logic;
-
-    //These are for checking the correctness of the events raised
-    private ReadOnlyTaskBook latestSavedTaskBook;
-    private boolean helpShown;
-    private int targetedJumpIndex;
-
-    @Subscribe
-    private void handleLocalModelChangedEvent(TaskBookChangedEvent abce) {
-        latestSavedTaskBook = new TaskBook(abce.data);
-    }
-
-    @Subscribe
-    private void handleShowHelpEvent(ShowHelpEvent she) {
-        helpShown = true;
-    }
-
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
-        targetedJumpIndex = je.targetIndex;
-    }
-
-    @Before
-    public void setup() {
-        model = new ModelManager();
-        String tempTaskBookFile = saveFolder.getRoot().getPath() + "TempTaskBook.xml";
-        String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new StorageManager(tempTaskBookFile, tempPreferencesFile));
-        EventsCenter.getInstance().registerHandler(this);
-
-        latestSavedTaskBook = new TaskBook(model.getTaskBook()); // last saved assumed to be up to date before.
-        helpShown = false;
-        targetedJumpIndex = -1; // non yet
-    }
-
-    @After
-    public void teardown() {
-        EventsCenter.clearSubscribers();
-    }
-
-    @Test
-    public void execute_invalid() throws Exception {
-        String invalidCommand = "       ";
-        assertCommandBehavior(invalidCommand,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-    }
-
-    /**
-     * Executes the command and confirms that the result message is correct.
-     * Both the 'task book' and the 'last shown list' are expected to be empty.
-     * @see #assertTaskCommandBehavior(String, String, ReadOnlyTaskBook, List)
-     */
-    private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertTaskCommandBehavior(inputCommand, expectedMessage, new TaskBook(), Collections.emptyList());
-    }
-
-    /**
-     * Executes the command and confirms that the result message is correct and
-     * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
-     *      - the internal task book data are same as those in the {@code expectedTaskBook} <br>
-     *      - the backing list shown by UI matches the {@code shownList} <br>
-     *      - {@code expectedTaskBook} was saved to the storage file. <br>
-     */
-    private void assertTaskCommandBehavior(String inputCommand, String expectedMessage,
-                                       ReadOnlyTaskBook expectedTaskBook,
-                                       List<? extends ReadOnlyTask> expectedShownList) throws Exception {
-
+<<<<<<< HEAD
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
         
@@ -119,12 +20,11 @@ public class LogicManagerTest {
         }
         assertEquals(expectedShownList, model.getFilteredTaskList());
         
+=======
+>>>>>>> master
 
-        //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedTaskBook, model.getTaskBook());
-        assertEquals(expectedTaskBook, latestSavedTaskBook);
-    }
     
+<<<<<<< HEAD
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
@@ -946,100 +846,58 @@ public class LogicManagerTest {
         void addEventToModel(Model model, int numGenerated) throws Exception{
             addEventToModel(model, generateEventList(numGenerated));
         }
+=======
+>>>>>>> master
 
-        /**
-         * Adds the given list of Tasks to the given model
-         */
-        void addEventToModel(Model model, List<Event> eventsToAdd) throws Exception{
-            for(Event p: eventsToAdd){
-                model.addEvent(p);
-            }
-        }
-        
-        /**
-         * Generates a list of Tasks based on the flags.
-         */
-        List<Task> generateTaskList(int numGenerated) throws Exception{
-            List<Task> tasks = new ArrayList<>();
-            for(int i = 1; i <= numGenerated; i++){
-                tasks.add(generateTask(i));
-            }
-            return tasks;
-        }
+    //Unmorphed parts
+    //TODO: move to indiviual test classes
+//    @Ignore
+//    @Test
+//    public void execute_exit() throws Exception {
+//        assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
+//    }
+//
+//    @Ignore
+//    @Test
+//    public void execute_clear() throws Exception {
+//        TestDataHelper helper = new TestDataHelper();
+//        model.addTask(helper.generateTask(1));
+//        model.addTask(helper.generateTask(2));
+//        model.addTask(helper.generateTask(3));
+//
+//        assertTaskCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), Collections.emptyList());
+//    }
 
-        List<Task> generateTaskList(Task... tasks) {
-            return Arrays.asList(tasks);
-        }
+//    
+//    @Ignore
+//    @Test
+//    public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
+//        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
+//        assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
+//    }
+//    @Ignore
+//    @Test
+//    public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
+//        assertTaskIndexNotFoundBehaviorForCommand("select");
+//    }
+//
+//    @Ignore
+//    @Test
+//    public void execute_select_jumpsToCorrectTask() throws Exception {
+//        TestDataHelper helper = new TestDataHelper();
+//        List<Task> threeTasks = helper.generateTaskList(3);
+//
+//        TaskBook expectedAB = helper.generateTaskBook_Tasks(threeTasks);
+//        helper.addTaskToModel(model, threeTasks);
+//
+//        assertTaskCommandBehavior("select 2",
+//                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
+//                expectedAB,
+//                expectedAB.getTaskList());
+//        assertEquals(1, targetedJumpIndex);
+//        assertEquals(model.getFilteredTaskList().get(1), threeTasks.get(1));
+//    }
 
-        /**
-         * Generates a list of Events based on the flags.
-         */
-        List<Event> generateEventList(int numGenerated) throws Exception{
-            List<Event> events = new ArrayList<>();
-            for(int i = 1; i <= numGenerated; i++){
-                events.add(generateEvent(i));
-            }
-            return events;
-        }
 
-        List<Event> generateEventList(Event... events) {
-            return Arrays.asList(events);
-        }
-        
-        /**
-         * Generates a Task object with given name. Other fields will have some dummy values.
-         */
-        Task generateTaskWithName(String name) throws Exception {
-            return new Task(
-                    new Name(name),
-                    new Description("dummy description"),
-                    new Deadline("01-01-01"),   //dummy deadline
-                    false
-            );
-        }
-        
-        /**
-         * Generates a Task object with given description. Other fields will have some dummy values.
-         */
-        Event generateEventWithDescription(String desc) throws Exception {
-            return new Event(
-                    new Name("dummy name"),
-                    new Description(desc),
-                    new EventDuration("today 4pm > today 5pm")
-            );
-        }
-        
-        /**
-         * Generates a Task object with given name. Other fields will have some dummy values.
-         */
-        Event generateEventWithName(String name) throws Exception {
-            return new Event(
-                    new Name(name),
-                    new Description("dummy description"),
-                    new EventDuration("today 4pm > today 5pm")
-            );
-        }
-        
-        /**
-         * Generates a Task object with given description. Other fields will have some dummy values.
-         */
-        Task generateTaskWithDescription(String desc) throws Exception {
-            return new Task(
-                    new Name("dummy name"),
-                    new Description(desc),
-                    false
-            );
-        }
-        
-        /**
-         * Generates a Event object with given name. Other fields will have some dummy values.
-         */
-        Event generateEventWithNameAndDuration(String name, String duration) throws Exception {
-            return new Event(
-                    new Name(name),
-                    new Description("dummy description"),
-                    new EventDuration(duration)
-            );
-        }
-    }
+
 }
