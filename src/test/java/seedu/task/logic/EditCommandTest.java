@@ -23,7 +23,7 @@ public class EditCommandTest extends CommandTest {
 
         // execute command and verify result
         assertEditTaskCommandBehavior(helper.generateAddFloatTaskCommand(toBeAdded), helper.generateAddFloatTaskCommand(toBeAdded2),helper.generateListTaskCommand(),
-                helper.generateEditTaskCommand(toBeEdited,1),
+                helper.generateEditTaskCommand(toBeEdited,2),
                 String.format(EditTaskCommand.MESSAGE_DUPLICATE_TASK, toBeEdited),
                 expectedAB,
                 expectedAB.getTaskList());
