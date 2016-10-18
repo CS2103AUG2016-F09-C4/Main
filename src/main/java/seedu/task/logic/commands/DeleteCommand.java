@@ -16,7 +16,8 @@ public abstract class DeleteCommand extends UndoableCommand {
             + "Parameters: DELETE_TYPE + INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " -e" + " 1";
 
-    public int targetIndex;
+    public int lastShownListIndex;
+    protected int absoluteListIndex;
 
 
     @Override

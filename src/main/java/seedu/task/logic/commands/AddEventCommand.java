@@ -50,8 +50,9 @@ public class AddEventCommand extends AddCommand {
 	
 	@Override
 	public UndoableCommand prepareUndoCommand() {
-		int index = model.getTaskBook().getEventList().size();
-		UndoableCommand command = new DeleteEventCommand(index);
+		int size = model.getTaskBook().getEventList().size();
+		ReadOnlyEvent eventToDelete = model.getTaskBook().getEventList().get(size-1);
+		UndoableCommand command = new DeleteEventCommand(eventToDelete);
 		
 		command.setData(model);
 		return command;

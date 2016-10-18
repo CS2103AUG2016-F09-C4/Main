@@ -24,9 +24,9 @@ public interface Model {
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Deletes the given event. */
-    void deleteEvent(ReadOnlyEvent target) throws UniqueEventList.EventNotFoundException;
-
-    /** Adds the given task */
+    void deleteEvent(ReadOnlyEvent target) throws UniqueEventList.EventNotFoundException;   
+    
+    /** Adds the given task at begining*/
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
     /** Adds the given event */

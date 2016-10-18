@@ -49,8 +49,9 @@ public class AddTaskCommand extends AddCommand {
 
 	@Override
 	public UndoableCommand prepareUndoCommand() {
-		int index = model.getTaskBook().getTaskList().size();
-		UndoableCommand command = new DeleteTaskCommand(index);
+		int size = model.getTaskBook().getTaskList().size();
+		ReadOnlyTask taskToDelete = model.getTaskBook().getTaskList().get(size-1);
+		UndoableCommand command = new DeleteTaskCommand(taskToDelete);
 		
 		command.setData(model);
 		return command;

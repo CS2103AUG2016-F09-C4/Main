@@ -91,4 +91,41 @@ public class Task implements ReadOnlyTask {
         return getAsText();
     }
 
+	/**
+	 * Sort deadline from earliest to latest
+	 * @param o
+	 * @return
+	 */
+	public int sortAsc(Task o) {
+		if(!this.getDeadline().isPresent() && !o.getDeadline().isPresent())
+			return 0;
+		// if this is a floating task, it will be on the top
+		if(!this.getDeadline().isPresent())
+			return -1;
+		// if this is 
+		if(!o.getDeadline().isPresent()) 
+			return 1;
+		
+		return this.getDeadline().get().compareTo(o.getDeadline().get());
+		
+	}
+	
+	/**
+	 * Sort deadline from latest to earliest
+	 * @param o
+	 * @return
+	 */
+	public int sortDesc(Task o) {
+		if(!this.getDeadline().isPresent() && !o.getDeadline().isPresent())
+			return 0;
+		// if this is a floating task, it will be on the top
+		if(!this.getDeadline().isPresent())
+			return -1;
+		// if this is 
+		if(!o.getDeadline().isPresent()) 
+			return 1;
+		return this.getDeadline().get().compareTo(o.getDeadline().get())*(-1);
+		
+	}
+
 }

@@ -16,28 +16,38 @@ public class DeleteTaskCommand extends DeleteCommand {
     private ReadOnlyTask taskToDelete;
     
     public DeleteTaskCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
+        this.lastShownListIndex = targetIndex;
     }
 
 
-    @Override
+    public DeleteTaskCommand(ReadOnlyTask taskToDelete) {
+		this.taskToDelete = taskToDelete;
+	}
+
+
+	@Override
     public CommandResult execute() {
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
-        if (lastShownList.size() < targetIndex) {
+        if (lastShownList.size() < lastShownListIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
-        taskToDelete = lastShownList.get(targetIndex - 1);
-        reverseCommand = prepareUndoCommand();
+        
+        if(lastShownListIndex != 0) {
+        	taskToDelete = lastShownList.get(lastShownListIndex - 1);
+        }
+        
+        absoluteListIndex = model.getTaskBook().getTaskList().indexOf(taskToDelete);
+        
         try {
             model.deleteTask(taskToDelete);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
-
+        
+        reverseCommand = prepareUndoCommand();
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 

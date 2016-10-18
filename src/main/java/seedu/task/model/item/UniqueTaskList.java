@@ -47,13 +47,14 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList.contains(toCheck);
     }
 
+    
     /**
-     * Adds a task to the list.
+     * Adds a task to the list at the end.
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
     public void add(Task toAdd) throws DuplicateTaskException {
-        assert toAdd != null;
+    	assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
         }

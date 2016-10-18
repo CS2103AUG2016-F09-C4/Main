@@ -15,8 +15,12 @@ public class DeleteEventCommand extends DeleteCommand {
     private ReadOnlyEvent eventToDelete;
     
     public DeleteEventCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
+        this.lastShownListIndex = targetIndex;
     }
+    
+    public DeleteEventCommand(ReadOnlyEvent eventToDelete) {
+		this.eventToDelete = eventToDelete;
+	}
 
 
     @Override
@@ -24,12 +28,14 @@ public class DeleteEventCommand extends DeleteCommand {
 
         UnmodifiableObservableList<ReadOnlyEvent> lastShownList = model.getFilteredEventList();
 
-        if (lastShownList.size() < targetIndex) {
+        if (lastShownList.size() < lastShownListIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
-
-        eventToDelete = lastShownList.get(targetIndex - 1);
+        
+        if(lastShownListIndex != 0){
+        	eventToDelete = lastShownList.get(lastShownListIndex - 1);
+        }
 
         try {
             model.deleteEvent(eventToDelete);

@@ -3,6 +3,7 @@ package seedu.task.logic;
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 
@@ -50,6 +51,8 @@ public class FindCommandTest extends CommandTest {
         
         helper.addTaskToModel(model,fourTasks);
         helper.addEventToModel(model, fourEvents);
+        
+        expectedTaskList = expectedTaskList.stream().sorted(Task::sortAsc).collect(Collectors.toList());
 
         assertTaskAndEventCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedTaskList.size()) 
@@ -84,6 +87,8 @@ public class FindCommandTest extends CommandTest {
         TaskBook expectedAB = helper.generateTaskBookTasksAndEvents(fourTasks, fourEvents);
         
         List<Task> expectedTaskList = fourTasks;
+        expectedTaskList = expectedTaskList.stream().sorted(Task::sortAsc).collect(Collectors.toList());
+        
         List<Event> expectedEventList = fourEvents;
         
         helper.addTaskToModel(model, fourTasks);
@@ -122,6 +127,7 @@ public class FindCommandTest extends CommandTest {
         TaskBook expectedAB = helper.generateTaskBookTasksAndEvents(fourTasks, fourEvents);
         
         List<Task> expectedTaskList = fourTasks;
+        expectedTaskList = expectedTaskList.stream().sorted(Task::sortAsc).collect(Collectors.toList());
         List<Event> expectedEventList = fourEvents;
         
         helper.addTaskToModel(model, fourTasks);

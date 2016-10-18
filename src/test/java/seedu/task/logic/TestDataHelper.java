@@ -321,7 +321,6 @@ class TestDataHelper{
         return new Task(
                 new Name(name),
                 new Description("dummy description"),
-                new Deadline("01-01-01"),   //dummy deadline
                 false
         );
     }
