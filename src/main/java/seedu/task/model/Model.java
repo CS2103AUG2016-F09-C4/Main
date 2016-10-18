@@ -36,7 +36,7 @@ public interface Model {
     void editTask(Task editTask, ReadOnlyTask targetTask) throws UniqueTaskList.DuplicateTaskException;
     
     /** Marks the given task */
-    void markTask(int index);
+    void markTask(ReadOnlyTask target);
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
