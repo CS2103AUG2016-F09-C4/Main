@@ -49,13 +49,20 @@ public class AddEventCommand extends AddCommand {
     }
 	
 	@Override
+	public CommandResult undo() {
+		return reverseCommand.execute();
+	}
+	
+	@Override
 	public UndoableCommand prepareUndoCommand() {
-		int size = model.getTaskBook().getEventList().size();
-		ReadOnlyEvent eventToDelete = model.getTaskBook().getEventList().get(size-1);
-		UndoableCommand command = new DeleteEventCommand(eventToDelete);
+		UndoableCommand command = new DeleteEventCommand(toAddEvent);
 		
 		command.setData(model);
 		return command;
 	}
-    
+	
+	@Override
+	public String toString() {
+		return COMMAND_WORD +" "+ this.toAddEvent.getAsText();
+	}
 }

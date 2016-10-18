@@ -17,7 +17,6 @@ public abstract class DeleteCommand extends UndoableCommand {
             + "Example: " + COMMAND_WORD + " -e" + " 1";
 
     public int lastShownListIndex;
-    protected int absoluteListIndex;
 
 
     @Override

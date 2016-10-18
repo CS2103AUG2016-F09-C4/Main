@@ -69,7 +69,7 @@ public class Task implements ReadOnlyTask {
         return isTaskCompleted;
     }
     
-    public void setCompleted() {
+    public void toggleComplete() {
     	isTaskCompleted = !isTaskCompleted;
     }
 

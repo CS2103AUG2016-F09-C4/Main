@@ -7,9 +7,7 @@ public abstract class UndoableCommand extends Command {
      * Undo the command and returns the result message.
      * @return feedback message of the operation result for display
      */
-    public CommandResult undo() {
-    	return reverseCommand.execute();
-    }
+    public abstract CommandResult undo();
     
     /**
      * Prepare the command that will undo this command

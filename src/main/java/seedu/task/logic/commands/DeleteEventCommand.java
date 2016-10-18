@@ -54,4 +54,13 @@ public class DeleteEventCommand extends DeleteCommand {
 		return command;
 	}
 
+	@Override
+	public CommandResult undo() {
+		return reverseCommand.execute();
+	}
+	
+	@Override
+	public String toString() {
+		return COMMAND_WORD +" "+ this.eventToDelete.getAsText();
+	}
 }

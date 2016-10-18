@@ -341,6 +341,18 @@ public class TestUtil {
     }
     
     /**
+     * Appends tasks to the array of tasks at certain index.
+     * @param tasks A array of tasks.
+     * @param tasksToAdd The tasks that are to be appended behind the original array.
+     * @return The modified array of tasks.
+     */
+    public static TestTask[] addTasksToListAtIndex(final TestTask[] tasks,int index, TestTask... tasksToAdd) {
+        List<TestTask> listOfTasks = asList(tasks);
+        listOfTasks.addAll(index,asList(tasksToAdd));
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+    }
+    
+    /**
      * Appends events to the array of events.
      * @param events A array of events.
      * @param eventsToAdd The events that are to be appended behind the original array.

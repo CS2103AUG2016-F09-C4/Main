@@ -82,7 +82,7 @@ public class UniqueTaskList implements Iterable<Task> {
         
         int index = internalList.indexOf(toMark);
         Task targetTask = internalList.get(index);
-        targetTask.setCompleted();
+        targetTask.toggleComplete();
         internalList.set(index, targetTask);
     }
 

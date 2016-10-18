@@ -132,8 +132,5 @@ public abstract class TaskBookGuiTest {
     protected void assertResultMessage(String expected) {
         assertEquals(expected, resultDisplay.getText());
     }
-    
-    protected void removeTaskFromList(TestTask[] list, TestTask task){
-    	
-    }
+
 }

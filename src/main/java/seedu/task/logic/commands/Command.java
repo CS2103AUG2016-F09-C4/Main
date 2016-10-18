@@ -12,6 +12,7 @@ import seedu.taskcommons.core.Messages;
 public abstract class Command {
     protected Model model;
     protected UndoableCommandList commandList;
+    protected String arguments;
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tasks.

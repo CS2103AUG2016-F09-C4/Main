@@ -39,8 +39,6 @@ public class DeleteTaskCommand extends DeleteCommand {
         	taskToDelete = lastShownList.get(lastShownListIndex - 1);
         }
         
-        absoluteListIndex = model.getTaskBook().getTaskList().indexOf(taskToDelete);
-        
         try {
             model.deleteTask(taskToDelete);
         } catch (TaskNotFoundException tnfe) {
@@ -58,6 +56,17 @@ public class DeleteTaskCommand extends DeleteCommand {
 		command.setData(model);
 		
 		return command;
+	}
+
+
+	@Override
+	public CommandResult undo() {
+		return reverseCommand.execute();
+	}
+	
+	@Override
+	public String toString() {
+		return COMMAND_WORD +" "+ this.taskToDelete.getAsText();
 	}
 
 }
