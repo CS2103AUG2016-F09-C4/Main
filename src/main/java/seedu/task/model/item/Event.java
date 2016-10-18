@@ -80,7 +80,13 @@ public class Event implements ReadOnlyEvent {
     public String toString() {
         return getAsText();
     }
-
-	
-
+    
+    /**
+	 * Sort duration from earliest to latest
+	 * @param o
+	 * @return
+	 */
+	public int sortAsc(Event o) {
+		return this.getDuration().compareTo(o.getDuration());
+	} 
 }

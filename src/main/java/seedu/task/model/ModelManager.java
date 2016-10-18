@@ -132,7 +132,10 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public UnmodifiableObservableList<ReadOnlyEvent> getFilteredEventList() {
-    	return new UnmodifiableObservableList<>(filteredEvents);
+    	SortedList<Event> sortedEvents = new SortedList<>(filteredEvents);
+    	sortedEvents.setComparator(Event::sortAsc);
+    	return new UnmodifiableObservableList<>(sortedEvents);
+    	
     }
 
     @Override
