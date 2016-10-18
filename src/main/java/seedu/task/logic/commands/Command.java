@@ -11,7 +11,7 @@ import seedu.taskcommons.core.Messages;
  */
 public abstract class Command {
     protected Model model;
-    protected UndoableCommandList commandList;
+    protected UndoableCommandHistory commandList;
     protected String arguments;
 
     /**
@@ -53,7 +53,7 @@ public abstract class Command {
     /**
      * Provides the command history for current command executed.
      */
-    public void setCommandHistory(UndoableCommandList commandList) {
+    public void setCommandHistory(UndoableCommandHistory commandList) {
         this.commandList = commandList;
     }
 

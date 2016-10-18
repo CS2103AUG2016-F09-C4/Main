@@ -8,6 +8,6 @@ package seedu.task.commons.exceptions;
 public class UndoableException extends Exception {
 	
 	public UndoableException() {
-		super("There is no more operation can be undone");
+		super("No more operations to undo");
 	}
 }

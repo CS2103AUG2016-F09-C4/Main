@@ -6,12 +6,12 @@ import java.util.Deque;
 import java.util.NoSuchElementException;
 
 import seedu.task.logic.commands.UndoableCommand;
-public class UndoableCommandList {
+public class UndoableCommandHistory {
 	
 	/** Stack of undoable commands **/
 	private Deque<UndoableCommand> commandStack;
 	
-	public UndoableCommandList() {
+	public UndoableCommandHistory() {
 		this.commandStack = new ArrayDeque<>();
 	}
 	

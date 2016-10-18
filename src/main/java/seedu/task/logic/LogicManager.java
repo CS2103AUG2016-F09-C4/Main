@@ -3,7 +3,7 @@ package seedu.task.logic;
 import javafx.collections.ObservableList;
 
 import seedu.task.logic.commands.UndoableCommand;
-import seedu.task.logic.commands.UndoableCommandList;
+import seedu.task.logic.commands.UndoableCommandHistory;
 import seedu.task.commons.exceptions.UndoableException;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.CommandResult;
@@ -28,12 +28,12 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final ParserManager parser;
-    private UndoableCommandList commandList;
+    private UndoableCommandHistory commandList;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.parser = new ParserManager();
-        this.commandList = new UndoableCommandList();
+        this.commandList = new UndoableCommandHistory();
     }
 
     @Override

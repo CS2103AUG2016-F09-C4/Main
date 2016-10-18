@@ -14,7 +14,7 @@ import seedu.taskcommons.core.LogsCenter;
 public class UndoCommand extends Command{
 	private final Logger logger = LogsCenter.getLogger(UndoCommand.class);
 	
-	public static final String MESSAGE_UNDO_FAILURE = "There is no more operation can be undone.";
+	public static final String MESSAGE_UNDO_FAILURE = "No more operations to undo";
 	public static final String COMMAND_WORD = "undo";
 	@Override
 	public CommandResult execute() {
