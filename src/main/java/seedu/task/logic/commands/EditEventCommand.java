@@ -48,6 +48,7 @@ public class EditEventCommand extends EditCommand {
         setTargetIndex(index);
         this.isNameToBeEdit = isNameToBeEdited;
         this.isDescriptionToBeEdit = isDescriptionToBeEdited;
+        this.isDurationToBeEdit = isDurationToBeEdited;
         
         newName = null;
         newDescription = null;

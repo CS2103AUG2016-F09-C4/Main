@@ -10,6 +10,8 @@ import seedu.taskcommons.core.Messages;
 
 public class EditCommandTest extends CommandTest {
 
+    //Tests for editing floating tasks and tasks
+    
     @Test
     public void execute_editFloatTask_duplicate() throws Exception {
         // setup expectations

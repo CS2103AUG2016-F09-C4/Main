@@ -33,7 +33,7 @@ public class EditParser implements Parser {
             Pattern.compile("(?:-e)\\s(?<index>\\d*)"
                     + "(?<newname>(?: /name [^/]+)*)"
                     + "(?<newdescription>(?: /desc [^/]+)*)?"
-                    + "(?<duration>(?: /from [^/]+)*)?"
+                    + "(?<newduration>(?: /from [^/]+)*)?"
 
                     //+ "(?<newdeadline>(?: /by [^/]+))$"
                     );
@@ -70,8 +70,8 @@ public class EditParser implements Parser {
                         eventMatcher.group("newname").replaceFirst("/name","").trim(),
                         isFieldToBeEdited(eventMatcher.group("newdescription")),
                         eventMatcher.group("newdescription").replaceFirst("/desc", "").trim(),
-                        isFieldToBeEdited(eventMatcher.group("duration")),
-                        eventMatcher.group("duration").replaceFirst("/from", "").trim()
+                        isFieldToBeEdited(eventMatcher.group("newduration")),
+                        eventMatcher.group("newduration").replaceFirst("/from", "").trim()
                 );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
