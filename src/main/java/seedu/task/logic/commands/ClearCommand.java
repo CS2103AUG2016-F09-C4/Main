@@ -24,7 +24,7 @@ public class ClearCommand extends Command {
     public static final String MESSAGE_TASKS = "tasks";
     public static final String MESSAGE_EVENTS = "events";
     public static final String MESSAGE_TASKS_EVENTS = "tasks and events";
-    public static final String MESSAGE_USAGE = "asd ";
+    public static final String MESSAGE_USAGE = "adsa ";
     
     private final String isTask;
     private final boolean isAll;
