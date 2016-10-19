@@ -1,16 +1,9 @@
 package seedu.task.logic.commands;
 
-import java.util.ArrayList;
-
 import seedu.task.model.ReadOnlyTaskBook;
 import seedu.task.model.TaskBook;
-import seedu.task.model.item.ReadOnlyEvent;
-import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.UniqueEventList;
-import seedu.task.model.item.UniqueEventList.EventNotFoundException;
 import seedu.task.model.item.UniqueTaskList;
-import seedu.task.model.item.UniqueTaskList.TaskNotFoundException;
-import seedu.taskcommons.core.UnmodifiableObservableList;
 
 /**
  * Clears the taskbook's tasks and events according to the tags called

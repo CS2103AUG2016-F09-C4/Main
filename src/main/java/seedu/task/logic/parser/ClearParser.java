@@ -25,16 +25,16 @@ public class ClearParser implements Parser {
 		}
 
 		boolean isAll = (matcher.group("isAll") == null) ? false : true;
-		if(matcher.group("type")==null){
-		    return new ClearCommand("t & e", isAll);
+		if(matcher.group("type")==null){ // "clear"
+		    return new ClearCommand("t & e", false);
 		}
 		
 		switch (matcher.group("type")) {
-		case CLEAR_TYPE_TASK:
-			return new ClearCommand("t", isAll);
-		case CLEAR_TYPE_EVENT:
+		case CLEAR_TYPE_TASK: // "clear -t" & "clear -t -a"
+			return new ClearCommand("t", isAll); 
+		case CLEAR_TYPE_EVENT: // "clear -e" & "clear -e -a"
 			return new ClearCommand("e", isAll);
-		case CLEAR_TYPE_ALL:
+		case CLEAR_TYPE_ALL: // "clear -a"
 		    return new ClearCommand("t & e", true);
 		default:
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE));

@@ -13,18 +13,49 @@ import seedu.task.model.item.Task;
 
 public class ClearCommandTest extends CommandTest {
     
+    
+    //------------------------Tests for invalid arguments----------------
+    /*
+     * Command input: "clear (type) (isAll)"
+     * Equivalence partitions:
+     * type: "-t", "-e", "-a", ""
+     * isAll: "-a", ""
+     * 
+     * Invalid equivalence partitions to test: 
+     * type: "rAndOm", "-r", "- t"
+     * isAll: "rAndOm", "-e", "-t", "- a"
+     * 
+     * The test cases below test 1 invalid argument at a time
+     */
+    
     @Test
     public void execute_clear_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE);
-        assertCommandBehavior("clear rAndOm", expectedMessage);
-        assertCommandBehavior("clear -r", expectedMessage);
+        assertCommandBehavior("clear  rAndOm ", expectedMessage);
+        assertCommandBehavior("clear  -r   ", expectedMessage);
         assertCommandBehavior("clear -t rAndOm", expectedMessage);
-        assertCommandBehavior("clear -t -e", expectedMessage);
+        assertCommandBehavior("clear - t", expectedMessage);
+        assertCommandBehavior("clear -t  - a", expectedMessage);
         assertCommandBehavior("clear -e rAndOm", expectedMessage);
-        assertCommandBehavior("clear -e -w", expectedMessage);
+        assertCommandBehavior("clear -e -e", expectedMessage);
         assertCommandBehavior("clear -a -t", expectedMessage);
     }
 
+    
+    //------------------------Tests for correct execution of clear command----------------
+    /*
+     * 6 possible scenarios of clear command:
+     * - clears completed tasks
+     * - clears completed events
+     * - clears completed tasks and events
+     * - clears completed and uncompleted tasks
+     * - clears completed and uncompleted events
+     * - clears completed and uncompleted tasks and events
+     * 
+     * 
+     * The test cases below test each possible scenario and validates the result
+     */
+    
     
     @Test
     public void execute_clear_task_completed_successful() throws Exception {
