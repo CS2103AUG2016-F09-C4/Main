@@ -132,13 +132,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-<<<<<<< HEAD
-    public void markTask(int index){
-        taskBook.markTask(index);
-=======
     public void markTask(ReadOnlyTask target){
         taskBook.markTask(target);
->>>>>>> master_copy
         updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
