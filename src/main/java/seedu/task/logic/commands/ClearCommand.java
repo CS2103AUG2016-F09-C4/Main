@@ -18,7 +18,32 @@ public class ClearCommand extends Command {
     public static final String MESSAGE_TASKS = "tasks";
     public static final String MESSAGE_EVENTS = "events";
     public static final String MESSAGE_TASKS_EVENTS = "tasks and events";
-    public static final String MESSAGE_USAGE = "adsa ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + "\n" 
+            + "Clears completed/uncompleted tasks and/or events from the task book.\n\n"
+            + "Clearing completed tasks.\n"
+            + "Parameters: CLEAR_TYPE + CLEAR_ALL\n"
+            + "Example: " + COMMAND_WORD
+            + " -t\n\n"
+            + "Clearing completed and uncompleted tasks.\n"
+            + "Parameters: CLEAR_TYPE + CLEAR_ALL\n"
+            + "Example: " + COMMAND_WORD
+            + " -t -a\n\n"
+            + "Clearing completed events.\n"
+            + "Parameters: CLEAR_TYPE + CLEAR_ALL\n"
+            + "Example: " + COMMAND_WORD
+            + " -e\n\n"
+            + "Clearing completed and uncompleted events.\n"
+            + "Parameters: CLEAR_TYPE + CLEAR_ALL\n"
+            + "Example: " + COMMAND_WORD
+            + " -e -a\n\n"
+            + "Clearing completed tasks and events.\n"
+            + "Parameters: CLEAR_TYPE + CLEAR_ALL\n"
+            + "Example: " + COMMAND_WORD
+            + "\n\n"
+            + "Clearing completed and uncompleted tasks and events.\n"
+            + "Parameters: CLEAR_TYPE + CLEAR_ALL\n"
+            + "Example: " + COMMAND_WORD
+            + " -a \n\n";
     
     private final String isTask;
     private final boolean isAll;
