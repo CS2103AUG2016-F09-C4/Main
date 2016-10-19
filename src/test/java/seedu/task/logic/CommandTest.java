@@ -47,14 +47,14 @@ public class CommandTest extends LogicBasicTest {
         String invalidCommand = "       ";
 
         //empty command
-        assertCommandBehavior(invalidCommand,
+        assertCommandBehavior_task(invalidCommand,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
     }
     
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertCommandBehavior_task(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
     }
     
     
@@ -65,8 +65,17 @@ public class CommandTest extends LogicBasicTest {
      * Both the 'task book' and the 'last shown list' are expected to be empty.
      * @see #assertTaskCommandBehavior(String, String, ReadOnlyTaskBook, List)
      */
-    protected void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
+    protected void assertCommandBehavior_task(String inputCommand, String expectedMessage) throws Exception {
         assertTaskCommandBehavior(inputCommand, expectedMessage, new TaskBook(), Collections.emptyList());
+    }
+    
+    /**
+     * Executes the command and confirms that the result message is correct.
+     * Both the 'task book' and the 'last shown list' are expected to be empty.
+     * @see #assertTaskCommandBehavior(String, String, ReadOnlyTaskBook, List)
+     */
+    protected void assertCommandBehavior_event(String inputCommand, String expectedMessage) throws Exception {
+        assertEventCommandBehavior(inputCommand, expectedMessage, new TaskBook(), Collections.emptyList());
     }
     
     /**
@@ -147,14 +156,36 @@ public class CommandTest extends LogicBasicTest {
      * targeting a single task in the shown list, using visible index.
      * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
      */
-    protected void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
-        assertCommandBehavior(commandWord , expectedMessage); //index missing
-        assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned
-        assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
-        assertCommandBehavior(commandWord + " 0", expectedMessage); //index cannot be 0
-        assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
+    protected void assertTaskIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
+        assertCommandBehavior_task(commandWord , expectedMessage); //index missing
+        assertCommandBehavior_task(commandWord + " +1", expectedMessage); //index should be unsigned
+        assertCommandBehavior_task(commandWord + " -1", expectedMessage); //index should be unsigned
+        assertCommandBehavior_task(commandWord + " 0", expectedMessage); //index cannot be 0
+        assertCommandBehavior_task(commandWord + " not_a_number", expectedMessage);
     }
 
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single task in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
+     */
+    protected void assertEventIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
+        assertCommandBehavior_event(commandWord , expectedMessage); //index missing
+        assertCommandBehavior_event(commandWord + " +1", expectedMessage); //index should be unsigned
+        assertCommandBehavior_event(commandWord + " -1", expectedMessage); //index should be unsigned
+        assertCommandBehavior_event(commandWord + " 0", expectedMessage); //index cannot be 0
+        assertCommandBehavior_event(commandWord + " not_a_number", expectedMessage);
+    }
+    
+    /**
+     * Confirms the 'invalid argument type behaviour' for the given command
+     * targeting a single task in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
+     */
+    protected void assertIncorrectTypeFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
+        assertCommandBehavior_task(commandWord + " 1", expectedMessage);
+    }
+    
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single task in the shown list, using visible index.

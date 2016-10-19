@@ -132,7 +132,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void markTask(ReadOnlyTask target){
+    public synchronized void markTask(ReadOnlyTask target){
         taskBook.markTask(target);
         updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();

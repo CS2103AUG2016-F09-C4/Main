@@ -8,7 +8,10 @@ import seedu.task.logic.commands.ClearCommand;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.IncorrectCommand;
 
-
+/**
+ * Responsible for validating and preparing the arguments for ClearCommand execution
+ * @author Tiankai
+ */
 public class ClearParser implements Parser {
 
 	private static final Pattern CLEAR_ARGS_FORMAT = Pattern.compile("(?<type>-t|-e|-a)*" + "(?: (?<isAll>-a))*");
