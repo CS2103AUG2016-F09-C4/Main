@@ -24,8 +24,7 @@ public class EditParser implements Parser {
             Pattern.compile("(?:-t)\\s(?<index>\\d*)"
                     + "(?<newname>(?: /name [^/]+)*)"
                     + "(?<newdescription>(?: /desc [^/]+)*)?"
-
-                    //+ "(?<newdeadline>(?: /by [^/]+))$"
+                    + "(?<newdeadline>(?: /by [^/]+)*)?"
                     );
 
  // remember to trim 
@@ -34,8 +33,6 @@ public class EditParser implements Parser {
                     + "(?<newname>(?: /name [^/]+)*)"
                     + "(?<newdescription>(?: /desc [^/]+)*)?"
                     + "(?<newduration>(?: /from [^/]+)*)?"
-
-                    //+ "(?<newdeadline>(?: /by [^/]+))$"
                     );
     
     
@@ -57,7 +54,9 @@ public class EditParser implements Parser {
                         isFieldToBeEdited(taskMatcher.group("newname")),
                         taskMatcher.group("newname").replaceFirst("/name","").trim(),
                         isFieldToBeEdited(taskMatcher.group("newdescription")),
-                        taskMatcher.group("newdescription").replaceFirst("/desc", "").trim()
+                        taskMatcher.group("newdescription").replaceFirst("/desc", "").trim(),
+                        isFieldToBeEdited(taskMatcher.group("newdeadline")),
+                        taskMatcher.group("newdeadline").replaceFirst("/by", "").trim()
                 );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
