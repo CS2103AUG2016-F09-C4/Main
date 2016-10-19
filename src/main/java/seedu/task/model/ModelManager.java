@@ -10,6 +10,7 @@ import seedu.task.model.item.Task;
 import seedu.task.model.item.UniqueEventList.DuplicateEventException;
 import seedu.task.model.item.UniqueEventList.EventNotFoundException;
 import seedu.task.model.item.UniqueTaskList;
+import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
 import seedu.task.model.item.UniqueTaskList.TaskNotFoundException;
 import seedu.taskcommons.core.ComponentManager;
 import seedu.taskcommons.core.LogsCenter;
@@ -124,19 +125,33 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void addEvent(Event event) throws DuplicateEventException {
+    public synchronized void addEvent(Event event) throws DuplicateEventException {
         taskBook.addEvent(event);
         updateFilteredEventListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
     
     @Override
+<<<<<<< HEAD
     public void markTask(int index){
         taskBook.markTask(index);
+=======
+    public void markTask(ReadOnlyTask target){
+        taskBook.markTask(target);
+>>>>>>> master_copy
         updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
+   
+    @Override
+    public synchronized void editTask(Task editTask, ReadOnlyTask targetTask) throws UniqueTaskList.DuplicateTaskException {
+        taskBook.editTask(editTask, targetTask);
+        updateFilteredTaskListToShowWithStatus(false);
+        indicateTaskBookChanged();   
+    }
 
+        
+   
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override

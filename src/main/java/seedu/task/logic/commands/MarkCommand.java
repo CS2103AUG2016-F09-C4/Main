@@ -15,8 +15,8 @@ public class MarkCommand extends Command {
 
     public static final String COMMAND_WORD = "mark";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": marks the task identified by the index number used in the last task listing.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + "\n"
+            + "Marks the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -36,7 +36,8 @@ public class MarkCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        model.markTask(targetIndex-1); // list starts at zero
+        ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);
+        model.markTask(taskToMark); // list starts at zero
         return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, targetIndex));
 
     }

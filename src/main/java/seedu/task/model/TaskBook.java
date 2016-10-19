@@ -7,6 +7,7 @@ import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.Task;
 import seedu.task.model.item.UniqueEventList;
 import seedu.task.model.item.UniqueTaskList;
+import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -82,6 +83,13 @@ public class TaskBook implements ReadOnlyTaskBook {
         events.add(p);
     }
     
+    public boolean removeEvent(ReadOnlyEvent key) throws UniqueEventList.EventNotFoundException {
+        if (events.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueEventList.EventNotFoundException();
+        }
+    }
     
 //// task-level operations
 
@@ -94,7 +102,6 @@ public class TaskBook implements ReadOnlyTaskBook {
         tasks.add(p);
     }
 
-
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
@@ -104,17 +111,19 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
 
-    public void markTask(int index){
-        tasks.mark(index);
+    public void markTask(ReadOnlyTask key){
+        tasks.mark(key);
 	}
-
-    public boolean removeEvent(ReadOnlyEvent key) throws UniqueEventList.EventNotFoundException {
-        if (events.remove(key)) {
-            return true;
-        } else {
-            throw new UniqueEventList.EventNotFoundException();
-        }
+    
+    /**
+     * Edits a task in the task book.
+     *
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     */
+    public void editTask(Task editTask, ReadOnlyTask targetTask) throws UniqueTaskList.DuplicateTaskException {
+        tasks.edit(editTask, targetTask);
     }
+
     
 //// util methods
 
