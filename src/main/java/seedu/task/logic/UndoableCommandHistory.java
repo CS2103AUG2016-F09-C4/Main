@@ -1,4 +1,4 @@
-package seedu.task.logic.commands;
+package seedu.task.logic;
 
 import java.util.ArrayDeque;
 import seedu.task.commons.exceptions.UndoableException;

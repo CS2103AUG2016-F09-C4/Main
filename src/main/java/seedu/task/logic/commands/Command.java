@@ -2,6 +2,7 @@ package seedu.task.logic.commands;
 
 import seedu.task.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.task.commons.exceptions.UndoableException;
+import seedu.task.logic.UndoableCommandHistory;
 import seedu.task.model.Model;
 import seedu.taskcommons.core.EventsCenter;
 import seedu.taskcommons.core.Messages;
