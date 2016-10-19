@@ -7,11 +7,10 @@ import seedu.task.model.TaskBook;
  */
 public class ClearCommand extends Command {
 
-<<<<<<< Updated upstream
+
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
-=======
-	public static final String COMMAND_WORD = "clear";
+    public static final String MESSAGE_SUCCESS = "Task book has been cleared!";
+
 	public static final String MESSAGE_USAGE = COMMAND_WORD + "\n"
 			+ "Clear tasks/events in Taskbook.\n\n"
     		+ "Clears completed tasks and events\n" 
@@ -39,7 +38,6 @@ public class ClearCommand extends Command {
     		+ "Optional flag: [-a] to request show all tasks and events"  
     		+ "Example: " + COMMAND_WORD + "-a\n\n";
 	
->>>>>>> Stashed changes
 
     public ClearCommand() {}
 

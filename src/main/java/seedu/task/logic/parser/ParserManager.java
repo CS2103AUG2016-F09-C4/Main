@@ -20,6 +20,7 @@ public class ParserManager {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+    private static final Pattern ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     
 
@@ -43,43 +44,70 @@ public class ParserManager {
         
         case AddTaskCommand.COMMAND_WORD:
             return new AddParser().prepare(arguments);
-            
-        case EditTaskCommand.COMMAND_WORD:
-            return new EditParser().prepare(arguments);
 
         case MarkCommand.COMMAND_WORD:
             return new MarkParser().prepare(arguments);
             
         case SelectCommand.COMMAND_WORD:
-            return new SelectParser().prepare(arguments);
+            return prepareSelect(arguments);
 
         case DeleteTaskCommand.COMMAND_WORD:
             return new DeleteParser().prepare(arguments);
 
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
+
         case FindCommand.COMMAND_WORD:
-<<<<<<< Updated upstream
             return new FindParser().prepare(arguments);
-=======
-            return new SearchParser().prepare(arguments);
-     
->>>>>>> Stashed changes
 
         case ListCommand.COMMAND_WORD:
             return new ListParser().prepare(arguments);
-            
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
             
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            return new HelpParser().prepare(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-  
+
+    /**
+     * Parses arguments in the context of the select person command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareSelect(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        }
+
+        return new SelectCommand(index.get());
+    }
+
+    /**
+     * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
+     *   Returns an {@code Optional.empty()} otherwise.
+     */
+    private Optional<Integer> parseIndex(String command) {
+        final Matcher matcher = ITEM_INDEX_ARGS_FORMAT.matcher(command.trim());
+        if (!matcher.matches()) {
+            return Optional.empty();
+        }
+
+        String index = matcher.group("targetIndex");
+        if(!StringUtil.isUnsignedInteger(index)){
+            return Optional.empty();
+        }
+        return Optional.of(Integer.parseInt(index));
+
+    }
+
+
 
 }
