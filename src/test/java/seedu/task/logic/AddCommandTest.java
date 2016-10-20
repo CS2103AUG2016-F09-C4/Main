@@ -189,42 +189,10 @@ public class AddCommandTest extends CommandTest{
      *  - Task with name only
      *  - Task with desc
      *  - Task with deadline
-     *  - Task with desc and deadline
+     *  - Multiple tasks with desc and deadline
      */
     
-    //Task with desc and deadline: Multiple deadlines are attempted according to EP
-    /*
-     * Possible EP of Valid Deadline 
-     *   With the flexibility built-in the NLP parsing, the partition is not total. 
-     *   - Relative dates phrases with numbers representing time
-     *   - Numbers with or without ':' representing time, ie: 12:30:10 
-     *   - M/D/Y with valid range of M, D
-     *   - M/D with valid range of M, D
-     *   - Number Day, ie: 2 Monday, meaning the Monday in 2 week's time.
-     *   - Invalid words followed by number, ie: haha 1pm.
-     *   
-     * Possible EP of Invalid Deadline 
-     *   - Phrases in abbreviation or not referring to  relative date.
-     *   - Characters that are not related to date/time.
-     *   - null
-     *   - Empty String 
-     *   
-     * Due to the flexibility of prettytime library, the constrain on the deadline format will be looser.
-     * We will not report invalid formats for deadlines, but provide elaborative feedback to users 
-     * on the parsed result. 
-     * 
-     * Possible valid use cases:
-     *   - DAY HH:MM
-     *   - M/D[/Y]
-     *   - RELATIVE_DAY TIME[pm|am]
-     *   - NO_WEEKS_LATER DAY
-     *   - DATE
-     *   - DATE HHMM
-     *  
-     * Possible invalid use cases:
-     *   - RANDOM_WORD
-     *   - INVALID_ABBREVIATION 
-     */
+    //Multiple tasks with desc and deadline
     @Test
     public void execute_addTaskWithDescDeadline_successful() throws Exception {
         // setup expectations
