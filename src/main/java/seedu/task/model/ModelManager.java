@@ -8,6 +8,7 @@ import seedu.task.model.item.Event;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.Task;
+import seedu.task.model.item.UniqueEventList;
 import seedu.task.model.item.UniqueEventList.DuplicateEventException;
 import seedu.task.model.item.UniqueEventList.EventNotFoundException;
 import seedu.task.model.item.UniqueTaskList;
@@ -88,6 +89,37 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredEventListToShowWithStatus(false);
         indicateTaskBookChanged();
     }    
+    
+    @Override
+    public synchronized void clearTasks() {
+        
+        updateFilteredTaskListToShowWithStatus(true);
+        while(!filteredTasks.isEmpty()){
+            ReadOnlyTask task = filteredTasks.get(0);
+            try {
+                taskBook.removeTask(task);
+            } catch (TaskNotFoundException tnfe) {
+                assert false : "The target task cannot be missing";
+            }
+        }
+        updateFilteredTaskListToShowAll();
+        indicateTaskBookChanged();
+    }
+    
+    @Override
+    public synchronized void clearEvents() {
+        updateFilteredEventListToShowWithStatus(true);
+        while(!filteredEvents.isEmpty()){
+            ReadOnlyEvent event = filteredEvents.get(0);
+            try {
+                taskBook.removeEvent(event);
+            } catch (EventNotFoundException tnfe) {
+                assert false : "The target event cannot be missing";
+            }
+        }
+        updateFilteredEventListToShowAll();
+        indicateTaskBookChanged();
+    }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
@@ -97,25 +129,31 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void addEvent(Event event) throws DuplicateEventException {
+    public synchronized void addEvent(Event event) throws DuplicateEventException {
         taskBook.addEvent(event);
         updateFilteredEventListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
     
     @Override
-
-    public void markTask(ReadOnlyTask target){
+    public synchronized void markTask(ReadOnlyTask target){
         taskBook.markTask(target);
         updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
-    
-        
-    public void editTask(Task task, int index) throws UniqueTaskList.DuplicateTaskException {
-        taskBook.editTask(task, index);
+   
+    @Override
+    public synchronized void editTask(Task editTask, ReadOnlyTask targetTask) throws UniqueTaskList.DuplicateTaskException {
+        taskBook.editTask(editTask, targetTask);
         updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();   
+    }
+    
+    @Override
+    public void editEvent(Event editEvent, ReadOnlyEvent targetEvent) throws UniqueEventList.DuplicateEventException {
+        taskBook.editEvent(editEvent, targetEvent);
+        updateFilteredEventListToShowWithStatus(false);
+        indicateTaskBookChanged(); 
     }
 
         
@@ -135,7 +173,6 @@ public class ModelManager extends ComponentManager implements Model {
     	SortedList<Event> sortedEvents = new SortedList<>(filteredEvents);
     	sortedEvents.setComparator(Event::sortAsc);
     	return new UnmodifiableObservableList<>(sortedEvents);
-    	
     }
 
     @Override

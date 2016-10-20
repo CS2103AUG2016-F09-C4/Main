@@ -2,7 +2,8 @@ package seedu.task.logic.commands;
 
 /**
  * Deletes an item identified using it's last displayed index from the address book.
- */
+ * @author Tiankai
+ * */
 public abstract class DeleteCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "delete";

@@ -58,10 +58,10 @@ public class ParserManager {
             return new DeleteParser().prepare(arguments);
 
         case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            return new ClearParser().prepare(arguments);
 
         case FindCommand.COMMAND_WORD:
-            return new SearchParser().prepare(arguments);
+            return new FindParser().prepare(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListParser().prepare(arguments);
