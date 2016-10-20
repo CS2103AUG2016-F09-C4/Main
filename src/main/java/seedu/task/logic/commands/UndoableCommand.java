@@ -9,10 +9,10 @@ public abstract class UndoableCommand extends Command {
      */
     public abstract CommandResult undo();
     
-    /**
-     * Prepare the command that will undo this command
-     * @return command that returns to the previous state
-     */
-    public abstract UndoableCommand prepareUndoCommand();
+//    /**
+//     * Prepare the command that will undo this command
+//     * @return command that returns to the previous state
+//     */
+//    public abstract UndoableCommand prepareUndoCommand();
     
 }

@@ -28,6 +28,9 @@ public class EditTaskCommand extends EditCommand  {
     private boolean isDescriptionToBeEdit;
     private boolean isDeadlineToBeEdit;
     
+    private Task editTask;
+    private ReadOnlyTask targetTask;
+    
     /**
      * Convenience constructor using raw values.
      * Only fields to be edited will have values parsed in.
@@ -63,7 +66,12 @@ public class EditTaskCommand extends EditCommand  {
         }
     }
     
-    /**
+    public EditTaskCommand(Task newTask, Task oldTask) {
+		this.editTask = newTask;
+		this.targetTask = oldTask;
+	}
+
+	/**
      * Gets the task to be edited based on the index.
      * Only fields to be edited will have values updated.
      * @throws DuplicateTaskException 
@@ -73,11 +81,11 @@ public class EditTaskCommand extends EditCommand  {
 
         try {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();        
-            ReadOnlyTask targetTask = lastShownList.get(getTargetIndex());
-            
-            Task editTask = editTask(targetTask);
+            targetTask = lastShownList.get(getTargetIndex());
+
+            editTask = editTask(targetTask);
             model.editTask(editTask, targetTask);
-            
+            reverseCommand = prepareUndoCommand();
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editTask));
 
         } catch (UniqueTaskList.DuplicateTaskException e) {
@@ -112,5 +120,36 @@ public class EditTaskCommand extends EditCommand  {
         return new Task (this.newName, this.newDescription, this.newDeadline, TASK_DEFAULT_STATUS);
         
     }
+
+	@Override
+	public CommandResult undo() {
+        try {
+        	
+            model.editTask(editTask, targetTask);
+            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editTask));
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        } catch (IndexOutOfBoundsException ie) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        } 
+	}
+
+	@Override
+	public UndoableCommand prepareUndoCommand() {
+		Task newTask = (Task) this.targetTask;
+		Task oldTask = this.editTask;
+		
+		UndoableCommand command = new EditTaskCommand(newTask, oldTask);
+		command.setData(model);
+		
+		return command;
+	}
+	
+	@Override
+	public String toString() {
+		return COMMAND_WORD+ " from " + this.targetTask.getAsText()
+		+ " to " + this.editTask.getAsText();
+	}
 
 }

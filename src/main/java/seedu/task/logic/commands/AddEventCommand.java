@@ -40,7 +40,7 @@ public class AddEventCommand extends AddCommand {
         assert model != null;
         try {
             model.addEvent(toAddEvent);
-            reverseCommand = prepareUndoCommand();
+//            reverseCommand = prepareUndoCommand();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAddEvent));
         } catch (UniqueEventList.DuplicateEventException e) {
             return new CommandResult(MESSAGE_DUPLICATE_EVENT);
@@ -50,10 +50,13 @@ public class AddEventCommand extends AddCommand {
 	
 	@Override
 	public CommandResult undo() {
+		DeleteEventCommand reverseCommand = new DeleteEventCommand(toAddEvent);
+		reverseCommand.setData(model);
+		
 		return reverseCommand.execute();
 	}
 	
-	@Override
+	
 	public UndoableCommand prepareUndoCommand() {
 		UndoableCommand command = new DeleteEventCommand(toAddEvent);
 		
