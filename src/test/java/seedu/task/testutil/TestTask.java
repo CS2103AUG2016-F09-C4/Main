@@ -10,7 +10,7 @@ import seedu.task.model.item.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private Description description;
+    private Optional<Description> description;
     private Optional<Deadline> deadline;
     private Boolean isTaskCompleted;
 
@@ -25,7 +25,7 @@ public class TestTask implements ReadOnlyTask {
     }
 
     public void setDescription(Description description) {
-        this.description = description;
+        this.description = Optional.of(description);
     }
     
     public void setDeadline(Deadline deadline) {
@@ -42,9 +42,8 @@ public class TestTask implements ReadOnlyTask {
         return name;
     }
 
-    @Override
-    public Description getDescription() {
-        return description;
+    public Description getDescriptionRaw() {
+        return description.get();
     }
 
     public Deadline getDeadlineRaw() {
@@ -64,7 +63,7 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getTask().fullName + " ");
-        sb.append("/desc " + this.getDescription().value + " ");
+        sb.append("/desc " + this.getDescriptionValue() + " ");
         return sb.toString();
     }
     
@@ -72,7 +71,7 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("edit -t " + index + " ");
         sb.append("/name " + this.getTask().fullName + " ");
-        sb.append("/desc " + this.getDescription().value + " ");
+        sb.append("/desc " + this.getDescriptionValue() + " ");
         return sb.toString();
     }
 
@@ -81,6 +80,9 @@ public class TestTask implements ReadOnlyTask {
         return this.deadline;
     }
     
+    @Override
+    public Optional<Description> getDescription() {
+        return this.description;
+    }
     
-
 }

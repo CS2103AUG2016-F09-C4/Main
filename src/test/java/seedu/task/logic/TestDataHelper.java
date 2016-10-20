@@ -195,7 +195,7 @@ class TestDataHelper{
         cmd.append("add ");
 
         cmd.append(p.getTask().toString());
-        cmd.append(" /desc ").append(p.getDescription().toString());
+        cmd.append(" /desc ").append(p.getDescription().get().toString());
         cmd.append(" /by ").append(p.getDeadline().get().toString());
 
         return cmd.toString();
@@ -209,7 +209,7 @@ class TestDataHelper{
         cmd.append("add ");
 
         cmd.append(p.getTask().toString());
-        cmd.append(" /desc ").append(p.getDescription().toString());
+        cmd.append(" /desc ").append(p.getDescription().get().toString());
 
         return cmd.toString();
     }
@@ -233,7 +233,7 @@ class TestDataHelper{
 
         cmd.append("edit -t " + index);
         cmd.append(" /name ").append(p.getTask().toString());
-        cmd.append(" /desc ").append(p.getDescription().toString());
+        cmd.append(" /desc ").append(p.getDescription().get().toString());
 
         return cmd.toString();
     }
@@ -244,7 +244,7 @@ class TestDataHelper{
 
         cmd.append("edit -t " + index);
         cmd.append(" /name ").append(p.getTask().toString());
-        cmd.append(" /desc ").append(p.getDescription().toString());
+        cmd.append(" /desc ").append(p.getDescription().get().toString());
         cmd.append(" /by ").append(p.getDeadline().get().toString());
 
         return cmd.toString();

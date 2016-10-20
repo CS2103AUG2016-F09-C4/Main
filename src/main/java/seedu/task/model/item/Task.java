@@ -19,9 +19,23 @@ public class Task implements ReadOnlyTask {
     private Boolean isTaskCompleted;
 
     /**
-     * Every field, with the exception of Deadline, must be present and not null.
+     * Adding a task with name only.
+     * Name a task must be present and not null.
      */
+
+    public Task(Name name, Boolean status) {
+        assert !CollectionUtil.isAnyNull(name,status);
+        this.name = name;
+        this.description = null;
+        this.deadline = null;
+        this.isTaskCompleted = status;
+    }
     
+    /**
+     * Adding a task with name and description only.
+     * Name and description of a task must be present and not null.
+     */
+
     public Task(Name name, Description description, Boolean status) {
         assert !CollectionUtil.isAnyNull(name, description,status);
         this.name = name;
@@ -31,11 +45,26 @@ public class Task implements ReadOnlyTask {
     }
     
     /**
-     * Every field, with the exception of Deadline, must be present and not null.
+     * Adding a task with name and deadline only.
+     * Name and deadline of a task must be present and not null.
+     */
+    
+    public Task(Name name, Deadline deadline, Boolean status) {
+        assert !CollectionUtil.isAnyNull(name, deadline,status);
+        this.name = name;
+        this.description = null;
+        this.deadline = deadline;
+        this.isTaskCompleted = status;
+    }
+    
+    /**
+     * Adding a task with name, description and deadline.
+     * Name of a task must be present and not null.
+     * Description and Deadline are optional and can be null
      */
     
     public Task(Name name, Description description, Deadline deadline, Boolean status) {
-        assert !CollectionUtil.isAnyNull(name, description,status);
+        assert !CollectionUtil.isAnyNull(name,status);
         this.name = name;
         this.description = description;
         this.deadline = deadline;
@@ -46,7 +75,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-            this(source.getTask(), source.getDescription(), source.getDeadline().orElse(null) , source.getTaskStatus());
+            this(source.getTask(), source.getDescription().orElse(null), source.getDeadline().orElse(null) , source.getTaskStatus());
     }
 
     @Override
@@ -55,8 +84,8 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Description getDescription() {
-        return description;
+    public Optional<Description> getDescription() {
+        return Optional.ofNullable(this.description);
     }
     
    @Override

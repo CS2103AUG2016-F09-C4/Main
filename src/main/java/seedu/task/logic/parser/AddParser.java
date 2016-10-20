@@ -24,7 +24,7 @@ public class AddParser implements Parser {
      
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + "(?: /desc (?<description>[^/]+))*"
+                    + "(?<description>(?: /desc [^/]+)*)"
                     + "(?<deadline>(?: /by [^/]+)*)"
                     );
     
@@ -47,19 +47,13 @@ public class AddParser implements Parser {
         
         if (taskMatcher.matches()) {
             try {
-                Optional <String> dl = getDeadlineFromArgs(taskMatcher.group("deadline"));
-                if (dl.isPresent()) { 
-                    return new AddTaskCommand(
-                        taskMatcher.group("name").trim(),
-                        taskMatcher.group("description").trim(),
-                        dl.get().trim()
-                    );
-                } else {
-                    return new AddTaskCommand(
-                            taskMatcher.group("name").trim(),
-                            taskMatcher.group("description").trim()
-                    );
-                }
+                String name = taskMatcher.group("name").trim();
+                String description = taskMatcher.group("description").replaceFirst("/desc", "").trim();
+                String deadline = taskMatcher.group("deadline").replaceFirst("/by", "").trim();
+                
+                return new AddTaskCommand(name,
+                        isFieldToBeAdded(description), description, 
+                        isFieldToBeAdded(deadline), deadline);
                 
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
@@ -79,13 +73,9 @@ public class AddParser implements Parser {
         }
     }
 
-    private Optional <String> getDeadlineFromArgs(String deadlineArgs) {
-        if (deadlineArgs.isEmpty()) {
-            return Optional.empty();
-        } else {
-            deadlineArgs = deadlineArgs.replace("/by","");
-            return Optional.of(deadlineArgs);
-        }
+    private boolean isFieldToBeAdded(String field) {
+        assert field != null;
+        return !field.isEmpty();
     }
     
 }
