@@ -66,10 +66,6 @@ public class EditTaskCommand extends EditCommand  {
         }
     }
     
-    public EditTaskCommand(Task newTask, Task oldTask) {
-		this.editTask = newTask;
-		this.targetTask = oldTask;
-	}
 
 	/**
      * Gets the task to be edited based on the index.
@@ -85,7 +81,7 @@ public class EditTaskCommand extends EditCommand  {
 
             editTask = editTask(targetTask);
             model.editTask(editTask, targetTask);
-            reverseCommand = prepareUndoCommand();
+            
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editTask));
 
         } catch (UniqueTaskList.DuplicateTaskException e) {
@@ -124,8 +120,8 @@ public class EditTaskCommand extends EditCommand  {
 	@Override
 	public CommandResult undo() {
         try {
-        	
-            model.editTask(editTask, targetTask);
+            model.editTask((Task)targetTask, editTask);
+            
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editTask));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
@@ -135,16 +131,6 @@ public class EditTaskCommand extends EditCommand  {
         } 
 	}
 
-	@Override
-	public UndoableCommand prepareUndoCommand() {
-		Task newTask = (Task) this.targetTask;
-		Task oldTask = this.editTask;
-		
-		UndoableCommand command = new EditTaskCommand(newTask, oldTask);
-		command.setData(model);
-		
-		return command;
-	}
 	
 	@Override
 	public String toString() {

@@ -63,6 +63,9 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
         taskBook.resetData(newData);
+        
+        updateFilteredEventListToShowWithStatus(false);
+        updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
 

@@ -43,20 +43,16 @@ public class DeleteEventCommand extends DeleteCommand {
         } catch (EventNotFoundException tnfe) {
             assert false : "The target event cannot be missing";
         }
-        reverseCommand = prepareUndoCommand();
+       
         return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete));
     }
 
-	@Override
-	public UndoableCommand prepareUndoCommand() {
-		UndoableCommand command = new AddEventCommand(eventToDelete); 
-		command.setData(model);
-		
-		return command;
-	}
 
 	@Override
 	public CommandResult undo() {
+		AddEventCommand reverseCommand = new AddEventCommand(eventToDelete);
+		reverseCommand.setData(model);
+		
 		return reverseCommand.execute();
 	}
 	

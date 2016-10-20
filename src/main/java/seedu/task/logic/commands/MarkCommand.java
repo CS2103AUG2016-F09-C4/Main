@@ -44,7 +44,7 @@ public class MarkCommand extends UndoableCommand {
         
         taskToMark = lastShownList.get(targetIndex - 1);
         model.markTask(taskToMark); // list starts at zero
-        reverseCommand = prepareUndoCommand();
+
         return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, targetIndex));
 
     }
@@ -56,12 +56,6 @@ public class MarkCommand extends UndoableCommand {
 		return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, targetIndex+1));
 	}
 
-	@Override
-	public UndoableCommand prepareUndoCommand() {
-		UndoableCommand command = new MarkCommand(taskToMark);
-		command.setData(model);
-		return command;
-	}
 
 	@Override
 	public String toString() {

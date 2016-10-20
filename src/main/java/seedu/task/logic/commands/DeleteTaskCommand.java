@@ -46,22 +46,14 @@ public class DeleteTaskCommand extends DeleteCommand {
             assert false : "The target task cannot be missing";
         }
         
-        reverseCommand = prepareUndoCommand();
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
-
-	@Override
-	public UndoableCommand prepareUndoCommand() {
-		UndoableCommand command = new AddTaskCommand(taskToDelete); 
-		command.setData(model);
-		
-		return command;
-	}
-
-
 	@Override
 	public CommandResult undo() {
+		AddTaskCommand reverseCommand = new AddTaskCommand(taskToDelete);
+		reverseCommand.setData(model);
+		
 		return reverseCommand.execute();
 	}
 	

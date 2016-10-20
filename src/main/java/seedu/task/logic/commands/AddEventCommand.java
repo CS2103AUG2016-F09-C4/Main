@@ -40,7 +40,6 @@ public class AddEventCommand extends AddCommand {
         assert model != null;
         try {
             model.addEvent(toAddEvent);
-//            reverseCommand = prepareUndoCommand();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAddEvent));
         } catch (UniqueEventList.DuplicateEventException e) {
             return new CommandResult(MESSAGE_DUPLICATE_EVENT);

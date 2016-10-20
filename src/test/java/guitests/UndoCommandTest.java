@@ -22,11 +22,20 @@ public class UndoCommandTest extends TaskBookGuiTest {
 
 	/*
 	 * Possible EP of valid undo use cases: 
-	 * - Undo single modification 
+	 * - Undo single modification
+	 * 		- mark
+	 * 		- add
+	 * 		- delete
+	 * 		- edit 
+	 * 		- clear
+	 * 
 	 * - Undo multiple modification
+	 * 		- any combination of these above
 	 * 
 	 * Possible Invalid undo use cases 
 	 * - Undo no modification
+	 * 		- just init
+	 * 		- undo non-modificable commands 
 	 * 
 	 */
 
@@ -179,6 +188,64 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		commandBox.runCommand("undo");
 		assertResultMessage(UndoCommand.MESSAGE_UNDO_FAILURE);
 
+	}
+	
+	@Test
+	public void undo_clear_success() {
+		TestEvent[] allEventList = te.getTypicalAllEvents();
+		TestTask[] allTaskList = td.getTypicalAllTasks();
+		
+		TestEvent[] unCompletedEventList = te.getTypicalNotCompletedEvents();
+		TestTask[] unCompletedTaskList= td.getTypicalTasks();
+		
+		//clear all completed tasks
+		commandBox.runCommand("clear -t");
+		assertTrue(taskListPanel.isListMatching(unCompletedTaskList));
+		//undo
+		commandBox.runCommand("undo");
+		commandBox.runCommand("list -t -a");
+		assertTrue(taskListPanel.isListMatching(allTaskList));
+		
+		//clear all completed events
+		commandBox.runCommand("clear -e");
+		assertTrue(eventListPanel.isListMatching(unCompletedEventList));
+		//undo
+		commandBox.runCommand("undo");
+		commandBox.runCommand("list -e -a");
+		assertTrue(eventListPanel.isListMatching(allEventList));
+		
+		//clear all tasks and events 
+		commandBox.runCommand("clear -a");
+		assertEventListSize(0);
+		assertTaskListSize(0);
+		//undo
+		commandBox.runCommand("undo");
+		assertTrue(eventListPanel.isListMatching(unCompletedEventList));
+		assertTrue(taskListPanel.isListMatching(unCompletedTaskList));
+	}
+	
+	@Test
+	public void undo_edit_success() {
+		TestEvent[] oldEventList = te.getTypicalNotCompletedEvents();
+		TestTask[] oldTaskList = td.getTypicalTasks();
+		
+		//edit a task
+		TestTask taskToEdit = td.arts;
+		TestTask[] modifiedTaskList = TestUtil.editTasksToList(oldTaskList, 0, taskToEdit);
+		commandBox.runCommand(taskToEdit.getEditFloatTaskCommand(1));
+		assertTrue(taskListPanel.isListMatching(modifiedTaskList));
+		
+		//undo
+		commandBox.runCommand("undo");
+		assertTrue(taskListPanel.isListMatching(oldTaskList));
+		
+		//edit an event
+		TestEvent eventToEdit = TypicalTestEvents.addedEvent;
+		TestEvent[] modifiedEventList = TestUtil.removeEventFromList(oldEventList, 1);
+		modifiedEventList = TestUtil.addEventsToListAtIndex(modifiedEventList, 0, eventToEdit);
+		commandBox.runCommand(TypicalTestEvents.addedEvent.getEditCommand(1));
+		assertTrue(eventListPanel.isListMatching(modifiedEventList));
+		
 	}
 
 }

@@ -39,7 +39,6 @@ public class AddTaskCommand extends AddCommand {
 		assert model != null;
 		try {
 			model.addTask(toAdd);
-			reverseCommand = prepareUndoCommand();
 			return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 		} catch (UniqueTaskList.DuplicateTaskException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);
@@ -48,14 +47,10 @@ public class AddTaskCommand extends AddCommand {
 	}
 
 	@Override
-	public UndoableCommand prepareUndoCommand() {
-		UndoableCommand command = new DeleteTaskCommand(toAdd);
-		command.setData(model);
-		return command;
-	}
-
-	@Override
 	public CommandResult undo() {
+		DeleteTaskCommand reverseCommand = new DeleteTaskCommand(toAdd);
+		reverseCommand.setData(model);
+		
 		return reverseCommand.execute();
 	}
 	
