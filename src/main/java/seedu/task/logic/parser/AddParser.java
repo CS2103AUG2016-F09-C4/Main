@@ -51,7 +51,7 @@ public class AddParser implements Parser {
         final Matcher taskMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         final Matcher eventMatcher = EVENT_DATA_ARGS_FORMAT.matcher(args.trim());
         
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(descriptionPrefix, deadlinePrefix);
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(descriptionPrefix, deadlinePrefix, durationPrefix);
         argsTokenizer.tokenize(args);
         
         if (taskMatcher.matches()) {
