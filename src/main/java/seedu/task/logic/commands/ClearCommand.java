@@ -45,10 +45,12 @@ public class ClearCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " -a \n\n";
     
-    private final String isTask;
+    public enum Type{ task,event,all}
+    
+    private final Type isTask;
     private final boolean isAll;
 
-    public ClearCommand(String tag_1, boolean tag_2) {
+    public ClearCommand(Type tag_1, boolean tag_2) {
         this.isTask = tag_1;
         this.isAll = tag_2;
     }
@@ -57,32 +59,31 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         
-        if(isTask == "t & e" && !isAll){ // clears completed tasks and events
+        if(isTask == Type.all && !isAll){ // clears completed tasks and events
             model.clearTasks();
             model.clearEvents();
             return new CommandResult(String.format(MESSAGE_SUCCESS, MESSAGE_COMPLETED, MESSAGE_TASKS_EVENTS));
-        }else if (isTask == "t" && !isAll){ // clears completed tasks
+        }else if (isTask == Type.task && !isAll){ // clears completed tasks
             model.clearTasks();
             return new CommandResult(String.format(MESSAGE_SUCCESS, MESSAGE_COMPLETED, MESSAGE_TASKS));
-        }else if (isTask == "e" && !isAll){ // clears completed events
+        }else if (isTask == Type.event && !isAll){ // clears completed events
             model.clearEvents();
             return new CommandResult(String.format(MESSAGE_SUCCESS, MESSAGE_COMPLETED, MESSAGE_EVENTS));
-        }else if (isTask == "t" && isAll){ // clears all completed and uncompleted tasks
+        }else if (isTask == Type.task && isAll){ // clears all completed and uncompleted tasks
             assert model != null;
             ReadOnlyTaskBook taskbook = model.getTaskBook();
             model.resetData(new TaskBook(new UniqueTaskList(), taskbook.getUniqueEventList()));
             return new CommandResult(String.format(MESSAGE_SUCCESS, MESSAGE_COMPLETED_UNCOMPLETED, MESSAGE_TASKS));
-        }else if (isTask == "e" && isAll){ // clears all completed and uncompleted events
+        }else if (isTask == Type.event && isAll){ // clears all completed and uncompleted events
             assert model != null;
             ReadOnlyTaskBook taskbook = model.getTaskBook();
             model.resetData(new TaskBook(taskbook.getUniqueTaskList(), new UniqueEventList()));
             return new CommandResult(String.format(MESSAGE_SUCCESS, MESSAGE_COMPLETED_UNCOMPLETED, MESSAGE_EVENTS));
-        }else if (isTask == "t & e" && isAll){ // clears all completed and uncompleted tasks and events
+        }else { // clears all completed and uncompleted tasks and events, only possible path left
             assert model != null;
             model.resetData(TaskBook.getEmptyTaskBook());
             return new CommandResult(String.format(MESSAGE_SUCCESS, MESSAGE_COMPLETED_UNCOMPLETED, MESSAGE_TASKS_EVENTS));
-        }
-        return null;       
+        }      
         
     }
 }
