@@ -340,33 +340,6 @@ public class CommandTest extends LogicBasicTest {
         assertEquals(expectedTaskBook, latestSavedTaskBook);
     }
     
-    /**
-     * Before executing clear command, marks the task as complete 
-     * After executing clear command, executes the list all tasks command
-     * and confirms that the result message is correct and
-     * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
-     *      - the internal task book data are same as those in the {@code expectedTaskBook} <br>
-     *      - the backing list shown by UI matches the {@code shownList} <br>
-     *      - {@code expectedTaskBook} was saved to the storage file. <br>
-     */
-    protected void assertClearTaskCommandBehavior(String clearCommand, String markCommand,
-                                       String listCommand, String expectedMessage,
-                                       ReadOnlyTaskBook expectedTaskBook,
-                                       List<? extends ReadOnlyTask> expectedShownList) throws Exception {
-        
-        //executes the clear command and lists the task
-        logic.execute(markCommand);   
-        CommandResult result = logic.execute(clearCommand);
-        logic.execute(listCommand);      
-        
-        //Confirm the ui display elements should contain the right data
-        assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredTaskList());
-
-        //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedTaskBook, model.getTaskBook());
-        assertEquals(expectedTaskBook, latestSavedTaskBook);
-    }
     
     /**
      * After executing clear command, executes the list all events command
