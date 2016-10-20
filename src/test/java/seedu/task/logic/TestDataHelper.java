@@ -19,12 +19,36 @@ import seedu.task.model.item.Task;
  */
 class TestDataHelper{
 
+    /*
+     * Tasks
+     */
+    
     Task computingTask() throws Exception {
         Name name = new Name("Do CS2103 Project");
         Deadline deadline = new Deadline("01-01-16");
         Description des = new Description("post on Github");
         
         return new Task(name, des, deadline, false);
+    }
+    
+    Task computingDescTask() throws Exception {
+        Name name = new Name("Do CS2103 Project");
+        Description des = new Description("post on Github");
+        
+        return new Task(name, des, false);
+    }
+    
+    Task computingDeadlineTask() throws Exception {
+        Name name = new Name("Do CS2103 Project");
+        Deadline deadline = new Deadline("01-01-16");
+        
+        return new Task(name, deadline, false);
+    }
+    
+    Task computingNameTask() throws Exception {
+        Name name = new Name("Do CS2103 Project");
+        
+        return new Task(name, false);
     }
     
     Task computingEditedTask() throws Exception {
@@ -35,12 +59,7 @@ class TestDataHelper{
         return new Task(name, des, deadline, false);
     }
     
-    Task computingFloatTask() throws Exception {
-        Name name = new Name("Do CS2103 Project");
-        Description des = new Description("post on Github");
-        
-        return new Task(name, des, false);
-    }
+    
     
     Task computingEditedFloatTask() throws Exception {
         Name name = new Name("Do CS2106 Project");
@@ -94,6 +113,10 @@ class TestDataHelper{
     	
     	return new Task(name, des, dl, true);
     }
+    
+    /*
+     * Events
+     */
     
     Event computingUpComingEvent() throws Exception {
         Name name = new Name("Attend CS2103 Workshop");
@@ -202,7 +225,7 @@ class TestDataHelper{
     }
     
     /** Generates the correct add task command based on the task given */
-    String generateAddFloatTaskCommand(Task p) {
+    String generateAddDescTaskCommand(Task p) {
         
         StringBuffer cmd = new StringBuffer();
 
@@ -210,6 +233,31 @@ class TestDataHelper{
 
         cmd.append(p.getTask().toString());
         cmd.append(" /desc ").append(p.getDescription().get().toString());
+
+        return cmd.toString();
+    }
+    
+    /** Generates the correct add task command based on the task given */
+    String generateAddDeadlineTaskCommand(Task p) {
+        
+        StringBuffer cmd = new StringBuffer();
+
+        cmd.append("add ");
+
+        cmd.append(p.getTask().toString());
+        cmd.append(" /by ").append(p.getDeadline().get().toString());
+
+        return cmd.toString();
+    }
+    
+    /** Generates the correct add task command based on the task given */
+    String generateAddNameTaskCommand(Task p) {
+        
+        StringBuffer cmd = new StringBuffer();
+
+        cmd.append("add ");
+
+        cmd.append(p.getTask().toString());
 
         return cmd.toString();
     }
