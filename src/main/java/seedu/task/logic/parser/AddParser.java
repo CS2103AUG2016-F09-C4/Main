@@ -2,6 +2,7 @@ package seedu.task.logic.parser;
 
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,6 +13,7 @@ import seedu.task.logic.commands.AddEventCommand;
 import seedu.task.logic.commands.AddTaskCommand;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.IncorrectCommand;
+import seedu.task.logic.parser.ArgumentTokenizer.Prefix;
 
 /**
  * Responsible for validating and preparing the arguments for AddCommand execution
@@ -34,6 +36,10 @@ public class AddParser implements Parser {
                     + "(?: /from (?<duration>[^/]+))*$"
                     );
     
+    public static final Prefix descriptionPrefix = new Prefix("/desc");
+    public static final Prefix deadlinePrefix = new Prefix("/by");
+    public static final Prefix durationPrefix = new Prefix("/from");
+    
     /**
      * Parses arguments in the context of the add task or event command.
      *
@@ -45,18 +51,22 @@ public class AddParser implements Parser {
         final Matcher taskMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         final Matcher eventMatcher = EVENT_DATA_ARGS_FORMAT.matcher(args.trim());
         
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(descriptionPrefix, deadlinePrefix);
+        argsTokenizer.tokenize(args);
+        
         if (taskMatcher.matches()) {
-            try {
-                String name = taskMatcher.group("name").trim();
-                String description = taskMatcher.group("description").replaceFirst("/desc", "").trim();
-                String deadline = taskMatcher.group("deadline").replaceFirst("/by", "").trim();
-                
+            try {                 
+                String name = argsTokenizer.getPreamble().get();
+                Optional <String> description = argsTokenizer.getValue(descriptionPrefix);
+                Optional <String> deadline = argsTokenizer.getValue(deadlinePrefix);
                 return new AddTaskCommand(name,
-                        isFieldToBeAdded(description), description, 
-                        isFieldToBeAdded(deadline), deadline);
-                
+                      description.isPresent(), description.orElse(""), 
+                      deadline.isPresent(), deadline.orElse(""));
+              
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
+            } catch (NoSuchElementException nsee) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
             }
         } else if (eventMatcher.matches()){
             try {
@@ -68,14 +78,14 @@ public class AddParser implements Parser {
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
-        }else {
+        } else {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
     }
 
-    private boolean isFieldToBeAdded(String field) {
-        assert field != null;
-        return !field.isEmpty();
-    }
+//    private boolean isFieldToBeAdded(String field) {
+//        assert field != null;
+//        return !field.isEmpty();
+//    }   
     
 }
