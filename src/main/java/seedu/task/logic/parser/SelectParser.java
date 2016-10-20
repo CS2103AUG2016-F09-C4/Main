@@ -1,111 +1,54 @@
 package seedu.task.logic.parser;
 
-import java.util.Optional;
+import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//import static seedu.taskbook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
-import seedu.task.commons.util.StringUtil;
+import seedu.task.logic.commands.SelectEventCommand;
+import seedu.task.logic.commands.SelectTaskCommand;
 import seedu.task.logic.commands.Command;
-import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.SelectCommand;
-
+import seedu.task.logic.commands.IncorrectCommand;
 
 public class SelectParser implements Parser {
 
-	/*private static final Pattern ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<type>-t|-e)" + ("(?<targetIndex>."));
-	private static final String SELECT_TYPE_TASK = "-t";
-	private static final String SELECT_TYPE_EVENT = "-e";
-
-	@Override
-	public Command prepare(String args) {
-		final Matcher matcher = ITEM_INDEX_ARGS_FORMAT.matcher(args.trim());
-		Optional<Integer> index = parseIndex(args);
-
-		switch (matcher.group("type")) {
-		case SELECT_TYPE_TASK:
-			if (!index.isPresent()) {
-				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-			}
-		
-			return new SelectCommand(index.get());
-
-		case SELECT_TYPE_EVENT:
-			if (!index.isPresent()) {
-				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-			}
-
-			return new SelectCommand(index.get());
-			
-		default:
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-		}
-	}
-
-	/**
-	 * Returns the specified index in the {@code command} IF a positive unsigned
-	 * integer is given as the index. Returns an {@code Optional.empty()}
-	 * otherwise.
-	 */
-	
-	/*
-	public Optional<Integer> parseIndex(String command) {
-		final Matcher matcher = ITEM_INDEX_ARGS_FORMAT.matcher(command.trim());
-		if (!matcher.matches()) {
-			return Optional.empty();
-		}
-
-		String index = matcher.group("targetIndex");
-		if (!StringUtil.isUnsignedInteger(index)) {
-			return Optional.empty();
-		}
-		return Optional.of(Integer.parseInt(index));
-
-	}
-	*/
-	private static final Pattern ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<type>-t|-e)+(?<targetIndex>.+)");
-	private static final String SELECT_TYPE_TASK = "-t";
-	private static final String SELECT_TYPE_EVENT = "-e";
-	public boolean isTask;
-	
-
-	public Command prepare(String args) {
-		final Matcher matcher = ITEM_INDEX_ARGS_FORMAT.matcher(args.trim());
-
-        Optional<Integer> index = parseIndex(args);
-        
-        if(!index.isPresent() && isTask){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-        }
-        
-        switch (matcher.group("type")) {
-		case SELECT_TYPE_TASK:
-			return new SelectCommand(index.get(), isTask = true);
-		case SELECT_TYPE_EVENT:
-			return new SelectCommand(index.get(), isTask = false);
-		default:
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-		}
-    }
-
-	/**
-     * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
-     *   Returns an {@code Optional.empty()} otherwise.
+    public SelectParser() {}
+    
+     
+    private static final Pattern SELECT_TASK_DATA_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?:-t)\\s(?<index>\\d*)");
+   
+    private static final Pattern SELECT_EVENT_DATA_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?:-e)\\s(?<index>\\d*)");
+    
+    /**
+     * Parses arguments in the context of the add person command.
+     *
+     * @param args full command args string
+     * @return the prepared command
      */
-    private Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = ITEM_INDEX_ARGS_FORMAT.matcher(command.trim());
-        if (!matcher.matches()) {
-            return Optional.empty();
+    @Override
+    public Command prepare(String args){
+        final Matcher taskMatcher = SELECT_TASK_DATA_FORMAT.matcher(args.trim());
+        final Matcher eventMatcher = SELECT_EVENT_DATA_FORMAT.matcher(args.trim());
+        if (taskMatcher.matches()) {
+            int index = Integer.parseInt(taskMatcher.group("index"));
+            try {
+                return new SelectTaskCommand(index);
+            } catch (NumberFormatException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        } else if (eventMatcher.matches()){
+            int index = Integer.parseInt(eventMatcher.group("index"));
+            try {
+                return new SelectEventCommand(index);
+            } catch (NumberFormatException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        }else {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
         }
-
-        String index = matcher.group("targetIndex");
-        if(!StringUtil.isUnsignedInteger(index)){
-            return Optional.empty();
-        }
-        return Optional.of(Integer.parseInt(index));
-
     }
+    
 }
