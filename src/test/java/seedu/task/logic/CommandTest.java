@@ -116,7 +116,7 @@ public class CommandTest extends LogicBasicTest {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
-        List<ReadOnlyEvent> list = model.getFilteredEventList();
+        //List<ReadOnlyEvent> list = model.getFilteredEventList();
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredEventList());
@@ -244,7 +244,6 @@ public class CommandTest extends LogicBasicTest {
         //Execute the edit command
         CommandResult result = logic.execute(inputCommand);
         
-        
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredTaskList());
@@ -255,18 +254,46 @@ public class CommandTest extends LogicBasicTest {
     }
     
     /**
-     * Testing for editing task to duplicate
-     * Before executing edit command, executes the add command for 2 tasks and list command for tasks
+     * Before executing edit command, executes the add command and list command
      * and confirms that the result message is correct and
      * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
      *      - the internal task book data are same as those in the {@code expectedTaskBook} <br>
      *      - the backing list shown by UI matches the {@code shownList} <br>
      *      - {@code expectedTaskBook} was saved to the storage file. <br>
      */
-    protected void assertEditTaskCommandBehavior(String addCommandInput, String addCommandInput2, String listCommandInput,
+    protected void assertEditEventCommandBehavior(String addCommandInput, String listCommandInput,
                                        String inputCommand, String expectedMessage,
                                        ReadOnlyTaskBook expectedTaskBook,
-                                       List<? extends ReadOnlyTask> expectedShownList) throws Exception {
+                                       List<? extends ReadOnlyEvent> expectedShownList) throws Exception {
+        
+        //Adds an event and lists the event
+        logic.execute(addCommandInput);
+        logic.execute(listCommandInput);
+        
+        //Execute the edit command
+        CommandResult result = logic.execute(inputCommand);
+        
+        //Confirm the ui display elements should contain the right data
+        assertEquals(expectedMessage, result.feedbackToUser);
+        assertEquals(expectedShownList, model.getFilteredEventList());
+
+        //Confirm the state of data (saved and in-memory) is as expected
+        assertEquals(expectedTaskBook, model.getTaskBook());
+        assertEquals(expectedTaskBook, latestSavedTaskBook);
+    }
+    
+    /**
+     * Testing for editing task or event to duplicate
+     * Before executing edit command, executes the add command for 2 tasks or events and list command for tasks or events
+     * and confirms that the result message is correct and
+     * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
+     *      - the internal task book data are same as those in the {@code expectedTaskBook} <br>
+     *      - the backing list shown by UI matches the {@code shownList} <br>
+     *      - {@code expectedTaskBook} was saved to the storage file. <br>
+     */
+    protected void assertEditDuplicateCommandBehavior(String addCommandInput, String addCommandInput2, String listCommandInput,
+                                       String inputCommand, String expectedMessage,
+                                       ReadOnlyTaskBook expectedTaskBook) throws Exception {
         
         //Adds 2 tasks and lists the task
         logic.execute(addCommandInput);
@@ -276,6 +303,33 @@ public class CommandTest extends LogicBasicTest {
         //Execute the edit command
         CommandResult result = logic.execute(inputCommand);
         
+        
+        //Confirm the ui display elements should contain the right data
+        assertEquals(expectedMessage, result.feedbackToUser);
+
+        //Confirm the state of data (saved and in-memory) is as expected
+        assertEquals(expectedTaskBook, model.getTaskBook());
+        assertEquals(expectedTaskBook, latestSavedTaskBook);
+    }
+    
+    /**
+     * Before executing clear command, marks the task as complete 
+     * After executing clear command, executes the list all tasks command
+     * and confirms that the result message is correct and
+     * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
+     *      - the internal task book data are same as those in the {@code expectedTaskBook} <br>
+     *      - the backing list shown by UI matches the {@code shownList} <br>
+     *      - {@code expectedTaskBook} was saved to the storage file. <br>
+     */
+    protected void assertClearTaskCommandBehavior(String clearCommand, String markCommand,
+                                       String listCommand, String expectedMessage,
+                                       ReadOnlyTaskBook expectedTaskBook,
+                                       List<? extends ReadOnlyTask> expectedShownList) throws Exception {
+        
+        //executes the clear command and lists the task
+        logic.execute(markCommand);   
+        CommandResult result = logic.execute(clearCommand);
+        logic.execute(listCommand);      
         
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
