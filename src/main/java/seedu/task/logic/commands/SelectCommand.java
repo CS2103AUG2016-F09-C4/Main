@@ -32,50 +32,6 @@ public abstract class SelectCommand extends Command {
 
     @Override
     public abstract CommandResult execute();
-	
-	/*
-	public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected Task: %1$s";
-	public static final String MESSAGE_SELECT_EVENT_SUCCESS = "Selected Event: %1$s";
-
-	sese
-
-	public SelectCommand(Integer targetIndex, boolean isTask) {
-		// TODO Auto-generated constructor stub
-		this.targetIndex = targetIndex;
-		this.isTask = isTask;
-	}
-
-	@Override
-	public CommandResult execute() {
-
-		UnmodifiableObservableList<ReadOnlyTask> lastShownTaskList = model.getFilteredTaskList();
-		UnmodifiableObservableList<ReadOnlyEvent> lastShownEventList = model.getFilteredEventList();
-
-		if (isTask == true) {
-			if (lastShownTaskList.size() < targetIndex) {
-				indicateAttemptToExecuteIncorrectCommand();
-				return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-			}
-			
-			else {
-				EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
-				return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
-			}
-		}
-		
-		if (isTask == false) {
-			if (lastShownEventList.size() < targetIndex) {
-				indicateAttemptToExecuteIncorrectCommand();
-				return new CommandResult(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
-			}
-		}
-			
-			EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
-			return new CommandResult(String.format(MESSAGE_SELECT_EVENT_SUCCESS, targetIndex));
-		
-	}
-	
-	*/
 }
 		
 
