@@ -1,6 +1,6 @@
 package seedu.task.logic.commands;
 
-import seedu.task.commons.events.ui.JumpToTListRequestEvent;
+import seedu.task.commons.events.ui.JumpToTaskListRequestEvent;
 
 import seedu.task.model.item.*;
 import seedu.taskcommons.core.EventsCenter;
@@ -29,7 +29,7 @@ public class SelectTaskCommand extends SelectCommand {
 			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 		}
 
-		EventsCenter.getInstance().post(new JumpToTListRequestEvent(targetIndex - 1));
+		EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(targetIndex - 1));
 		return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
 
 	}

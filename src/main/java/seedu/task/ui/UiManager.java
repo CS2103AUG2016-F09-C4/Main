@@ -8,8 +8,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.task.MainApp;
 import seedu.task.commons.events.storage.DataSavingExceptionEvent;
-import seedu.task.commons.events.ui.JumpToEListRequestEvent;
-import seedu.task.commons.events.ui.JumpToTListRequestEvent;
+import seedu.task.commons.events.ui.JumpToEventListRequestEvent;
+import seedu.task.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.task.commons.events.ui.ShowHelpEvent;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.logic.Logic;
@@ -113,13 +113,13 @@ public class UiManager extends ComponentManager implements Ui {
 	}
 
 	@Subscribe
-	private void handleJumpToTListRequestEvent(JumpToTListRequestEvent event) {
+	private void handleJumpToTListRequestEvent(JumpToTaskListRequestEvent event) {
 		logger.info(LogsCenter.getEventHandlingLogMessage(event));
 		mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
 	}
 
 	@Subscribe
-	private void handleJumpToEListRequestEvent(JumpToEListRequestEvent event) {
+	private void handleJumpToEListRequestEvent(JumpToEventListRequestEvent event) {
 		logger.info(LogsCenter.getEventHandlingLogMessage(event));
 		mainWindow.getEventListPanel().scrollTo(event.targetIndex);
 	}

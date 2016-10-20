@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.task.commons.events.model.TaskBookChangedEvent;
-import seedu.task.commons.events.ui.JumpToTListRequestEvent;
+import seedu.task.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.task.commons.events.ui.ShowHelpEvent;
 import seedu.task.logic.Logic;
 import seedu.task.logic.LogicManager;
@@ -59,12 +59,12 @@ public class LogicBasicTest {
     }
 
     @Subscribe
-    private void handleJumpToTListRequestEvent(JumpToTListRequestEvent je) {
+    private void handleJumpToTaskListRequestEvent(JumpToTaskListRequestEvent je) {
         targetedJumpIndex = je.targetIndex;
     }
     
     @Subscribe
-    private void handleJumpToEListRequestEvent(JumpToTListRequestEvent je) {
+    private void handleJumpToEventListRequestEvent(JumpToTaskListRequestEvent je) {
         targetedJumpIndex = je.targetIndex;
     }
     
