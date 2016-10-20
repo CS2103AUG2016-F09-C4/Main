@@ -189,6 +189,7 @@ public class AddCommandTest extends CommandTest{
      *  - Task with name only
      *  - Task with desc
      *  - Task with deadline
+     *  - Task with desc and deadline in varying order
      *  - Multiple tasks with desc and deadline
      */
     
@@ -198,7 +199,7 @@ public class AddCommandTest extends CommandTest{
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         
-        // different argument to cover use cases as mentioned above
+        // different argument to cover use cases for deadline as mentioned above
         Task tTarget1 = helper.generateTaskWithDeadline("Friday 11:01");
         Task tTarget2 = helper.generateTaskWithDeadline("November 11");
         Task tTarget3 = helper.generateTaskWithDeadline("next Friday 2pm");
@@ -217,6 +218,32 @@ public class AddCommandTest extends CommandTest{
                     expectedAB.getTaskList());
         }
     }
+    
+    //Task with desc and deadline in varying order
+    @Test
+    public void execute_addTaskInVaryingOrder_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.computingTask();
+        TaskBook expectedAB = new TaskBook();
+        expectedAB.addTask(toBeAdded);
+
+        // execute 1st add task command and verify result
+        assertTaskCommandBehavior(helper.generateAddTaskCommand(toBeAdded),
+                String.format(AddTaskCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+        
+        Task toBeAdded2 = helper.computingDiffOrderedTask();
+        expectedAB.addTask(toBeAdded2);
+        
+        // execute 2nd add task command and verify result
+        assertTaskCommandBehavior(helper.generateDiffOrderedAddTaskCommand(toBeAdded2),
+                String.format(AddTaskCommand.MESSAGE_SUCCESS, toBeAdded2),
+                expectedAB,
+                expectedAB.getTaskList());
+
+    }    
     
     //Task with desc
     @Test

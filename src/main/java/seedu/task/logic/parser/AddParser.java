@@ -28,6 +28,7 @@ public class AddParser implements Parser {
             Pattern.compile("(?<name>[^/]+)"
                     + "(?<description>(?: /desc [^/]+)*)"
                     + "(?<deadline>(?: /by [^/]+)*)"
+                    + "(?<description2>(?: /desc [^/]+)*)"
                     );
     
     private static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
@@ -81,11 +82,6 @@ public class AddParser implements Parser {
         } else {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-    }
-
-//    private boolean isFieldToBeAdded(String field) {
-//        assert field != null;
-//        return !field.isEmpty();
-//    }   
+    } 
     
 }

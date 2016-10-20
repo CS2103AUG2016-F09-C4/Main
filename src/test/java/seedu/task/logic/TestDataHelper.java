@@ -31,6 +31,14 @@ class TestDataHelper{
         return new Task(name, des, deadline, false);
     }
     
+    Task computingDiffOrderedTask() throws Exception {
+        Name name = new Name("Do CS2106 Project");
+        Deadline deadline = new Deadline("01-01-16");
+        Description des = new Description("post on Github");
+        
+        return new Task(name, des, deadline, false);
+    }
+    
     Task computingDescTask() throws Exception {
         Name name = new Name("Do CS2103 Project");
         Description des = new Description("post on Github");
@@ -220,6 +228,19 @@ class TestDataHelper{
         cmd.append(p.getTask().toString());
         cmd.append(" /desc ").append(p.getDescription().get().toString());
         cmd.append(" /by ").append(p.getDeadline().get().toString());
+
+        return cmd.toString();
+    }
+    
+    /** Generates the correct add task command based on the task given */
+    String generateDiffOrderedAddTaskCommand(Task p) {
+        StringBuffer cmd = new StringBuffer();
+
+        cmd.append("add ");
+
+        cmd.append(p.getTask().toString());
+        cmd.append(" /by ").append(p.getDeadline().get().toString());
+        cmd.append(" /desc ").append(p.getDescription().get().toString());
 
         return cmd.toString();
     }
