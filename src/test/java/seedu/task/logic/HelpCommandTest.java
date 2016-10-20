@@ -1,12 +1,10 @@
 package seedu.task.logic;
 
-import static org.junit.Assert.assertTrue;
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.taskcommons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.task.logic.commands.AddCommand;
@@ -50,19 +48,19 @@ public class HelpCommandTest extends CommandTest {
 	@Test
 	public void Help() throws Exception {
 		
-		assertCommandBehavior("help", HelpCommand.MESSAGE_USAGE);
+		assertHelpCommandBehavior("help", HelpCommand.MESSAGE_USAGE);
 	}
 
 	@Test
 	public void Null_Help_Parameters() throws Exception {
 		String invalidCommand = "       ";
-		assertCommandBehavior(invalidCommand, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+		assertHelpCommandBehavior(invalidCommand, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
 	}
 
 	@Test
 	public void execute_unknownCommandWord() throws Exception {
 		String unknownCommand = "uicfhmowqewca";
-		assertCommandBehavior(unknownCommand,String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
+		assertHelpCommandBehavior(unknownCommand,String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
 	}
 	
 	
@@ -81,49 +79,49 @@ public class HelpCommandTest extends CommandTest {
 	@Test
 	public void execute_addCommand() throws Exception {
 		String addCommand = "add";
-		assertCommandBehavior(addCommand, AddCommand.MESSAGE_USAGE);
+		assertHelpCommandBehavior(addCommand, AddCommand.MESSAGE_USAGE);
 	}
 	
 	@Test
 	public void execute_deleteCommand() throws Exception {
 		String deleteCommand = "delete";
-		assertCommandBehavior(deleteCommand, DeleteCommand.MESSAGE_USAGE);
+		assertHelpCommandBehavior(deleteCommand, DeleteCommand.MESSAGE_USAGE);
 	}
 	
 	@Test
 	public void execute_listCommand() throws Exception {
 		String listCommand = "list";
-		assertCommandBehavior(listCommand, ListCommand.MESSAGE_USAGE);
+		assertHelpCommandBehavior(listCommand, ListCommand.MESSAGE_USAGE);
 	}
 	
 	@Test
 	public void execute_findCommand() throws Exception {
 		String findCommand = "find";
-		assertCommandBehavior(findCommand, FindCommand.MESSAGE_USAGE);
+		assertHelpCommandBehavior(findCommand, FindCommand.MESSAGE_USAGE);
 	}
 	
 	@Test
 	public void execute_editCommand() throws Exception {
 		String editCommand = "edit";
-		assertCommandBehavior(editCommand, EditCommand.MESSAGE_USAGE);
+		assertHelpCommandBehavior(editCommand, EditCommand.MESSAGE_USAGE);
 	}
 	
 	@Test
 	public void execute_markCommand() throws Exception {
 		String markCommand = "mark";
-		assertCommandBehavior(markCommand, MarkCommand.MESSAGE_USAGE);
+		assertHelpCommandBehavior(markCommand, MarkCommand.MESSAGE_USAGE);
 	}
 	
 	@Test
 	public void execute_clearCommand() throws Exception {
 		String clearCommand = "clear";
-		assertCommandBehavior(clearCommand, ClearCommand.MESSAGE_USAGE);
+		assertHelpCommandBehavior(clearCommand, ClearCommand.MESSAGE_USAGE);
 	}
 	
 	@Test
 	public void execute_exitCommand() throws Exception {
 		String exitCommand = "exit";
-		assertCommandBehavior(exitCommand, ExitCommand.MESSAGE_USAGE);
+		assertHelpCommandBehavior(exitCommand, ExitCommand.MESSAGE_USAGE);
 	}
 	
 }
