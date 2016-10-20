@@ -49,7 +49,7 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		currentList = TestUtil.removeTaskFromList(currentList, 1);
 		// undo
 		commandBox.runCommand("undo");
-		currentList = TestUtil.addTasksToList(currentList, td.music);
+		currentList = TestUtil.addTasksToListAtIndex(currentList, 0, td.cs1010);
 		assertTaskListSize(currentList.length);
 		assertTrue(taskListPanel.isListMatching(currentList));
 
@@ -70,15 +70,15 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		// add one task
 		TestTask taskToAdd = TypicalTestTasks.arts;
 		commandBox.runCommand(taskToAdd.getAddCommand());
-		currentList = TestUtil.addTasksToList(currentList, TypicalTestTasks.arts);
+		currentList = TestUtil.addTasksToListAtIndex(currentList,0, TypicalTestTasks.arts);
 		assertTaskListSize(currentList.length);
-		
+		assertTrue(taskListPanel.isListMatching(currentList));
 
 		// mark one task
 		commandBox.runCommand("mark 1");
 		currentList = TestUtil.removeTaskFromList(currentList, 1);
 		assertTaskListSize(currentList.length);
-		
+		assertTrue(taskListPanel.isListMatching(currentList));
 
 		// delete one task
 		commandBox.runCommand("delete -t 1");
@@ -88,19 +88,19 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		
 		//undo
 		commandBox.runCommand("undo");
-		currentList = TestUtil.addTasksToList(currentList,TypicalTestTasks.engine);
+		currentList = TestUtil.addTasksToListAtIndex(currentList,0,TypicalTestTasks.cs1010);
 		assertTaskListSize(currentList.length);
 		assertTrue(taskListPanel.isListMatching(currentList));
 		
 		//undo
 		commandBox.runCommand("undo");
-		currentList = TestUtil.addTasksToListAtIndex(currentList, 0,TypicalTestTasks.music);
+		currentList = TestUtil.addTasksToListAtIndex(currentList, 0,TypicalTestTasks.arts);
 		assertTaskListSize(currentList.length);
 		assertTrue(taskListPanel.isListMatching(currentList));
 		
 		//uddo
 		commandBox.runCommand("undo");
-		currentList = TestUtil.removeTaskFromList(currentList, 4);
+		currentList = TestUtil.removeTaskFromList(currentList, 1);
 		assertTaskListSize(currentList.length);
 		assertTrue(taskListPanel.isListMatching(currentList));
 	}
@@ -136,19 +136,27 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		// add one event
 		TestEvent eventToAdd = TypicalTestEvents.addedEvent;
 		commandBox.runCommand(eventToAdd.getAddCommand());
-		assertEventListSize(currentList.length+1);
+		currentList = TestUtil.addEventsToListAtIndex(currentList, 1, TypicalTestEvents.addedEvent);
+		assertEventListSize(currentList.length);
+		assertTrue(eventListPanel.isListMatching(currentList));
 		
 		//delete one event
 		commandBox.runCommand("delete -e 1");
+		currentList = TestUtil.removeEventFromList(currentList, 1);
 		assertEventListSize(currentList.length);
+		assertTrue(eventListPanel.isListMatching(currentList));
 		
 		//undo
 		commandBox.runCommand("undo");
-		assertEventListSize(currentList.length+1);
+		currentList = TestUtil.addEventsToListAtIndex(currentList, 0, TypicalTestEvents.meeting2);
+		assertEventListSize(currentList.length);
+		assertTrue(eventListPanel.isListMatching(currentList));
 		
 		//undo
 		commandBox.runCommand("undo");
+		currentList = TestUtil.removeEventFromList(currentList, 2);
 		assertEventListSize(currentList.length);
+		assertTrue(eventListPanel.isListMatching(currentList));
 	}
 
 	@Test

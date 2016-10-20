@@ -163,7 +163,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
     	SortedList<Task> sortedTasks = new SortedList<>(filteredTasks);
-    	sortedTasks.setComparator(Task::sortAsc);
+    	sortedTasks.setComparator(Task.getAscComparator());
     	return new UnmodifiableObservableList<>(sortedTasks);
     }
    
