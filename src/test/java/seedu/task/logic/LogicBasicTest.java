@@ -59,7 +59,12 @@ public class LogicBasicTest {
     }
 
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToTListRequestEvent je) {
+    private void handleJumpToTListRequestEvent(JumpToTListRequestEvent je) {
+        targetedJumpIndex = je.targetIndex;
+    }
+    
+    @Subscribe
+    private void handleJumpToEListRequestEvent(JumpToTListRequestEvent je) {
         targetedJumpIndex = je.targetIndex;
     }
     
