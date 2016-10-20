@@ -17,6 +17,7 @@ public class AddCommandTest extends TaskBookGuiTest {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToAdd = td.arts;
+        
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
@@ -26,7 +27,7 @@ public class AddCommandTest extends TaskBookGuiTest {
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add duplicate task
-        commandBox.runCommand(td.arts.getAddCommand());
+        commandBox.runCommand(td.arts.getFullAddCommand());
         assertResultMessage(AddTaskCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
@@ -36,8 +37,8 @@ public class AddCommandTest extends TaskBookGuiTest {
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
-        commandBox.runCommand(taskToAdd.getAddCommand());
-
+        commandBox.runCommand(taskToAdd.getFullAddCommand());
+        
         //confirm the new card contains the right data
         TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getTask().fullName);
         assertMatching(taskToAdd, addedCard);
