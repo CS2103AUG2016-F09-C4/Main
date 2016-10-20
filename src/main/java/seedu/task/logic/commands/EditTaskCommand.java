@@ -50,6 +50,7 @@ public class EditTaskCommand extends EditCommand  {
         
         newName = null;
         newDescription = null;
+        newDeadline = null;
         
         if (isNameToBeEdited) {
             newName = new Name(name);
