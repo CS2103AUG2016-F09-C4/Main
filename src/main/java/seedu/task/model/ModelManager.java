@@ -7,9 +7,11 @@ import seedu.task.model.item.Event;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.Task;
+import seedu.task.model.item.UniqueEventList;
 import seedu.task.model.item.UniqueEventList.DuplicateEventException;
 import seedu.task.model.item.UniqueEventList.EventNotFoundException;
 import seedu.task.model.item.UniqueTaskList;
+import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
 import seedu.task.model.item.UniqueTaskList.TaskNotFoundException;
 import seedu.taskcommons.core.ComponentManager;
 import seedu.taskcommons.core.LogsCenter;
@@ -84,6 +86,37 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredEventListToShowWithStatus(false);
         indicateTaskBookChanged();
     }    
+    
+    @Override
+    public synchronized void clearTasks() {
+        
+        updateFilteredTaskListToShowWithStatus(true);
+        while(!filteredTasks.isEmpty()){
+            ReadOnlyTask task = filteredTasks.get(0);
+            try {
+                taskBook.removeTask(task);
+            } catch (TaskNotFoundException tnfe) {
+                assert false : "The target task cannot be missing";
+            }
+        }
+        updateFilteredTaskListToShowAll();
+        indicateTaskBookChanged();
+    }
+    
+    @Override
+    public synchronized void clearEvents() {
+        updateFilteredEventListToShowWithStatus(true);
+        while(!filteredEvents.isEmpty()){
+            ReadOnlyEvent event = filteredEvents.get(0);
+            try {
+                taskBook.removeEvent(event);
+            } catch (EventNotFoundException tnfe) {
+                assert false : "The target event cannot be missing";
+            }
+        }
+        updateFilteredEventListToShowAll();
+        indicateTaskBookChanged();
+    }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
@@ -93,28 +126,45 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void addEvent(Event event) throws DuplicateEventException {
+    public synchronized void addEvent(Event event) throws DuplicateEventException {
         taskBook.addEvent(event);
         updateFilteredEventListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
     
     @Override
-    public void markTask(int index){
-        taskBook.markTask(index);
+    public synchronized void markTask(ReadOnlyTask target){
+        taskBook.markTask(target);
+        updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
+   
+    @Override
+    public synchronized void editTask(Task editTask, ReadOnlyTask targetTask) throws UniqueTaskList.DuplicateTaskException {
+        taskBook.editTask(editTask, targetTask);
+        updateFilteredTaskListToShowWithStatus(false);
+        indicateTaskBookChanged();   
+    }
+    
+    @Override
+    public void editEvent(Event editEvent, ReadOnlyEvent targetEvent) throws UniqueEventList.DuplicateEventException {
+        taskBook.editEvent(editEvent, targetEvent);
+        updateFilteredEventListToShowWithStatus(false);
+        indicateTaskBookChanged(); 
+    }
 
+        
+   
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
+        return new UnmodifiableObservableList<>(this.filteredTasks);
     }
     
     @Override
     public UnmodifiableObservableList<ReadOnlyEvent> getFilteredEventList() {
-        return new UnmodifiableObservableList<>(filteredEvents);
+        return new UnmodifiableObservableList<>(this.filteredEvents);
     }
 
     @Override

@@ -25,6 +25,12 @@ public interface Model {
 
     /** Deletes the given event. */
     void deleteEvent(ReadOnlyEvent target) throws UniqueEventList.EventNotFoundException;
+    
+    /** Clears the list of completed tasks. */
+    void clearTasks();
+
+    /** Clears the list of completed tasks. */
+    void clearEvents();
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
@@ -32,8 +38,14 @@ public interface Model {
     /** Adds the given event */
     void addEvent(Event event) throws UniqueEventList.DuplicateEventException;
     
+    /** Edits the given task */
+    void editTask(Task editTask, ReadOnlyTask targetTask) throws UniqueTaskList.DuplicateTaskException;
+    
+    /** Edits the given event */
+    void editEvent(Event editEvent, ReadOnlyEvent targetEvent) throws UniqueEventList.DuplicateEventException;
+    
     /** Marks the given task */
-    void markTask(int index);
+    void markTask(ReadOnlyTask target);
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
