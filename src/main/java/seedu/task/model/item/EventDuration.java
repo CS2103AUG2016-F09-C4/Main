@@ -118,6 +118,10 @@ public class EventDuration implements Comparable<EventDuration> {
 
 	@Override
 	public int compareTo(EventDuration o) {
-		return this.startTime.compareTo(o.startTime);
+		if (this.startTime.compareTo(o.startTime) == 0) {
+			return this.endTime.compareTo(o.endTime);
+		} else {
+			return this.startTime.compareTo(o.startTime);
+		}
 	}
 }

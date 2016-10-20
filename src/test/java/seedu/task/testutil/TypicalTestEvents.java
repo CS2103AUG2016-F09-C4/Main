@@ -37,7 +37,7 @@ public class TypicalTestEvents {
 			addedEvent = new EventBuilder()
 					.withName("manual event")
 					.withDescription("for manual testing")
-					.withDuration("tomorrow > next Friday")
+					.withDuration("tomorrow 1pm > next Friday")
 					.build();
 			
 		} catch (IllegalValueException e) {

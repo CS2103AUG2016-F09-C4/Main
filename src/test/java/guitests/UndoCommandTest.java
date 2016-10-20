@@ -136,7 +136,7 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		// add one event
 		TestEvent eventToAdd = TypicalTestEvents.addedEvent;
 		commandBox.runCommand(eventToAdd.getAddCommand());
-		currentList = TestUtil.addEventsToListAtIndex(currentList, 1, TypicalTestEvents.addedEvent);
+		currentList = TestUtil.addEventsToListAtIndex(currentList, 0, TypicalTestEvents.addedEvent);
 		assertEventListSize(currentList.length);
 		assertTrue(eventListPanel.isListMatching(currentList));
 		
@@ -148,13 +148,13 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		
 		//undo
 		commandBox.runCommand("undo");
-		currentList = TestUtil.addEventsToListAtIndex(currentList, 0, TypicalTestEvents.meeting2);
+		currentList = TestUtil.addEventsToListAtIndex(currentList, 0, TypicalTestEvents.addedEvent);
 		assertEventListSize(currentList.length);
 		assertTrue(eventListPanel.isListMatching(currentList));
 		
 		//undo
 		commandBox.runCommand("undo");
-		currentList = TestUtil.removeEventFromList(currentList, 2);
+		currentList = TestUtil.removeEventFromList(currentList, 1);
 		assertEventListSize(currentList.length);
 		assertTrue(eventListPanel.isListMatching(currentList));
 	}

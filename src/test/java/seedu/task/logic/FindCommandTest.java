@@ -53,7 +53,7 @@ public class FindCommandTest extends CommandTest {
         helper.addEventToModel(model, fourEvents);
         
         expectedTaskList = expectedTaskList.stream().sorted(Task.getAscComparator()).collect(Collectors.toList());
-
+        expectedEventList = expectedEventList.stream().sorted(Event.getAscComparator()).collect(Collectors.toList());
         assertTaskAndEventCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedTaskList.size()) 
                 + "\n"
@@ -90,7 +90,7 @@ public class FindCommandTest extends CommandTest {
         expectedTaskList = expectedTaskList.stream().sorted(Task.getAscComparator()).collect(Collectors.toList());
         
         List<Event> expectedEventList = fourEvents;
-        
+        expectedEventList = expectedEventList.stream().sorted(Event.getAscComparator()).collect(Collectors.toList());
         helper.addTaskToModel(model, fourTasks);
         helper.addEventToModel(model, fourEvents);
 
@@ -129,12 +129,13 @@ public class FindCommandTest extends CommandTest {
         List<Task> expectedTaskList = fourTasks;
         expectedTaskList = expectedTaskList.stream().sorted(Task.getAscComparator()).collect(Collectors.toList());
         List<Event> expectedEventList = fourEvents;
+        expectedEventList = expectedEventList.stream().sorted(Event.getAscComparator()).collect(Collectors.toList());
         
         helper.addTaskToModel(model, fourTasks);
         helper.addEventToModel(model, fourEvents);
 
 
-        assertTaskAndEventCommandBehavior("find KEY rAnDom",
+			        assertTaskAndEventCommandBehavior("find KEY rAnDom",
                 Command.getMessageForTaskListShownSummary(expectedTaskList.size())
                 +"\n"
                 + Command.getMessageForEventListShownSummary(expectedEventList.size()),
