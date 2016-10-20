@@ -24,10 +24,9 @@ public class HelpCommandTest extends CommandTest {
     
     /************************************Test cases*****************************/
     
-    @Ignore
     @Test
     public void execute_help() throws Exception {
-        assertCommandBehavior("help", HelpCommand.MESSAGE_USAGE);
+        assertHelpCommandBehavior("help", HelpCommand.MESSAGE_USAGE);
         assertTrue(helpShown);
     }
     

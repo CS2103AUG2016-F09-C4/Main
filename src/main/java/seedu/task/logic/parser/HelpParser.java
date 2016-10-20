@@ -9,6 +9,7 @@ import seedu.task.logic.commands.AddCommand;
 import seedu.task.logic.commands.ClearCommand;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.DeleteCommand;
+import seedu.task.logic.commands.EditCommand;
 import seedu.task.logic.commands.ExitCommand;
 import seedu.task.logic.commands.FindCommand;
 import seedu.task.logic.commands.IncorrectCommand;
@@ -48,6 +49,8 @@ public class HelpParser implements Parser {
 
 		case AddCommand.COMMAND_WORD:
 			return new HelpCommand(AddCommand.MESSAGE_USAGE, false);
+		case EditCommand.COMMAND_WORD:
+            return new HelpCommand(EditCommand.MESSAGE_USAGE, false);
 		case DeleteCommand.COMMAND_WORD:
 			return new HelpCommand(DeleteCommand.MESSAGE_USAGE, false);
 		case FindCommand.COMMAND_WORD:
