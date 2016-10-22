@@ -41,6 +41,7 @@ public class AddCommandTest extends CommandTest{
         assertCommandBehavior_task(
                 "add", expectedMessage);
         
+        expectedMessage = String.format(Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
         //empty deadline string
         assertCommandBehavior_task(
                 "add validName /desc validDescription /by   ", expectedMessage);

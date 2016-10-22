@@ -27,19 +27,6 @@ public class AddParser implements Parser {
     public static final Prefix durationPrefix = new Prefix("/from");
     
     public AddParser() {}
-     
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + "(?<description>(?: /desc [^/]+)*)"
-                    + "(?<deadline>(?: /by [^/]+)*)"
-                    + "(?<description2>(?: /desc [^/]+)*)"
-                    );
-    
-    private static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + "(?: /desc (?<description>[^/]+))*"
-                    + "(?: /from (?<duration>[^/]+))*$"
-                    );
     
     /**
      * Parses arguments in the context of the add task or event command.
@@ -49,37 +36,36 @@ public class AddParser implements Parser {
      */
     @Override
     public Command prepare(String args){
-        final Matcher taskMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        final Matcher eventMatcher = EVENT_DATA_ARGS_FORMAT.matcher(args.trim());
         
         ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(descriptionPrefix, deadlinePrefix, durationPrefix);
-        argsTokenizer.tokenize(args);
+        argsTokenizer.tokenize(args);        
         
-        if (taskMatcher.matches()) {
-            try {                 
-                String name = argsTokenizer.getPreamble().get();
-                Optional <String> description = argsTokenizer.getValue(descriptionPrefix);
-                Optional <String> deadline = argsTokenizer.getValue(deadlinePrefix);
-                return new AddTaskCommand(name,
-                      description.isPresent(), description.orElse(""), 
-                      deadline.isPresent(), deadline.orElse(""));
-              
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
-            } catch (NoSuchElementException nsee) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        try {           
+            String name = argsTokenizer.getPreamble().get();
+            Optional <String> description = argsTokenizer.getValue(descriptionPrefix);
+            Optional <String> duration = argsTokenizer.getValue(durationPrefix);
+            Optional <String> deadline = argsTokenizer.getValue(deadlinePrefix);
+            
+            if (duration.isPresent()) {
+                try {
+                    return new AddEventCommand(name, description.orElse(""), duration.orElse(""));
+                } catch (IllegalValueException ive) {
+                    return new IncorrectCommand(ive.getMessage());
+                } catch (NoSuchElementException nsee) {
+                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                }
+            } else {
+                try {                 
+                    return new AddTaskCommand(name,
+                          description.isPresent(), description.orElse(""), 
+                          deadline.isPresent(), deadline.orElse(""));             
+                } catch (IllegalValueException ive) {
+                    return new IncorrectCommand(ive.getMessage());
+                } catch (NoSuchElementException nsee) {
+                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                }
             }
-        } else if (eventMatcher.matches()){
-            try {
-                return new AddEventCommand(
-                        eventMatcher.group("name").trim(),
-                        eventMatcher.group("description").trim(),
-                        eventMatcher.group("duration").trim()
-                );
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
-            }
-        } else {
+        } catch (NoSuchElementException nsee) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
     } 
