@@ -104,15 +104,17 @@ public class EditTaskCommand extends EditCommand  {
         if (!isDeadlineToBeEdit && targetTask.getDeadline().isPresent()) {
                 newDeadline = targetTask.getDeadline().get();
         }
-        if (isNull(this.newDescription) && isNull(this.newDeadline)) {
-            return new Task (this.newName, TASK_DEFAULT_STATUS);
-        } else if (isNull (this.newDescription)) {
-            return new Task (this.newName, this.newDeadline, TASK_DEFAULT_STATUS);
-        } else if (isNull (this.newDeadline)) {
-            return new Task (this.newName, this.newDescription, TASK_DEFAULT_STATUS);
-        } else {
-            return new Task (this.newName, this.newDescription, this.newDeadline, TASK_DEFAULT_STATUS);
-        }
+        
+        return new Task (this.newName, this.newDescription, this.newDeadline, TASK_DEFAULT_STATUS);
+//        if (isNull(this.newDescription) && isNull(this.newDeadline)) {
+//            return new Task (this.newName,null,null, TASK_DEFAULT_STATUS);
+//        } else if (isNull (this.newDescription)) {
+//            return new Task (this.newName, null,this.newDeadline, TASK_DEFAULT_STATUS);
+//        } else if (isNull (this.newDeadline)) {
+//            return new Task (this.newName, this.newDescription, null,TASK_DEFAULT_STATUS);
+//        } else {
+//            return new Task (this.newName, this.newDescription, this.newDeadline, TASK_DEFAULT_STATUS);
+//        }
         
     }
     

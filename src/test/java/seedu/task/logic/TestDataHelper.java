@@ -43,20 +43,20 @@ class TestDataHelper{
         Name name = new Name("Do CS2103 Project");
         Description des = new Description("post on Github");
         
-        return new Task(name, des, false);
+        return new Task(name, des, null, false);
     }
     
     public Task computingDeadlineTask() throws Exception {
         Name name = new Name("Do CS2103 Project");
         Deadline deadline = new Deadline("01-01-16");
         
-        return new Task(name, deadline, false);
+        return new Task(name,null, deadline, false);
     }
     
     public Task computingNameTask() throws Exception {
         Name name = new Name("Do CS2103 Project");
         
-        return new Task(name, false);
+        return new Task(name,null,null, false);
     }
     
     public Task computingEditedTask() throws Exception {
@@ -73,14 +73,14 @@ class TestDataHelper{
         Name name = new Name("Do CS2106 Project");
         Description des = new Description("To post on Github");
         
-        return new Task(name, des, false);
+        return new Task(name, des,null, false);
     }
     
     public Task computingEditedNameFloatTask() throws Exception {
         Name name = new Name("Do CS2106 Project");
         Description des = new Description("post on Github");
         
-        return new Task(name, des, false);
+        return new Task(name, des, null,false);
     }
     
     public Task computingEditedNameTask() throws Exception {
@@ -95,7 +95,7 @@ class TestDataHelper{
         Name name = new Name("Do CS2103 Project");
         Description des = new Description("To post on Github");
         
-        return new Task(name, des, false);
+        return new Task(name, des,null, false);
     }
     
     public Task computingEditedDescTask() throws Exception {
@@ -537,6 +537,7 @@ class TestDataHelper{
         return new Task(
                 new Name("dummy name"),
                 new Description(desc),
+                null,
                 false
         );
     }

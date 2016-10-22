@@ -23,12 +23,13 @@ public class AddTaskCommand extends AddCommand {
 	 */
 
 	public AddTaskCommand(String name, String description, String deadline) throws IllegalValueException {
+	    
 	    if (description.isEmpty() && deadline.isEmpty()) {
-	        this.toAdd = new Task(new Name(name), DEFAULT_STATUS);
+	        this.toAdd = new Task(new Name(name), null, null, DEFAULT_STATUS);
 	    } else if (deadline.isEmpty()) {
-	        this.toAdd = new Task(new Name(name), new Description(description), DEFAULT_STATUS);
+	        this.toAdd = new Task(new Name(name), new Description(description), null, DEFAULT_STATUS);
 	    } else if (description.isEmpty()) {
-            this.toAdd = new Task(new Name(name), new Deadline(deadline), DEFAULT_STATUS);
+            this.toAdd = new Task(new Name(name), null, new Deadline(deadline), DEFAULT_STATUS);
         } else {
             this.toAdd = new Task(new Name(name), new Description(description), new Deadline(deadline), DEFAULT_STATUS);
         }
