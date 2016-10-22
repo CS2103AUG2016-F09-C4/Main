@@ -56,16 +56,12 @@ public class AddParser implements Parser {
                     return new AddEventCommand(name, description.orElse(""), duration.orElse(""));
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
-                } catch (NoSuchElementException nsee) {
-                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                 }
             } else {
                 try {
                     return new AddTaskCommand(name, description.orElse(""), deadline.orElse(""));             
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
-                } catch (NoSuchElementException nsee) {
-                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                 }
             }
         } catch (NoSuchElementException nsee) {
