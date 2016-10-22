@@ -22,6 +22,10 @@ import seedu.task.logic.parser.ArgumentTokenizer.Prefix;
 
 public class AddParser implements Parser {
 
+    public static final Prefix descriptionPrefix = new Prefix("/desc");
+    public static final Prefix deadlinePrefix = new Prefix("/by");
+    public static final Prefix durationPrefix = new Prefix("/from");
+    
     public AddParser() {}
      
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
@@ -36,10 +40,6 @@ public class AddParser implements Parser {
                     + "(?: /desc (?<description>[^/]+))*"
                     + "(?: /from (?<duration>[^/]+))*$"
                     );
-    
-    public static final Prefix descriptionPrefix = new Prefix("/desc");
-    public static final Prefix deadlinePrefix = new Prefix("/by");
-    public static final Prefix durationPrefix = new Prefix("/from");
     
     /**
      * Parses arguments in the context of the add task or event command.

@@ -16,8 +16,15 @@ public class ArgumentTokenizer {
      * A prefix that marks the beginning of an argument.
      * e.g. '/desc' in 'add Task 1 /desc Do with bryan'
      */
+    
+    /** Given prefixes **/
+    private final List<Prefix> prefixes;
+
+    /** Arguments found after tokenizing **/
+    private final Map<Prefix, List<String>> tokenizedArguments = new HashMap<>();
+    
     public static class Prefix {
-        final String prefix;
+        private final String prefix;
 
         public Prefix(String prefix) {
             this.prefix = prefix;
@@ -58,20 +65,14 @@ public class ArgumentTokenizer {
             this.startPosition = startPosition;
         }
 
-        int getStartPosition() {
+        public int getStartPosition() {
             return this.startPosition;
         }
 
-        Prefix getPrefix() {
+        public Prefix getPrefix() {
             return this.prefix;
         }
     }
-
-    /** Given prefixes **/
-    private final List<Prefix> prefixes;
-
-    /** Arguments found after tokenizing **/
-    private final Map<Prefix, List<String>> tokenizedArguments = new HashMap<>();
 
     /**
      * Creates an ArgumentTokenizer that can tokenize arguments string as described by prefixes
