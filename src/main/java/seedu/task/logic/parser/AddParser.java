@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.task.commons.exceptions.EmptyValueException;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.logic.commands.AddCommand;
 import seedu.task.logic.commands.AddEventCommand;
@@ -37,8 +38,12 @@ public class AddParser implements Parser {
     @Override
     public Command prepare(String args){
         
+        if (args.isEmpty()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+        
         ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(descriptionPrefix, deadlinePrefix, durationPrefix);
-        argsTokenizer.tokenize(args);        
+        argsTokenizer.tokenize(args);
         
         try {           
             String name = argsTokenizer.getPreamble().get();
@@ -46,7 +51,7 @@ public class AddParser implements Parser {
             Optional <String> duration = argsTokenizer.getValue(durationPrefix);
             Optional <String> deadline = argsTokenizer.getValue(deadlinePrefix);
             
-            if (duration.isPresent()) {
+            if (duration.isPresent()) { //Only events have duration
                 try {
                     return new AddEventCommand(name, description.orElse(""), duration.orElse(""));
                 } catch (IllegalValueException ive) {
@@ -55,10 +60,8 @@ public class AddParser implements Parser {
                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                 }
             } else {
-                try {                 
-                    return new AddTaskCommand(name,
-                          description.isPresent(), description.orElse(""), 
-                          deadline.isPresent(), deadline.orElse(""));             
+                try {
+                    return new AddTaskCommand(name, description.orElse(""), deadline.orElse(""));             
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 } catch (NoSuchElementException nsee) {
@@ -67,6 +70,8 @@ public class AddParser implements Parser {
             }
         } catch (NoSuchElementException nsee) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        } catch (EmptyValueException e) {
+            return new IncorrectCommand(e.getMessage());
         }
     } 
     

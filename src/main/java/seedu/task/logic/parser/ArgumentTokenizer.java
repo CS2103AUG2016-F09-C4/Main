@@ -2,6 +2,8 @@ package seedu.task.logic.parser;
 
 import java.util.*;
 
+import seedu.task.commons.exceptions.EmptyValueException;
+
 /**
  * Tokenizes arguments string of the form: {@code preamble <prefix>value <prefix>value ...}<br>
  *     e.g. {@code some preamble text /t 11.00/dToday /t 12.00 /k /m July}  where prefixes are {@code /t /d /k /m}.<br>
@@ -12,6 +14,8 @@ import java.util.*;
  *    in the above example.<br>
  */
 public class ArgumentTokenizer {
+    public static final String MESSAGE_EMPTY_VALUE = "Input values cannot be empty!";
+
     /**
      * A prefix that marks the beginning of an argument.
      * e.g. '/desc' in 'add Task 1 /desc Do with bryan'
@@ -92,9 +96,16 @@ public class ArgumentTokenizer {
 
     /**
      * Returns last value of given prefix.
+     * @throws EmptyValueException  Exception thrown is value is empty string
      */
-    public Optional<String> getValue(Prefix prefix) {
-        return getAllValues(prefix).flatMap((values) -> Optional.of(values.get(values.size() - 1)));
+    public Optional<String> getValue(Prefix prefix) throws EmptyValueException {
+        Optional <String> outputValue = getAllValues(prefix).flatMap((values) -> Optional.of(values.get(values.size() - 1)));
+        
+        if(outputValue.isPresent() && outputValue.get().isEmpty()) {
+            throw new EmptyValueException(MESSAGE_EMPTY_VALUE);
+        }
+        
+        return outputValue;
     }
 
     /**
@@ -111,8 +122,9 @@ public class ArgumentTokenizer {
     /**
      * Returns the preamble (text before the first valid prefix), if any. Leading/trailing spaces will be trimmed.
      *     If the string before the first prefix is empty, Optional.empty() will be returned.
+     * @throws EmptyValueException 
      */
-    public Optional<String> getPreamble() {
+    public Optional<String> getPreamble() throws EmptyValueException {
 
         Optional<String> storedPreamble = getValue(new Prefix(""));
 

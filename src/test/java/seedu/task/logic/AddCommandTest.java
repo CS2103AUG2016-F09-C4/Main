@@ -11,8 +11,10 @@ import seedu.task.logic.TestDataHelper;
 import seedu.task.logic.commands.AddCommand;
 import seedu.task.logic.commands.AddEventCommand;
 import seedu.task.logic.commands.AddTaskCommand;
+import seedu.task.logic.parser.ArgumentTokenizer;
 import seedu.task.model.TaskBook;
 import seedu.task.model.item.Deadline;
+import seedu.task.model.item.Description;
 import seedu.task.model.item.Event;
 import seedu.task.model.item.EventDuration;
 import seedu.task.model.item.Name;
@@ -40,11 +42,6 @@ public class AddCommandTest extends CommandTest{
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior_task(
                 "add", expectedMessage);
-        
-        expectedMessage = String.format(Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
-        //empty deadline string
-        assertCommandBehavior_task(
-                "add validName /desc validDescription /by   ", expectedMessage);
     }
     
     //Invalid data field format
@@ -63,6 +60,14 @@ public class AddCommandTest extends CommandTest{
         //invalid abbreviation
         assertCommandBehavior_task(
                 "add validName /desc validDesc /by Septem", Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
+        
+        //empty deadline abbreviation
+        assertCommandBehavior_task(
+                "add validName /desc validDesc /by   ", ArgumentTokenizer.MESSAGE_EMPTY_VALUE);
+        
+        //empty desc abbreviation
+        assertCommandBehavior_task(
+                "add validName /desc    /by 1 September 17 ", ArgumentTokenizer.MESSAGE_EMPTY_VALUE);
     }
     
     //Invalid data field format

@@ -2,6 +2,7 @@ package seedu.task.logic;
 
 import org.junit.Test;
 
+import seedu.task.commons.exceptions.EmptyValueException;
 import seedu.task.logic.parser.ArgumentTokenizer;
 import seedu.task.logic.parser.ArgumentTokenizer.Prefix;
 
@@ -17,14 +18,14 @@ public class ArgumentTokenizerTest {
     private final Prefix hatQ = new Prefix("^Q");
 
     @Test
-    public void accessors_notTokenizedYet() {
+    public void accessors_notTokenizedYet() throws EmptyValueException {
         ArgumentTokenizer tokenizer = new ArgumentTokenizer(slashP);
         assertPreambleAbsent(tokenizer);
         assertArgumentAbsent(tokenizer, slashP);
     }
 
     @Test
-    public void tokenize_emptyArgsString_noValues() {
+    public void tokenize_emptyArgsString_noValues() throws EmptyValueException {
         ArgumentTokenizer tokenizer = new ArgumentTokenizer(slashP);
         String argsString = "  ";
         tokenizer.tokenize(argsString);
@@ -33,15 +34,15 @@ public class ArgumentTokenizerTest {
         assertArgumentAbsent(tokenizer, slashP);
     }
 
-    private void assertPreamblePresent(ArgumentTokenizer argsTokenizer, String expectedPreamble) {
+    private void assertPreamblePresent(ArgumentTokenizer argsTokenizer, String expectedPreamble) throws EmptyValueException {
         assertEquals(expectedPreamble, argsTokenizer.getPreamble().get());
     }
 
-    private void assertPreambleAbsent(ArgumentTokenizer argsTokenizer) {
+    private void assertPreambleAbsent(ArgumentTokenizer argsTokenizer) throws EmptyValueException {
         assertFalse(argsTokenizer.getPreamble().isPresent());
     }
 
-    private void assertArgumentPresent(ArgumentTokenizer argsTokenizer, Prefix prefix, String... expectedValues) {
+    private void assertArgumentPresent(ArgumentTokenizer argsTokenizer, Prefix prefix, String... expectedValues) throws EmptyValueException {
 
         // Verify the last value is returned
         assertEquals(expectedValues[expectedValues.length - 1], argsTokenizer.getValue(prefix).get());
@@ -55,12 +56,12 @@ public class ArgumentTokenizerTest {
         }
     }
 
-    private void assertArgumentAbsent(ArgumentTokenizer argsTokenizer, Prefix prefix) {
+    private void assertArgumentAbsent(ArgumentTokenizer argsTokenizer, Prefix prefix) throws EmptyValueException {
         assertFalse(argsTokenizer.getValue(prefix).isPresent());
     }
 
     @Test
-    public void tokenize_noPrefixes_allTakenAsPreamble() {
+    public void tokenize_noPrefixes_allTakenAsPreamble() throws EmptyValueException {
         ArgumentTokenizer tokenizer = new ArgumentTokenizer();
         String argsString = "  some random string /t tag with leading and trailing spaces ";
         tokenizer.tokenize(argsString);
@@ -71,7 +72,7 @@ public class ArgumentTokenizerTest {
     }
 
     @Test
-    public void tokenize_oneArgument() {
+    public void tokenize_oneArgument() throws EmptyValueException {
         ArgumentTokenizer tokenizer = new ArgumentTokenizer(slashP);
 
         // Preamble present
@@ -87,7 +88,7 @@ public class ArgumentTokenizerTest {
     }
 
     @Test
-    public void tokenize_multipleArguments() {
+    public void tokenize_multipleArguments() throws EmptyValueException {
         ArgumentTokenizer tokenizer = new ArgumentTokenizer(slashP, dashT, hatQ);
 
         // Only two arguments are present
@@ -124,7 +125,7 @@ public class ArgumentTokenizerTest {
     }
 
     @Test
-    public void tokenize_multipleArgumentsWithRepeats() {
+    public void tokenize_multipleArgumentsWithRepeats() throws EmptyValueException {
         ArgumentTokenizer tokenizer = new ArgumentTokenizer(slashP, dashT, hatQ);
 
         // Two arguments repeated, some have empty values

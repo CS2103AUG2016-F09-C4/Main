@@ -22,18 +22,15 @@ public class AddTaskCommand extends AddCommand {
 	 *             if any of the raw values are invalid
 	 */
 
-	public AddTaskCommand(String name, 
-	        boolean isDescriptionAdded, String description, 
-	        boolean isDeadlineAdded, String deadline
-	        ) throws IllegalValueException {
-	    if (isDescriptionAdded && isDeadlineAdded) {
-	        this.toAdd = new Task(new Name(name), new Description(description), new Deadline(deadline), DEFAULT_STATUS);
-	    } else if (isDescriptionAdded) {
+	public AddTaskCommand(String name, String description, String deadline) throws IllegalValueException {
+	    if (description.isEmpty() && deadline.isEmpty()) {
+	        this.toAdd = new Task(new Name(name), DEFAULT_STATUS);
+	    } else if (deadline.isEmpty()) {
 	        this.toAdd = new Task(new Name(name), new Description(description), DEFAULT_STATUS);
-	    } else if (isDeadlineAdded) {
+	    } else if (description.isEmpty()) {
             this.toAdd = new Task(new Name(name), new Deadline(deadline), DEFAULT_STATUS);
         } else {
-            this.toAdd = new Task(new Name(name), DEFAULT_STATUS);
+            this.toAdd = new Task(new Name(name), new Description(description), new Deadline(deadline), DEFAULT_STATUS);
         }
 	}
 
