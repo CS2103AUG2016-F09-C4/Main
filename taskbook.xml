@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskbook>
+    <events>
+        <name>Event 2</name>
+        <description>lolol</description>
+        <startDuration>1 Jan, 2017 12:50 AM</startDuration>
+        <endDuration>2 Feb, 2017 12:50 AM</endDuration>
+    </events>
+</taskbook>

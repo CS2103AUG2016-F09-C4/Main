@@ -19,7 +19,10 @@ public class XmlAdaptedEvent {
 	private String description;
 	
 	@XmlElement
-	private String duration;
+	private String startDuration;
+	
+	@XmlElement
+    private String endDuration;
 
 
     /**
@@ -36,7 +39,8 @@ public class XmlAdaptedEvent {
     public XmlAdaptedEvent(ReadOnlyEvent source) {
         name = source.getEvent().fullName;
         description = source.getDescription().value;
-        duration = source.getDuration().toString();
+        startDuration = source.getDuration().getStartTimeAsText();
+        endDuration = source.getDuration().getEndTimeAsText();
     }
 
     /**
@@ -48,7 +52,7 @@ public class XmlAdaptedEvent {
 
         final Name name = new Name(this.name);
         final Description description = new Description(this.description);
-        final EventDuration eventDuration = new EventDuration(this.duration);
+        final EventDuration eventDuration = new EventDuration(this.startDuration, this.endDuration);
         
         return new Event(name, description, eventDuration);
     }

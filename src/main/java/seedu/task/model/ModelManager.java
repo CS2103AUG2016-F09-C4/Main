@@ -173,7 +173,8 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public UnmodifiableObservableList<ReadOnlyEvent> getFilteredEventList() {
-    	SortedList<Event> sortedEvents = new SortedList<>(filteredEvents);
+        System.out.println("Before");
+        SortedList<Event> sortedEvents = new SortedList<>(filteredEvents);
     	sortedEvents.setComparator(Event.getAscComparator());
     	return new UnmodifiableObservableList<>(sortedEvents);
     }

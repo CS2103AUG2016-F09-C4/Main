@@ -369,7 +369,7 @@ public class EditCommandTest extends CommandTest {
 
         // execute command and verify result
         assertEditEventCommandBehavior(helper.generateAddEventCommand(toBeAdded),helper.generateListEventCommand(),
-                helper.generateEditEventCommand(toBeEdited,1),
+                helper.generateEditEventDescCommand(toBeEdited,1),
                 String.format(EditEventCommand.MESSAGE_EDIT_EVENT_SUCCESS, toBeEdited),
                 expectedAB,
                 expectedAB.getEventList());
@@ -389,7 +389,7 @@ public class EditCommandTest extends CommandTest {
 
         // execute command and verify result
         assertEditEventCommandBehavior(helper.generateAddEventCommand(toBeAdded),helper.generateListEventCommand(),
-                helper.generateEditEventCommand(toBeEdited,1),
+                helper.generateEditEventDurationCommand(toBeEdited,1),
                 String.format(EditEventCommand.MESSAGE_EDIT_EVENT_SUCCESS, toBeEdited),
                 expectedAB,
                 expectedAB.getEventList());

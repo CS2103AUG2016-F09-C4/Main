@@ -79,14 +79,14 @@ public class AddCommandTest extends CommandTest{
         assertCommandBehavior_task(
                 "add []\\[;] /desc nil /from 30-12-16 31-12-16", Name.MESSAGE_NAME_CONSTRAINTS);
         
-        //invalid seperator
-        assertCommandBehavior_task("add valideventName /desc nil /from today >> yesterday", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
+        //start time after end time
+        assertCommandBehavior_task("add valideventName /desc nil /from today /to yesterday", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
         
         // no start time not allowed. 
-        assertCommandBehavior_task("add valideventName /desc nil /from  > today 5pm", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
+        assertCommandBehavior_task("add valideventName /desc nil /from  /to today 5pm", ArgumentTokenizer.MESSAGE_EMPTY_VALUE);
         
         //invalid start time not allowed. 
-        assertCommandBehavior_task("add valideventName /desc nil /from  hahaha > today 5pm", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
+        assertCommandBehavior_task("add valideventName /desc nil /from  hahaha /to today 5pm", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
     }
 
     //Task with desc and deadline
