@@ -77,7 +77,7 @@ public class TestTask implements ReadOnlyTask {
     
     public String getEditFloatTaskCommand(int index) {
         StringBuilder sb = new StringBuilder();
-        sb.append("edit -t " + index + " ");
+        sb.append("edit /t " + index + " ");
         sb.append("/name " + this.getTask().fullName + " ");
         sb.append("/desc " + this.getDescriptionValue() + " ");
         return sb.toString();

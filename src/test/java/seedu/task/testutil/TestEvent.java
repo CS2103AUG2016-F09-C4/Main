@@ -61,16 +61,18 @@ public class TestEvent implements ReadOnlyEvent {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getEvent().fullName + " ");
         sb.append("/desc " + this.getDescription().value + " ");
-        sb.append("/from " + this.getDuration().toString());
+        sb.append("/from " + this.getDuration().getStartTimeAsText());
+        sb.append(" /to " + this.getDuration().getEndTimeAsText());
         return sb.toString();
     }
 
 	public String getEditCommand(int i) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("edit -e " + i + " ");
+		sb.append("edit /e " + i + " ");
 		sb.append("/name " + this.getEvent().fullName+ " ");
 		sb.append("/desc "+ this.getDescription().value +  " ");
-		sb.append("/from " + this.getDuration().toString() + " ");
+		sb.append("/from " + this.getDuration().getStartTimeAsText());
+		sb.append(" /to " + this.getDuration().getEndTimeAsText());
 		return sb.toString();
 	}
 	
