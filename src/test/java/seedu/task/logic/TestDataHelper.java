@@ -227,7 +227,7 @@ class TestDataHelper{
 
         cmd.append(p.getTask().toString());
         cmd.append(" /desc ").append(p.getDescription().get().toString());
-        cmd.append(" /by ").append(p.getDeadline().get().toString());
+        cmd.append(" /by ").append(p.getDeadlineValue());
 
         return cmd.toString();
     }
@@ -503,7 +503,7 @@ class TestDataHelper{
         return new Task(
                 new Name(name),
                 new Description("dummy description"),
-                new Deadline("01-01-01"),   //dummy deadline
+                new Deadline("01-01-01"),
                 false
         );
     }

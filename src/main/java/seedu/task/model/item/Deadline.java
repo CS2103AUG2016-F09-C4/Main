@@ -11,7 +11,7 @@ import seedu.task.commons.util.StringUtil;
  * Guarantees: immutable; is valid as declared in {@link #isValidDeadline(String)}
  * @author kian ming
  */
-public class Deadline {
+public class Deadline implements Comparable<Deadline> {
 
     public static final String MESSAGE_DEADLINE_CONSTRAINTS = 
     		"Task deadline can be in the following format: \n"
@@ -75,6 +75,12 @@ public class Deadline {
 				.equals(other.toString())) /*Standardized String to compare for equality */
 			return false;
 		return true;
+	}
+
+
+	@Override
+	public int compareTo(Deadline o) {
+		return this.deadLine.compareTo(o.deadLine);
 	}
 
     
