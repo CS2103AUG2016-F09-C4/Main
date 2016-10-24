@@ -23,8 +23,11 @@ public class MainWindow extends UiPart {
 
     private static final String ICON = "/images/calendar.png";
     private static final String FXML = "MainWindow.fxml";
+    private static final String CSS = "view/Basic.css";
+    
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
+	
 
     private Logic logic;
 
@@ -36,6 +39,7 @@ public class MainWindow extends UiPart {
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
+    private CalendarPanel calendarPanel;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -43,8 +47,8 @@ public class MainWindow extends UiPart {
 
     private String taskBookName;
 
-    @FXML
-    private AnchorPane eventListPanelPlaceholder;
+//    @FXML
+//    private AnchorPane eventListPanelPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -60,6 +64,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private AnchorPane calendarPlaceholder;
 
 
     public MainWindow() {
@@ -82,6 +89,7 @@ public class MainWindow extends UiPart {
         mainWindow.configure(config.getAppTitle(), config.getTaskBookName(), config, prefs, logic);
         return mainWindow;
     }
+
 
     private void configure(String appTitle, String taskBookName, Config config, UserPrefs prefs,
                            Logic logic) {
@@ -108,15 +116,19 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-
-    	eventListPanel = EventListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList());
+    	calendarPanel = CalendarPanel.load(primaryStage, getCalendarPlaceholder(), logic.getFilteredEventList());
+//    	eventListPanel = EventListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
 
-    private AnchorPane getCommandBoxPlaceholder() {
+    private AnchorPane getCalendarPlaceholder() {
+		return calendarPlaceholder;
+	}
+
+	private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
 
@@ -132,9 +144,9 @@ public class MainWindow extends UiPart {
         return taskListPanelPlaceholder;
     }
     
-    public AnchorPane getEventListPlaceholder() {
-        return eventListPanelPlaceholder;
-    }
+//    public AnchorPane getEventListPlaceholder() {
+//        return eventListPanelPlaceholder;
+//    }
 
     public void hide() {
         primaryStage.hide();
