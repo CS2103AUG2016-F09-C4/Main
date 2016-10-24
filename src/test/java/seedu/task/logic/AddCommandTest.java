@@ -5,9 +5,6 @@ import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import java.util.List;
 
 import org.junit.Ignore;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
 import org.junit.Test;
 
 import seedu.task.logic.TestDataHelper;
@@ -309,10 +306,10 @@ public class AddCommandTest extends CommandTest{
      * 2) Successful adding of events
      *  - Event with duration
      *  - Event with desc and duration
+     *  - Event with desc and duration in varying order
      */
     
-    //Event with duration (TODO)
-    @Ignore
+    //Event with duration
     @Test
     public void execute_addEvent_successful() throws Exception {
         // setup expectations
@@ -340,6 +337,23 @@ public class AddCommandTest extends CommandTest{
 
         // execute command and verify result
         assertEventCommandBehavior(helper.generateAddEventCommand(toBeAdded),
+                String.format(AddEventCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getEventList());
+
+    }
+    
+    //Event with desc and duration in varying order
+    @Test
+    public void execute_addEventInVaryingOrder_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Event toBeAdded = helper.computingUpComingEvent();
+        TaskBook expectedAB = new TaskBook();
+        expectedAB.addEvent(toBeAdded);
+
+        // execute command and verify result
+        assertEventCommandBehavior(helper.generateDiffOrderedAddEventCommand(toBeAdded),
                 String.format(AddEventCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getEventList());

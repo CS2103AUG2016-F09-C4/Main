@@ -158,6 +158,22 @@ class TestDataHelper{
         return new Event(name, des, dur);
     }
     
+    public Event computingEditedStartDurationUpComingEvent() throws Exception {
+        Name name = new Name("Attend CS2103 Workshop");
+        Description des = new Description("post on Github");
+        EventDuration dur = new EventDuration("tomorrow 3.30pm","tomorrow 4pm");
+        
+        return new Event(name, des, dur);
+    }
+    
+    public Event computingEditedEndDurationUpComingEvent() throws Exception {
+        Name name = new Name("Attend CS2103 Workshop");
+        Description des = new Description("post on Github");
+        EventDuration dur = new EventDuration("tomorrow 3pm","tomorrow 6pm");
+        
+        return new Event(name, des, dur);
+    }
+    
     public Event computingUpComingEvent2() throws Exception {
         Name name = new Name("Attend CS2106 Workshop");
         Description des = new Description("To post on Github");
@@ -297,7 +313,20 @@ class TestDataHelper{
         return cmd.toString();
     }
     
-    /** Generates the correct edit task command based on the new description string given */
+    /** Generates the correct different ordered add event command based on the event given */
+    public String generateDiffOrderedAddEventCommand(Event p) {
+        StringBuffer cmd = new StringBuffer();
+
+        cmd.append("add ");
+
+        cmd.append(p.getEvent().toString());
+        cmd.append(" /from ").append(p.getDuration().getStartTimeAsText());
+        cmd.append(" /to ").append(p.getDuration().getEndTimeAsText());
+        cmd.append(" /desc ").append(p.getDescription().toString());       
+
+        return cmd.toString();
+    }
+    
     public String generateEditFloatTaskCommand(Task p, int index) {
         StringBuffer cmd = new StringBuffer();
 
@@ -340,6 +369,27 @@ class TestDataHelper{
 
         cmd.append("edit /e " + index);
         cmd.append(" /from ").append(p.getDuration().getStartTimeAsText());
+        cmd.append(" /to ").append(p.getDuration().getEndTimeAsText());
+        
+
+        return cmd.toString();
+    }
+    
+    /** Generates the correct edit event start duration command based on the new description string given */
+    public String generateEditEventStartDurationCommand(Event p, int index) {
+        StringBuffer cmd = new StringBuffer();
+
+        cmd.append("edit /e " + index);
+        cmd.append(" /from ").append(p.getDuration().getStartTimeAsText());        
+
+        return cmd.toString();
+    }
+    
+    /** Generates the correct edit event end duration command based on the new description string given */
+    public String generateEditEventEndDurationCommand(Event p, int index) {
+        StringBuffer cmd = new StringBuffer();
+
+        cmd.append("edit /e " + index);
         cmd.append(" /to ").append(p.getDuration().getEndTimeAsText());
         
 
