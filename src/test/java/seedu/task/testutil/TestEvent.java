@@ -74,8 +74,7 @@ public class TestEvent implements ReadOnlyEvent {
 
     @Override
     public Optional<Description> getDescription() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.description;
     }	
 
 }

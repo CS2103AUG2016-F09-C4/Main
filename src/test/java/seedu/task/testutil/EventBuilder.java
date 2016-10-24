@@ -23,7 +23,7 @@ public class EventBuilder {
 	}
 	
 	public EventBuilder withDescription(String desc) throws IllegalValueException {
-		this.event.setDescription(new Description(desc));
+	    this.event.setDescription(new Description(desc));
 		return this;
 	}
 	
