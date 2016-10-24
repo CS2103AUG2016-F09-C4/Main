@@ -36,7 +36,7 @@ public class AddEventCommand extends AddCommand {
     }
 
     public AddEventCommand(ReadOnlyEvent event) {
-    	this.toAddEvent = new Event(event.getEvent(), event.getDescription(), event.getDuration());
+    	this.toAddEvent = new Event(event);
 	}
 
 	@Override

@@ -38,7 +38,7 @@ public class XmlAdaptedEvent {
      */
     public XmlAdaptedEvent(ReadOnlyEvent source) {
         name = source.getEvent().fullName;
-        description = source.getDescription().value;
+        description = source.getDescriptionValue();
         startDuration = source.getDuration().getStartTimeAsText();
         endDuration = source.getDuration().getEndTimeAsText();
     }
@@ -51,7 +51,7 @@ public class XmlAdaptedEvent {
     public Event toModelType() throws IllegalValueException {
 
         final Name name = new Name(this.name);
-        final Description description = new Description(this.description);
+        final Description description = this.description.isEmpty()? null : new Description(this.description);
         final EventDuration eventDuration = new EventDuration(this.startDuration, this.endDuration);
         
         return new Event(name, description, eventDuration);

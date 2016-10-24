@@ -280,7 +280,7 @@ public class ModelManager extends ComponentManager implements Model {
 		public boolean run(ReadOnlyEvent event) {
 			return taskKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(event.getEvent().fullName, keyword)
-                    		|| StringUtil.containsIgnoreCase(event.getDescription().value, keyword))
+                    		|| StringUtil.containsIgnoreCase(event.getDescriptionValue(), keyword))
                     .findAny()
                     .isPresent();
 		}

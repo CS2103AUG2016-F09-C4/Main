@@ -134,6 +134,13 @@ class TestDataHelper{
         return new Event(name, des, dur);
     }
     
+    public Event computingNoDescUpComingEvent() throws Exception {
+        Name name = new Name("Attend CS2103 Workshop");
+        EventDuration dur = new EventDuration("tomorrow 3pm", "tomorrow 4pm");
+        
+        return new Event(name, null, dur);
+    }
+    
     public Event computingEditedNameUpComingEvent() throws Exception {
         Name name = new Name("Attend CS2106 Workshop");
         Description des = new Description("post on Github");
@@ -306,7 +313,20 @@ class TestDataHelper{
         cmd.append("add ");
 
         cmd.append(p.getEvent().toString());
-        cmd.append(" /desc ").append(p.getDescription().toString());
+        cmd.append(" /desc ").append(p.getDescriptionValue());
+        cmd.append(" /from ").append(p.getDuration().getStartTimeAsText());
+        cmd.append(" /to ").append(p.getDuration().getEndTimeAsText());
+
+        return cmd.toString();
+    }
+    
+    /** Generates the correct add event command based on the event given */
+    public String generateAddNoDescEventCommand(Event p) {
+        StringBuffer cmd = new StringBuffer();
+
+        cmd.append("add ");
+
+        cmd.append(p.getEvent().toString());
         cmd.append(" /from ").append(p.getDuration().getStartTimeAsText());
         cmd.append(" /to ").append(p.getDuration().getEndTimeAsText());
 
@@ -322,7 +342,7 @@ class TestDataHelper{
         cmd.append(p.getEvent().toString());
         cmd.append(" /from ").append(p.getDuration().getStartTimeAsText());
         cmd.append(" /to ").append(p.getDuration().getEndTimeAsText());
-        cmd.append(" /desc ").append(p.getDescription().toString());       
+        cmd.append(" /desc ").append(p.getDescriptionValue());       
 
         return cmd.toString();
     }
@@ -355,7 +375,7 @@ class TestDataHelper{
 
         cmd.append("edit /e " + index);
         cmd.append(" /name ").append(p.getEvent().toString());
-        cmd.append(" /desc ").append(p.getDescription().toString());
+        cmd.append(" /desc ").append(p.getDescription().get().toString());
         cmd.append(" /from ").append(p.getDuration().getStartTimeAsText());
         cmd.append(" /to ").append(p.getDuration().getEndTimeAsText());
         
@@ -401,7 +421,7 @@ class TestDataHelper{
         StringBuffer cmd = new StringBuffer();
 
         cmd.append("edit /e " + index);
-        cmd.append(" /desc ").append(p.getDescription().toString());
+        cmd.append(" /desc ").append(p.getDescriptionValue());
         
 
         return cmd.toString();

@@ -76,7 +76,6 @@ public class EditEventCommand extends EditCommand {
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
 		} catch (IllegalValueException e) {
-		    System.out.println("IVE");
 		    indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(e.getMessage());
         } 
@@ -94,7 +93,7 @@ public class EditEventCommand extends EditCommand {
 			newName = targetEvent.getEvent();
 		}
 		if (newDescription == null) {
-			newDescription = targetEvent.getDescription();
+			newDescription = targetEvent.getDescription().orElse(null);
 		}
 		if (newStartDuration.isEmpty() && newEndDuration.isEmpty()) {
 			newDuration = targetEvent.getDuration();

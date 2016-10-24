@@ -314,12 +314,12 @@ public class AddCommandTest extends CommandTest{
     public void execute_addEvent_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Event toBeAdded = helper.computingUpComingEvent();
+        Event toBeAdded = helper.computingNoDescUpComingEvent();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addEvent(toBeAdded);
 
         // execute command and verify result
-        assertEventCommandBehavior(helper.generateAddEventCommand(toBeAdded),
+        assertEventCommandBehavior(helper.generateAddNoDescEventCommand(toBeAdded),
                 String.format(AddEventCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getEventList());

@@ -89,7 +89,7 @@ public class EditTaskCommand extends EditCommand  {
             newName = targetTask.getTask();
         }
         if (newDescription == null) {
-            newDescription = targetTask.getDescription().get();
+            newDescription = targetTask.getDescription().orElse(null);
         }
         if (newDeadline == null && targetTask.getDeadline().isPresent()) {
             newDeadline = targetTask.getDeadline().get();
