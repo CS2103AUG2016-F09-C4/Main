@@ -17,11 +17,11 @@ public class UndoCommand extends Command{
 	
 	public static final String MESSAGE_UNDO_FAILURE = "No more operations to undo";
 	public static final String COMMAND_WORD = "undo";
-	public static final String MESSAGE_USAGE = COMMAND_WORD+ "\n"
-			+ "Undo the most recent modification to the taskbook. Undo cannot be undone. \n"
-			+ "Example: undo";
+	public static final String MESSAGE_USAGE = COMMAND_WORD +"\n" 
+    		+ "Only Undo commands that modify the TaskBook in the same session will be restored.\n "
+    		+ "Example: " + COMMAND_WORD;
 	
-	@Override
+    @Override
 	public CommandResult execute() {
 		try{
 			UndoableCommand toBeUndone = commandList.pop();
