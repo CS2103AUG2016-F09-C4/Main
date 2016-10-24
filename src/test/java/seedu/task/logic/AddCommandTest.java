@@ -108,10 +108,10 @@ public class AddCommandTest extends CommandTest{
         //may need to update
         Task tTarget1 = helper.generateTaskWithDeadline("Friday 11:01");
         Task tTarget2 = helper.generateTaskWithDeadline("next Friday 2pm");
-        Task tTarget3 = helper.generateTaskWithDeadline("2 Monday");
-        Task tTarget4 = helper.generateTaskWithDeadline("12/29/2016");
-        Task tTarget5 = helper.generateTaskWithDeadline("12/30/2016 11:12");
-        Task tTarget6 = helper.generateTaskWithDeadline("November 11 2017");
+        Task tTarget3 = helper.generateTaskWithDeadline("3 Monday");
+        Task tTarget4 = helper.generateTaskWithDeadline("12/29/2017");
+        Task tTarget5 = helper.generateTaskWithDeadline("12/30/2017 11:12");
+        Task tTarget6 = helper.generateTaskWithDeadline("November 11 2018");
         
         TaskBook expectedAB = new TaskBook();
         List<Task> targetList = helper.generateTaskList(tTarget1, tTarget2, tTarget3, tTarget4, tTarget5, tTarget6);
