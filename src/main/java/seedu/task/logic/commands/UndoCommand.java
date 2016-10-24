@@ -14,8 +14,13 @@ import seedu.taskcommons.core.LogsCenter;
 public class UndoCommand extends Command{
 	private final Logger logger = LogsCenter.getLogger(UndoCommand.class);
 	
+	
 	public static final String MESSAGE_UNDO_FAILURE = "No more operations to undo";
 	public static final String COMMAND_WORD = "undo";
+	public static final String MESSAGE_USAGE = COMMAND_WORD+ "\n"
+			+ "Undo the most recent modification to the taskbook. Undo cannot be undone. \n"
+			+ "Example: undo";
+	
 	@Override
 	public CommandResult execute() {
 		try{
