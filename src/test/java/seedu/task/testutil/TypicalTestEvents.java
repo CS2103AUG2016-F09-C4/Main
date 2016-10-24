@@ -40,6 +40,12 @@ public class TypicalTestEvents {
 					.withDuration("tomorrow 1pm /to next Friday")
 					.build();
 			
+			addedEvent2 = new EventBuilder()
+                    .withName("manual event 2")
+                    .withDescription("for manual testing")
+                    .withDuration("tomorrow 1pm /to next Friday")
+                    .build();
+			
 		} catch (IllegalValueException e) {
 			e.printStackTrace();
 			assert false : "not possible";
