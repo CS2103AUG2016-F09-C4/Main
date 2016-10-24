@@ -11,7 +11,7 @@ import seedu.task.model.item.UniqueEventList;
  *
  */
 public class TypicalTestEvents {
-	public static TestEvent  meeting1, meeting2, meeting3, addedEvent;
+	public static TestEvent  meeting1, meeting2, meeting3, addedEvent, addedEvent2;
 	
 	public TypicalTestEvents() {
 		try {
