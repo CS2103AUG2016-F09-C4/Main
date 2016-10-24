@@ -7,6 +7,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.task.MainApp;
+import seedu.task.commons.events.model.TaskBookChangedEvent;
 import seedu.task.commons.events.storage.DataSavingExceptionEvent;
 import seedu.task.commons.events.ui.JumpToEventListRequestEvent;
 import seedu.task.commons.events.ui.JumpToTaskListRequestEvent;
@@ -122,6 +123,12 @@ public class UiManager extends ComponentManager implements Ui {
 	private void handleJumpToEListRequestEvent(JumpToEventListRequestEvent event) {
 		logger.info(LogsCenter.getEventHandlingLogMessage(event));
 		mainWindow.getEventListPanel().scrollTo(event.targetIndex);
+	}
+	
+	@Subscribe
+	private void handleEventListUpdatedEvent(TaskBookChangedEvent event) {
+		logger.info(LogsCenter.getEventHandlingLogMessage(event));
+		mainWindow.updateCalendar(event.data.getEventList());
 	}
 
 	// @Subscribe

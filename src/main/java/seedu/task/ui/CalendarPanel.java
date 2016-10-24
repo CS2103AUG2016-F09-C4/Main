@@ -1,27 +1,38 @@
 package seedu.task.ui;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import jfxtras.scene.control.agenda.Agenda;
+import jfxtras.scene.control.agenda.*;
+import jfxtras.scene.control.agenda.Agenda.Appointment;
+import jfxtras.scene.control.agenda.Agenda.AppointmentGroup;
+import jfxtras.scene.control.agenda.Agenda.AppointmentGroupImpl;
+import seedu.task.model.item.Event;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.taskcommons.core.LogsCenter;
 
 public class CalendarPanel extends UiPart {
 
+	private static final String DEFAULT_GROUP = "group1";
 	private Agenda agenda;
 	private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
-
-	
 	private AnchorPane placeHolderPane;
+	private final Map<String, AppointmentGroup> groupMap;
 
 	public CalendarPanel() {
 		agenda = new Agenda();
+		groupMap = new HashMap<>();
 	}
 
 	public static CalendarPanel load(Stage primaryStage, AnchorPane calendarPlaceHolder,
@@ -33,8 +44,8 @@ public class CalendarPanel extends UiPart {
 	}
 
 	private void setupCalendar(Stage primaryStage, AnchorPane calendarPlaceHolder) {
-		logger.info("Setting up Calendar panel");
-		
+		logger.info("Setting up Calendar panel...");
+
 		setStage(primaryStage);
 		setPlaceholder(calendarPlaceHolder);
 		setBoundary();
@@ -50,14 +61,31 @@ public class CalendarPanel extends UiPart {
 
 	private void addToPlaceHodler() {
 		SplitPane.setResizableWithParent(placeHolderPane, true);
-        placeHolderPane.getChildren().add(agenda);
+		placeHolderPane.getChildren().add(agenda);
 	}
 
 	private void configure(ObservableList<ReadOnlyEvent> eventList) {
-		// TODO Auto-generated method stub
-		
+		setGroups();
+		setConnection(eventList);
 	}
-	
+
+	private void setConnection(ObservableList<ReadOnlyEvent> eventList) {
+		agenda.appointments().clear();
+		eventList.forEach(event -> {
+			agenda.appointments().add(new Agenda.AppointmentImplLocal()
+					.withSummary(event.getEvent().fullName)
+					.withStartLocalDateTime(event.getDuration().getStartTime())
+					.withEndLocalDateTime(event.getDuration().getEndTime())
+					.withAppointmentGroup(groupMap.get(DEFAULT_GROUP)));
+		});
+	}
+
+	private void setGroups() {
+		for (AppointmentGroup group : agenda.appointmentGroups()) {
+			groupMap.put(group.getDescription(), group);
+		}
+	}
+
 	@Override
 	public void setPlaceholder(AnchorPane placeholder) {
 		this.placeHolderPane = placeholder;
@@ -65,13 +93,22 @@ public class CalendarPanel extends UiPart {
 
 	@Override
 	public void setNode(Node node) {
-		return;
+
 	}
 
+	/**
+	 * Not use Fxml
+	 * 
+	 * @return
+	 */
 	@Override
 	public String getFxmlPath() {
 		return "";
 
 	}
 
+	public void refresh(List<ReadOnlyEvent> eventList) {
+		logger.info("Refreshing calendar...");
+		setConnection(FXCollections.observableList(eventList));
+	}
 }

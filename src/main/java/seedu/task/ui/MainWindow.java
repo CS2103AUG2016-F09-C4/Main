@@ -1,5 +1,8 @@
 package seedu.task.ui;
 
+import java.util.List;
+
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -11,6 +14,7 @@ import javafx.stage.Stage;
 import seedu.task.commons.events.ui.ExitAppRequestEvent;
 import seedu.task.logic.Logic;
 import seedu.task.model.UserPrefs;
+import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.taskcommons.core.Config;
 import seedu.taskcommons.core.GuiSettings;
@@ -206,5 +210,10 @@ public class MainWindow extends UiPart {
     public EventListPanel getEventListPanel() {
         return this.eventListPanel;
     }
+    
+
+	public void updateCalendar(List<ReadOnlyEvent> eventList) {
+		this.calendarPanel.refresh(eventList);
+	}
 
 }
