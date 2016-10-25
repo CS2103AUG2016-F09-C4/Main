@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +16,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import jfxtras.internal.scene.control.skin.agenda.AgendaDaySkin;
 import jfxtras.internal.scene.control.skin.agenda.AgendaDaysFromDisplayedSkin;
-import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
+
 import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.Agenda.Appointment;
 import jfxtras.scene.control.agenda.Agenda.AppointmentGroup;
@@ -36,18 +35,20 @@ import seedu.taskcommons.core.LogsCenter;
  */
 public class CalendarPanel extends UiPart {
 
-	private static final String DEFAULT_GROUP = "group1";
+	
 	private static final int DAY_SKIN = 1;
 	private static final int WEEK_SKIN = 0;
 	private static final String CALENDAR_UNSYC_MESSAGE = "Calendar is unsync";
+	private static final String CALENDAR_VIEW_ID = "calendar";
 	private Agenda agenda;
 	private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
 	private AnchorPane placeHolderPane;
-	private final Map<String, AppointmentGroup> groupMap;
+	private final CalendarHelper helper;
+	
 
 	public CalendarPanel() {
 		agenda = new Agenda();
-		groupMap = new HashMap<>();
+		helper = CalendarHelper.getInstance();
 	}
 
 	public static CalendarPanel load(Stage primaryStage, AnchorPane calendarPlaceHolder,
@@ -60,7 +61,7 @@ public class CalendarPanel extends UiPart {
 
 	private void setupCalendar(Stage primaryStage, AnchorPane calendarPlaceHolder) {
 		logger.info("Setting up Calendar panel...");
-
+		
 		setStage(primaryStage);
 		setPlaceholder(calendarPlaceHolder);
 		setBoundary();
@@ -103,11 +104,11 @@ public class CalendarPanel extends UiPart {
 
 	private void addToPlaceHodler() {
 		SplitPane.setResizableWithParent(placeHolderPane, true);
+		agenda.setId(CALENDAR_VIEW_ID);
 		placeHolderPane.getChildren().add(agenda);
 	}
 
 	private void configure(List<ReadOnlyEvent> eventList) {
-		setGroups();
 		setConnectionEvent(eventList);
 	}
 
@@ -115,11 +116,7 @@ public class CalendarPanel extends UiPart {
 		agenda.appointments().clear();
 		agenda.selectedAppointments().clear();
 		eventList.forEach(event -> {
-			agenda.appointments().add(new Agenda.AppointmentImplLocal()
-					.withSummary(event.getEvent().fullName)
-					.withStartLocalDateTime(event.getDuration().getStartTime())
-					.withEndLocalDateTime(event.getDuration().getEndTime())
-					.withAppointmentGroup(groupMap.get(DEFAULT_GROUP)));
+			agenda.appointments().add(CalendarHelper.convertFromEvent(event));
 		});
 	}
 	
@@ -128,11 +125,6 @@ public class CalendarPanel extends UiPart {
 
 	}
 
-	private void setGroups() {
-		for (AppointmentGroup group : agenda.appointmentGroups()) {
-			groupMap.put(group.getDescription(), group);
-		}
-	}
 	
 	/**
 	 * Focus the calendar to a certain time frame

@@ -139,13 +139,4 @@ public class UiManager extends ComponentManager implements Ui {
 		logger.info(LogsCenter.getEventHandlingLogMessage(event));
 		mainWindow.updateCalendarView(event.getDisplayedDateTime(), event.getCalendarViewMode());
 	}
-
-	// @Subscribe
-	// private void
-	// handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent
-	// event){
-	// logger.info(LogsCenter.getEventHandlingLogMessage(event));
-	// mainWindow.loadTaskPage(event.getNewSelection());
-	// }
-
 }
