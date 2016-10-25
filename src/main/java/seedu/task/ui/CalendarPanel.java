@@ -1,5 +1,6 @@
 package seedu.task.ui;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -85,6 +86,11 @@ public class CalendarPanel extends UiPart {
 			groupMap.put(group.getDescription(), group);
 		}
 	}
+	
+	public void updateCalendarShownPeriod(LocalDateTime t) {
+		agenda.setDisplayedLocalDateTime(t);
+		agenda.refresh();
+	}
 
 	@Override
 	public void setPlaceholder(AnchorPane placeholder) {
@@ -98,7 +104,6 @@ public class CalendarPanel extends UiPart {
 
 	/**
 	 * Not use Fxml
-	 * 
 	 * @return
 	 */
 	@Override
@@ -107,6 +112,10 @@ public class CalendarPanel extends UiPart {
 
 	}
 
+	/** 
+	 * Refresh data shown when eventlist in model modified
+	 * @param eventList
+	 */
 	public void refresh(List<ReadOnlyEvent> eventList) {
 		logger.info("Refreshing calendar...");
 		setConnection(FXCollections.observableList(eventList));
