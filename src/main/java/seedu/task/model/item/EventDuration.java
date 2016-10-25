@@ -2,14 +2,7 @@ package seedu.task.model.item;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.StringUtil;
-import seedu.task.logic.commands.IncorrectCommand;
-import seedu.task.logic.parser.ArgumentTokenizer;
-import seedu.task.logic.parser.ArgumentTokenizer.Prefix;
-
 import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Represents an event's duration in the task book. 
@@ -18,13 +11,13 @@ import java.util.regex.Pattern;
  */
 public class EventDuration implements Comparable<EventDuration> {
 
-	public static final String MESSAGE_DURATION_CONSTRAINTS = "start time should be no later than end time. \n "
-			+ "no abbreviation is allowed for relative, ie: tmrw. \n"
-			+ "but Fri, Mon, etc is okay.\n"
-			+ "possible event duration could be:"
-			+ "today 4pm > tomorrow 4pm";
+	public static final String MESSAGE_DURATION_CONSTRAINTS = "Start time should be no later than end time. \n "
+			+ "No abbreviation is allowed for relative, ie: tmrw. \n"
+			+ "But Fri, Mon, etc is okay.\n"
+			+ "Possible event duration could be:"
+			+ "today 4pm /to tomorrow 4pm";
 	
-	private static final String MESSAGE_DURATION_FORMAT = "/from %1$s /to %2$s";
+	private static final String MESSAGE_DURATION_FORMAT = "From: %1$s to %2$s";
 	private static final long DEFAULT_DURATION = 1;
 	
 	
