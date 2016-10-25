@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +24,7 @@ import jfxtras.scene.control.agenda.Agenda.AppointmentGroup;
 import jfxtras.scene.control.agenda.Agenda.LocalDateTimeRange;
 import seedu.task.commons.exceptions.CalendarUnsyncException;
 import seedu.task.model.item.ReadOnlyEvent;
+import seedu.task.model.item.ReadOnlyTask;
 import seedu.taskcommons.core.LogsCenter;
 
 /**
@@ -49,7 +51,7 @@ public class CalendarPanel extends UiPart {
 	}
 
 	public static CalendarPanel load(Stage primaryStage, AnchorPane calendarPlaceHolder,
-			ObservableList<ReadOnlyEvent> eventList) {
+			List<ReadOnlyEvent> eventList) {
 		CalendarPanel calendarPanel = new CalendarPanel();
 		calendarPanel.setupCalendar(primaryStage, calendarPlaceHolder);
 		calendarPanel.configure(eventList);
@@ -104,15 +106,14 @@ public class CalendarPanel extends UiPart {
 		placeHolderPane.getChildren().add(agenda);
 	}
 
-	private void configure(ObservableList<ReadOnlyEvent> eventList) {
+	private void configure(List<ReadOnlyEvent> eventList) {
 		setGroups();
-		setConnection(eventList);
+		setConnectionEvent(eventList);
 	}
 
-	private void setConnection(ObservableList<ReadOnlyEvent> eventList) {
+	private void setConnectionEvent(List<ReadOnlyEvent> eventList) {
 		agenda.appointments().clear();
 		agenda.selectedAppointments().clear();
-		
 		eventList.forEach(event -> {
 			agenda.appointments().add(new Agenda.AppointmentImplLocal()
 					.withSummary(event.getEvent().fullName)
@@ -121,6 +122,11 @@ public class CalendarPanel extends UiPart {
 					.withAppointmentGroup(groupMap.get(DEFAULT_GROUP)));
 		});
 	}
+	
+	//TODO: tasks are not yet in the calendar
+	private void setConnectionTask(ObservableList<ReadOnlyTask> taskList) {
+
+	}
 
 	private void setGroups() {
 		for (AppointmentGroup group : agenda.appointmentGroups()) {
@@ -128,6 +134,10 @@ public class CalendarPanel extends UiPart {
 		}
 	}
 	
+	/**
+	 * Focus the calendar to a certain time frame
+	 * @param t
+	 */
 	public void updateCalendarShownPeriod(LocalDateTime t) {
 		agenda.setDisplayedLocalDateTime(t);
 	}
@@ -166,9 +176,13 @@ public class CalendarPanel extends UiPart {
 	 */
 	public void refresh(List<ReadOnlyEvent> eventList) {
 		logger.info("Refreshing calendar...");
-		setConnection(FXCollections.observableList(eventList));
+		setConnectionEvent(FXCollections.observableList(eventList));
 	}
-
+	
+	/**
+	 * Toggle the Calendar display mode
+	 * @param calendarViewMode
+	 */
 	public void updateCalendarMode(int calendarViewMode) {
 		switch(calendarViewMode) {
 		case DAY_SKIN:
@@ -177,6 +191,8 @@ public class CalendarPanel extends UiPart {
 		case WEEK_SKIN:
 			agenda.setSkin(new AgendaDaysFromDisplayedSkin(agenda));
 			break;
+		default:
+			agenda.setSkin(new AgendaDaysFromDisplayedSkin(agenda));
 		}
 	}
 	
@@ -194,11 +210,18 @@ public class CalendarPanel extends UiPart {
 		Appointment targetAppoint  = agenda.appointments()
 				.stream()
 				.filter((Predicate<? super Agenda.Appointment>) appointment -> 
-			appointment.getSummary().equals(targetEvent.getEvent().fullName))
+			appointment.getSummary().equals(targetEvent.getEvent().fullName)
+			&& appointment.getStartLocalDateTime().equals(targetEvent.getDuration().getStartTime())
+			&& appointment.getEndLocalDateTime().equals(targetEvent.getDuration().getEndTime()))
 				.findAny()
 				.orElseThrow(()-> new CalendarUnsyncException(CALENDAR_UNSYC_MESSAGE));
 		
 		agenda.selectedAppointments().add(targetAppoint);
+	}
+	
+	public static String getGroup(ReadOnlyTask task) {
+		return null;
+		
 	}
 	
 }
