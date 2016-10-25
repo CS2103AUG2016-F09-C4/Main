@@ -3,7 +3,6 @@ package seedu.task.ui;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -16,7 +15,6 @@ import seedu.task.commons.events.ui.ExitAppRequestEvent;
 import seedu.task.logic.Logic;
 import seedu.task.model.UserPrefs;
 import seedu.task.model.item.ReadOnlyEvent;
-import seedu.task.model.item.ReadOnlyTask;
 import seedu.taskcommons.core.Config;
 import seedu.taskcommons.core.GuiSettings;
 
@@ -28,8 +26,6 @@ public class MainWindow extends UiPart {
 
     private static final String ICON = "/images/calendar.png";
     private static final String FXML = "MainWindow.fxml";
-    private static final String CSS = "view/Basic.css";
-    
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
 	
@@ -52,8 +48,8 @@ public class MainWindow extends UiPart {
 
     private String taskBookName;
 
-//    @FXML
-//    private AnchorPane eventListPanelPlaceholder;
+    @FXML
+    private AnchorPane eventListPanelPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -122,7 +118,7 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
     	calendarPanel = CalendarPanel.load(primaryStage, getCalendarPlaceholder(), logic.getFilteredEventList());
-//    	eventListPanel = EventListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList());
+    	eventListPanel = EventListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskBookFilePath());
@@ -149,9 +145,9 @@ public class MainWindow extends UiPart {
         return taskListPanelPlaceholder;
     }
     
-//    public AnchorPane getEventListPlaceholder() {
-//        return eventListPanelPlaceholder;
-//    }
+    public AnchorPane getEventListPlaceholder() {
+        return eventListPanelPlaceholder;
+    }
 
     public void hide() {
         primaryStage.hide();
@@ -212,14 +208,17 @@ public class MainWindow extends UiPart {
         return this.eventListPanel;
     }
     
-
+    public CalendarPanel getCalendarPanel() {
+        return this.calendarPanel;
+    }
+    
 	public void updateCalendarEvent(List<ReadOnlyEvent> eventList) {
 		this.calendarPanel.refresh(eventList);
 	}
 
 	public void updateCalendarView(LocalDateTime displayedDateTime, int calendarViewMode) {
-		this.calendarPanel.updateCalendarShownPeriod(displayedDateTime);
 		this.calendarPanel.updateCalendarMode(calendarViewMode);
+		this.calendarPanel.updateCalendarShownPeriod(displayedDateTime);
 	}
 
 }
