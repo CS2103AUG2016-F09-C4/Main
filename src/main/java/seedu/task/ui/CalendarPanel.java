@@ -15,6 +15,8 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import jfxtras.internal.scene.control.skin.agenda.AgendaDaySkin;
+import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.*;
 import jfxtras.scene.control.agenda.Agenda.Appointment;
 import jfxtras.scene.control.agenda.Agenda.AppointmentGroup;
@@ -26,6 +28,8 @@ import seedu.taskcommons.core.LogsCenter;
 public class CalendarPanel extends UiPart {
 
 	private static final String DEFAULT_GROUP = "group1";
+	private static final int DAY_SKIN = 1;
+	private static final int WEEK_SKIN = 0;
 	private Agenda agenda;
 	private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
 	private AnchorPane placeHolderPane;
@@ -119,5 +123,16 @@ public class CalendarPanel extends UiPart {
 	public void refresh(List<ReadOnlyEvent> eventList) {
 		logger.info("Refreshing calendar...");
 		setConnection(FXCollections.observableList(eventList));
+	}
+
+	public void updateCalendarMode(int calendarViewMode) {
+		switch(calendarViewMode) {
+		case DAY_SKIN:
+			agenda.setSkin(new AgendaDaySkin(agenda));
+			break;
+		case WEEK_SKIN:
+			agenda.setSkin(new AgendaWeekSkin(agenda));
+			break;
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package seedu.task.ui;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -212,8 +213,13 @@ public class MainWindow extends UiPart {
     }
     
 
-	public void updateCalendar(List<ReadOnlyEvent> eventList) {
+	public void updateCalendarEvent(List<ReadOnlyEvent> eventList) {
 		this.calendarPanel.refresh(eventList);
+	}
+
+	public void updateCalendarView(LocalDateTime displayedDateTime, int calendarViewMode) {
+		this.calendarPanel.updateCalendarShownPeriod(displayedDateTime);
+		this.calendarPanel.updateCalendarMode(calendarViewMode);
 	}
 
 }
