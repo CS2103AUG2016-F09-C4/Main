@@ -55,7 +55,7 @@ public class HelpCommandTest extends CommandTest {
 	 */
 
 	@Test
-	public void execute_help_invalidArgsFormat() throws Exception {
+	public void executeHelpInvalidArgsFormat() throws Exception {
 		String expectedMessage = String.format(HelpCommand.MESSAGE_USAGE);
 		assertHelpCommandBehavior("help  4 ", expectedMessage);
 		assertHelpCommandBehavior("help  -r ", expectedMessage);
@@ -72,7 +72,7 @@ public class HelpCommandTest extends CommandTest {
 	 */
 
 	@Test
-	public void execute_help_validArgsFormat() throws Exception {
+	public void executeHelpValidArgsFormat() throws Exception {
 		assertHelpCommandBehavior("help add", AddCommand.MESSAGE_USAGE);
 		assertHelpCommandBehavior("help delete", DeleteCommand.MESSAGE_USAGE);
 		assertHelpCommandBehavior("help list", ListCommand.MESSAGE_USAGE);
