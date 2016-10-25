@@ -1,11 +1,9 @@
 package seedu.task.logic;
 
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.taskcommons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.task.logic.commands.AddCommand;
@@ -58,7 +56,7 @@ public class HelpCommandTest extends CommandTest {
 
 	@Test
 	public void execute_help_invalidArgsFormat() throws Exception {
-		String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE);
+		String expectedMessage = String.format(HelpCommand.MESSAGE_USAGE);
 		assertHelpCommandBehavior("help  4 ", expectedMessage);
 		assertHelpCommandBehavior("help  -r ", expectedMessage);
 		assertHelpCommandBehavior("help - r ", expectedMessage);
