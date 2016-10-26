@@ -40,12 +40,12 @@ public class ListCommandTest extends TaskBookGuiTest {
 
 	private void assertListEventSuccess(boolean showAll, final TestEvent[] currentList) {
 		if (!showAll) {
-			commandBox.runCommand("list -e");
+			commandBox.runCommand("list /e");
 
 			// confirm result message is correct.
 			assertResultMessage(ListEventCommand.MESSAGE_INCOMPLETED_SUCCESS);
 		} else {
-			commandBox.runCommand("list -e -a");
+			commandBox.runCommand("list /e /a");
 
 			// confirm result message is correct.
 			assertResultMessage(ListEventCommand.MESSAGE_ALL_SUCCESS);
@@ -57,12 +57,12 @@ public class ListCommandTest extends TaskBookGuiTest {
 
 	private void assertListTaskSuccess(boolean showAll, final TestTask[] currentList) {
 		if (!showAll) {
-			commandBox.runCommand("list -t");
+			commandBox.runCommand("list /t");
 
 			// confirm result message is correct.
 			assertResultMessage(ListTaskCommand.MESSAGE_INCOMPLETED_SUCCESS);
 		} else {
-			commandBox.runCommand("list -t -a");
+			commandBox.runCommand("list /t /a");
 
 			// confirm result message is correct.
 			assertResultMessage(ListTaskCommand.MESSAGE_ALL_SUCCESS);

@@ -1,4 +1,4 @@
-Vpackage seedu.task.logic.parser;
+package seedu.task.logic.parser;
 
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.parser.ArgumentTokenizer.Prefix;
@@ -19,6 +19,8 @@ public interface Parser {
     public static final Prefix durationEndPrefix = new Prefix(Flag.durationEndFlag);  
     public static final Prefix calendarViewWeekPrefix = new Prefix(Flag.calendarWeek);
     public static final Prefix calendarViewDayPrefix = new Prefix(Flag.calendarDay);
+    public static final Prefix allPrefix = new Prefix(Flag.allFlag);
+    
     /**
      * Prepares the command and returns the prepared Command.
      * @param args The arguments as entered by the user.

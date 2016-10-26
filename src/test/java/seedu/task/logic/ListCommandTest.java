@@ -23,9 +23,7 @@ public class ListCommandTest extends CommandTest{
         // not indicating which list not allowed
         assertCommandBehavior_task("list", expectedMessage);
         
-        assertCommandBehavior_task("list -wrongFlag", expectedMessage);
-        
-        assertCommandBehavior_task("list -e -wrongFlag", expectedMessage);
+        assertCommandBehavior_task("list /wrongFlag", expectedMessage);
     }
 
     @Test
@@ -43,7 +41,7 @@ public class ListCommandTest extends CommandTest{
         // prepare address book state
         helper.addTaskToModel(model, threeTasks);
 
-        assertTaskCommandBehavior("list -t",
+        assertTaskCommandBehavior("list /t",
                 ListTaskCommand.MESSAGE_INCOMPLETED_SUCCESS,
                 expectedTB,
                 expectedList);
@@ -64,7 +62,7 @@ public class ListCommandTest extends CommandTest{
         // prepare address book state
         helper.addEventToModel(model, threeEvents);
 
-        assertEventCommandBehavior("list -e",
+        assertEventCommandBehavior("list /e",
                 ListEventCommand.MESSAGE_INCOMPLETED_SUCCESS,
                 expectedTB,
                 expectedList);
@@ -85,7 +83,7 @@ public class ListCommandTest extends CommandTest{
         // prepare address book state
         helper.addTaskToModel(model, threeTasks);
 
-        assertTaskCommandBehavior("list -t -a",
+        assertTaskCommandBehavior("list /t /a",
                 ListTaskCommand.MESSAGE_ALL_SUCCESS,
                 expectedTB,
                 expectedList);
