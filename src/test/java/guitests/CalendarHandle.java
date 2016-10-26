@@ -67,7 +67,7 @@ public class CalendarHandle extends GuiHandle {
 		return true;
 	}
 
-	private boolean isSameEvent(Appointment appointment, ReadOnlyEvent event) {
+	public boolean isSameEvent(Appointment appointment, ReadOnlyEvent event) {
 		return appointment.getSummary().equals(event.getEvent().fullName)
 				&& appointment.getDescription().equals(event.getDescriptionValue())
 				&& appointment.getStartLocalDateTime().format(StringUtil.DATE_FORMATTER)

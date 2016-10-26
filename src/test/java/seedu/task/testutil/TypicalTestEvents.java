@@ -24,7 +24,7 @@ public class TypicalTestEvents {
 			meeting2 = new EventBuilder()
 					.withName("ms v1")
 					.withDescription("for CS2103t project")
-					.withDuration("tomorrow 1pm ","tomorrow 4pm")
+					.withDuration("tomorrow 2pm ","tomorrow 4pm")
 					.build();
 			
 			meeting3 = new EventBuilder()
