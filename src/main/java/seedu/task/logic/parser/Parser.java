@@ -20,6 +20,8 @@ public interface Parser {
     public static final Prefix calendarViewWeekPrefix = new Prefix(Flag.calendarWeek);
     public static final Prefix calendarViewDayPrefix = new Prefix(Flag.calendarDay);
     public static final Prefix allPrefix = new Prefix(Flag.allFlag);
+    public static final Prefix taskPresencePrefix = new Prefix(Flag.taskPresenceFlag);
+    public static final Prefix eventPresencePrefix = new Prefix(Flag.eventPresenceFlag);
     
     /**
      * Prepares the command and returns the prepared Command.

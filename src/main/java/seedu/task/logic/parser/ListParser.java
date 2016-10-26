@@ -1,30 +1,37 @@
 package seedu.task.logic.parser;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.task.logic.commands.Command;
-import seedu.task.logic.commands.EditCommand;
 import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.ListCommand;
 import seedu.task.logic.commands.ListEventCommand;
 import seedu.task.logic.commands.ListTaskCommand;
-import seedu.task.ui.TaskListPanel;
 
+/**
+ * Parses list command argument
+ * @author xuchen
+ *
+ */
 public class ListParser implements Parser {
 
 	@Override
 	public Command prepare(String args) {
+		//empty field is not allowed
 		if (args.isEmpty()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         }
 
-		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(taskPrefix, eventPrefix, allPrefix);
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(taskPresencePrefix, eventPresencePrefix, allPrefix);
 		argsTokenizer.tokenize(args.trim());
-		
-		boolean showEvent = argsTokenizer.hasPrefix(eventPrefix);
-		boolean showTask = argsTokenizer.hasPrefix(taskPrefix);
+		boolean showEvent = argsTokenizer.hasPrefix(eventPresencePrefix);
+		boolean showTask = argsTokenizer.hasPrefix(taskPresencePrefix);
 		boolean showAll = argsTokenizer.hasPrefix(allPrefix);
+		
+		//list with both flags are not supported
+		if(showEvent && showTask) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+		}
 		
 		if(showEvent) {
 			return new ListEventCommand(showAll);
@@ -33,7 +40,5 @@ public class ListParser implements Parser {
 		} else {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
 		}
-		
 	}
-
 }

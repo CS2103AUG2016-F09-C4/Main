@@ -11,10 +11,15 @@ public class CalendarCommand extends Command {
 	
 	
 	public static final String COMMAND_WORD = "show";
-	public static final String MESSAGE_USAGE = "Show a calendar not implemented";
+	public static final String MESSAGE_USAGE = COMMAND_WORD + " TIME [/day | /wk]\n" 
+			+ "Shows the calendar in the specifized mode at certain time\n"
+			+ "Optional flag: [/wk] to request show week view. It is the default \n"
+			+ "	     [/day] to request show dayily view. "
+			+ "Parameters: TIME + [OPTIONAL FLAG]\n" 
+			+ "Example: "+ COMMAND_WORD + " today /day\n\n";
+	
 	private static final int CALENDAR_VIEW_DAY = 1;
 	private static final int CALENDAR_VIEW_WEEK = 0;
-	//TODO: better message success
 	private static final String MESSAGE_SUCCESS = "Calendar showing.";
 	
 	private LocalDateTime displayedDateTime;

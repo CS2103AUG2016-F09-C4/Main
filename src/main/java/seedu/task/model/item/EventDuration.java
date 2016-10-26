@@ -34,7 +34,11 @@ public class EventDuration implements Comparable<EventDuration> {
 	public EventDuration(String startTimeArg, String endTimeArg) throws IllegalValueException {
 		assert startTimeArg != null;
 		assert endTimeArg != null;
-		parseDuration(startTimeArg, endTimeArg);
+		try {
+			parseDuration(startTimeArg, endTimeArg);
+		} catch (IllegalValueException ive) {
+			throw new IllegalValueException(MESSAGE_DURATION_CONSTRAINTS);
+		}
 	}
 
 	

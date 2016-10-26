@@ -202,7 +202,7 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		assertTrue(taskListPanel.isListMatching(unCompletedTaskList));
 		//undo
 		commandBox.runCommand("undo");
-		commandBox.runCommand("list -t -a");
+		commandBox.runCommand("list /t /a");
 		assertTrue(taskListPanel.isListMatching(allTaskList));
 		
 		//clear all completed events
@@ -210,7 +210,7 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		assertTrue(eventListPanel.isListMatching(unCompletedEventList));
 		//undo
 		commandBox.runCommand("undo");
-		commandBox.runCommand("list -e -a");
+		commandBox.runCommand("list /e /a");
 		assertTrue(eventListPanel.isListMatching(allEventList));
 		
 		//clear all tasks and events 

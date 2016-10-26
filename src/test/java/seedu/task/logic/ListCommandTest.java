@@ -105,7 +105,7 @@ public class ListCommandTest extends CommandTest{
         // prepare address book state
         helper.addEventToModel(model, threeEvents);
 
-        assertEventCommandBehavior("list -e -a",
+        assertEventCommandBehavior("list /e /a",
                 ListEventCommand.MESSAGE_ALL_SUCCESS,
                 expectedTB,
                 expectedList);

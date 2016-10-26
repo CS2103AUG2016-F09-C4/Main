@@ -1,8 +1,8 @@
 package seedu.task.logic.commands;
 
 import java.util.logging.Logger;
+
 import seedu.task.commons.exceptions.UndoableException;
-import seedu.task.logic.LogicManager;
 import seedu.taskcommons.core.LogsCenter;
 
 

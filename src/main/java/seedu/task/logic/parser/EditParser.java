@@ -76,7 +76,6 @@ public class EditParser implements Parser {
         } catch (NoSuchElementException nsee) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         } catch (EmptyValueException e) {
-            System.out.println("e");
             return new IncorrectCommand(e.getMessage());
         } catch (IndexOutOfBoundsException ie) {
             return new IncorrectCommand(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
