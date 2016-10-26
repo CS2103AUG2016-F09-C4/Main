@@ -2,6 +2,7 @@ package seedu.task.logic;
 
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -63,6 +64,8 @@ public class ClearCommandTest extends CommandTest {
      * - clears completed and uncompleted events
      * - clears completed and uncompleted tasks and events
      * 
+     * - clear command executed on an empty list
+     * 
      * Corresponding expected result:
      * - task list contains only uncompleted tasks
      * - event list contains only uncompleted events
@@ -70,6 +73,8 @@ public class ClearCommandTest extends CommandTest {
      * - task list is empty
      * - event list is empty
      * - task and event list is empty
+     * 
+     * - list will remain empty with no errors/incorrect command thrown
      * 
      * The test cases below test each possible scenario and validates the result
      */
@@ -200,6 +205,23 @@ public class ClearCommandTest extends CommandTest {
         
         helper.addTaskToModel(model, threeTasks);
         helper.addEventToModel(model, threeEvents);
+        
+        TaskBook expectedAB = helper.generateTaskBookTasksAndEvents(expectedTaskList, expectedEventList);
+
+        assertClearTaskAndEventCommandBehavior("clear /a", "mark 2", "list -t -a", "list -e -a", 
+                String.format(String.format(ClearCommand.MESSAGE_SUCCESS, 
+                ClearCommand.MESSAGE_COMPLETED_UNCOMPLETED, ClearCommand.MESSAGE_TASKS_EVENTS)),
+                expectedAB,expectedTaskList, expectedEventList);
+    }
+    
+    @Test
+    public void execute_clear_taskAndEvent_all_empty_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        
+        List<Task> expectedTaskList = new ArrayList<Task>();
+        
+        List<Event> expectedEventList = new ArrayList<Event>();
+
         
         TaskBook expectedAB = helper.generateTaskBookTasksAndEvents(expectedTaskList, expectedEventList);
 
