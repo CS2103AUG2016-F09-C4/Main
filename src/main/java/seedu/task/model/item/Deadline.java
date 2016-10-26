@@ -19,7 +19,6 @@ public class Deadline implements Comparable<Deadline> {
     		+ "M D Y, eg: Oct 12 2016\n"
     		+ "M/D/Y, eg: 01/30/16\n"
     		+ "RELATIVE_DAY TIME, tomorrow 4pm\n";
-    
 
     private LocalDateTime deadLine; 
 
@@ -32,6 +31,10 @@ public class Deadline implements Comparable<Deadline> {
         assert deadlineArg != null;
         deadlineArg = deadlineArg.trim();
    
+        if (deadlineArg.isEmpty()) {
+            throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
+        }   
+        
         try {
         	this.deadLine = StringUtil.parseStringToTime(deadlineArg);
         } catch (IllegalValueException e) {

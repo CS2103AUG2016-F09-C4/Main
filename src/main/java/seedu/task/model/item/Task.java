@@ -1,5 +1,6 @@
 package seedu.task.model.item;
 
+import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.CollectionUtil;
 
 import java.util.Comparator;
@@ -20,34 +21,26 @@ public class Task implements ReadOnlyTask {
     private Boolean isTaskCompleted;
 
     /**
-     * Every field, with the exception of Deadline, must be present and not null.
+     * Name of a task must be present and not null.
+     * Fields which are empty are to be null.
+     * @throws IllegalValueException 
      */
     
-    public Task(Name name, Description description, Boolean status) {
-        assert !CollectionUtil.isAnyNull(name, description,status);
-        this.name = name;
-        this.description = description;
-        this.deadline = null;
-        this.isTaskCompleted = status;
-    }
-    
-    /**
-     * Every field, with the exception of Deadline, must be present and not null.
-     */
-    
-    public Task(Name name, Description description, Deadline deadline, Boolean status) {
-        assert !CollectionUtil.isAnyNull(name, description,status);
+    public Task (Name name, Description description, Deadline deadline, boolean status) {
+        assert !CollectionUtil.isAnyNull(name,status);
         this.name = name;
         this.description = description;
         this.deadline = deadline;
         this.isTaskCompleted = status;
+
     }
 
     /**
      * Copy constructor.
+     * @throws IllegalValueException 
      */
     public Task(ReadOnlyTask source) {
-            this(source.getTask(), source.getDescription(), source.getDeadline().orElse(null) , source.getTaskStatus());
+            this(source.getTask(), source.getDescription().orElse(null), source.getDeadline().orElse(null) , source.getTaskStatus());
     }
 
     @Override
@@ -56,8 +49,8 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Description getDescription() {
-        return description;
+    public Optional<Description> getDescription() {
+        return Optional.ofNullable(this.description);
     }
     
    @Override

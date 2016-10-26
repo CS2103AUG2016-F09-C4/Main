@@ -173,7 +173,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public UnmodifiableObservableList<ReadOnlyEvent> getFilteredEventList() {
-    	SortedList<Event> sortedEvents = new SortedList<>(filteredEvents);
+        SortedList<Event> sortedEvents = new SortedList<>(filteredEvents);
     	sortedEvents.setComparator(Event.getAscComparator());
     	return new UnmodifiableObservableList<>(sortedEvents);
     }
@@ -266,7 +266,7 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyTask task) {
             return taskKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(task.getTask().fullName, keyword) 
-                    		|| StringUtil.containsIgnoreCase(task.getDescription().value, keyword))
+                    		|| StringUtil.containsIgnoreCase(task.getDescriptionValue() , keyword))
                     .findAny()
                     .isPresent();
         }
@@ -280,7 +280,7 @@ public class ModelManager extends ComponentManager implements Model {
 		public boolean run(ReadOnlyEvent event) {
 			return taskKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(event.getEvent().fullName, keyword)
-                    		|| StringUtil.containsIgnoreCase(event.getDescription().value, keyword))
+                    		|| StringUtil.containsIgnoreCase(event.getDescriptionValue(), keyword))
                     .findAny()
                     .isPresent();
 		}

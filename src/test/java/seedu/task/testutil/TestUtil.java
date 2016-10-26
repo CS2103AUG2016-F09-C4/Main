@@ -66,15 +66,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("CS1010 CodeCrunch Practices"), new Description("20 Practices up to Lecture 7 syllabus"), false),
-                    new Task(new Name("CS1020 CodeCrunch Practices"), new Description("20 Practices up to Lecture 7 syllabus"), false),
-                    new Task(new Name("Computing Project 1"), new Description("Complete my part before meeting"), false),
-                    new Task(new Name("Science Project 1"), new Description("Complete my part before meeting"), false),
-                    new Task(new Name("Biz Project 1"), new Description("Complete my part before meeting"),false),
-                    new Task(new Name("Engineering Project 1"), new Description("Complete my part before meeting"), false),
-                    new Task(new Name("Music Project 1"), new Description("Complete my part before meeting"),false),
-                    new Task(new Name("Arts Project 1"), new Description("Complete my part before meeting"),false),
-                    new Task(new Name("Social Science Project 1"), new Description("Complete my part before meeting"),false),
+                    new Task(new Name("CS1010 CodeCrunch Practices"), new Description("20 Practices up to Lecture 7 syllabus"), null,false),
+                    new Task(new Name("CS1020 CodeCrunch Practices"), new Description("20 Practices up to Lecture 7 syllabus"), null,false),
+                    new Task(new Name("Computing Project 1"), new Description("Complete my part before meeting"),null, false),
+                    new Task(new Name("Science Project 1"), new Description("Complete my part before meeting"), null,false),
+                    new Task(new Name("Biz Project 1"), new Description("Complete my part before meeting"),null,false),
+                    new Task(new Name("Engineering Project 1"), new Description("Complete my part before meeting"),null, false),
+                    new Task(new Name("Music Project 1"), new Description("Complete my part before meeting"),null,false),
+                    new Task(new Name("Arts Project 1"), new Description("Complete my part before meeting"),null,false),
+                    new Task(new Name("Social Science Project 1"), new Description("Complete my part before meeting"),null,false),
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -353,6 +353,18 @@ public class TestUtil {
     }
     
     /**
+     * Replaces a task in the array of tasks at certain index.
+     * @param tasks A array of tasks.
+     * @param taskToEdit The tasks that are to be edited.
+     * @return The modified array of tasks.
+     */
+    public static TestTask[] editTasksToListAtIndex(final TestTask[] tasks,int index, TestTask taskToEdit) {
+        List<TestTask> listOfTasks = asList(tasks);
+        listOfTasks.set(index, taskToEdit);
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+    }
+    
+    /**
      * Appends events to the array of events.
      * @param events A array of events.
      * @param eventsToAdd The events that are to be appended behind the original array.
@@ -387,6 +399,19 @@ public class TestUtil {
         List<TestTask> listOfTasks = asList(tasks);
         listOfTasks.set(index, taskToEdit);
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+    }
+    
+    /**
+     * Edits events according to index in the array of events.
+     * @param events A array of events.
+     * @param eventsToEdit The events that are to be edited in the original array.
+     * @param index Integer of event index to edit
+     * @return The modified array of events.
+     */
+    public static TestEvent[] editEventsToList(final TestEvent[] events, int index, TestEvent eventToEdit) {
+        List<TestEvent> listOfEvents = asList(events);
+        listOfEvents.set(index, eventToEdit);
+        return listOfEvents.toArray(new TestEvent[listOfEvents.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {

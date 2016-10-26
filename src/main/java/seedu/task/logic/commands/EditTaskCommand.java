@@ -24,9 +24,6 @@ public class EditTaskCommand extends EditCommand  {
     private Name newName;
     private Description newDescription;
     private Deadline newDeadline;
-    private boolean isNameToBeEdit;
-    private boolean isDescriptionToBeEdit;
-    private boolean isDeadlineToBeEdit;
     
     private Task editTask;
     private ReadOnlyTask targetTask;
@@ -40,28 +37,17 @@ public class EditTaskCommand extends EditCommand  {
      * @throws IllegalValueException
      *             if any of the raw values are invalid
      */
-    public EditTaskCommand(Integer index,
-                           boolean isNameToBeEdited, String name, 
-                           boolean isDescriptionToBeEdited, String description,
-                           boolean isDeadlineToBeEdited, String deadline
-                           ) throws IllegalValueException {
+    public EditTaskCommand(Integer index, String name, String description, String deadline) throws IllegalValueException {
         
         setTargetIndex(index);
-        this.isNameToBeEdit = isNameToBeEdited;
-        this.isDescriptionToBeEdit = isDescriptionToBeEdited;
-        this.isDeadlineToBeEdit = isDeadlineToBeEdited;
         
-        newName = null;
-        newDescription = null;
-        newDeadline = null;
-        
-        if (isNameToBeEdited) {
+        if (!name.isEmpty()) {
             newName = new Name(name);
         } 
-        if (isDescriptionToBeEdited) {
+        if (!description.isEmpty()) {
             newDescription = new Description(description);
         }
-        if (isDeadlineToBeEdited) {
+        if (!deadline.isEmpty()) {
             newDeadline = new Deadline(deadline);
         }
     }
@@ -99,22 +85,16 @@ public class EditTaskCommand extends EditCommand  {
      */    
     private Task editTask(ReadOnlyTask targetTask) {
         
-        if (!isNameToBeEdit) {
+        if (newName == null) {
             newName = targetTask.getTask();
         }
-        if (!isDescriptionToBeEdit) {
-            newDescription = targetTask.getDescription();
+        if (newDescription == null) {
+            newDescription = targetTask.getDescription().orElse(null);
         }
-        if (!isDeadlineToBeEdit) {
-            if (targetTask.getDeadline().isPresent()) {
-                newDeadline = targetTask.getDeadline().get();
-                return new Task (this.newName, this.newDescription, this.newDeadline, TASK_DEFAULT_STATUS);
-            } else {
-                return new Task (this.newName, this.newDescription, TASK_DEFAULT_STATUS);
-            }
-        } 
-        return new Task (this.newName, this.newDescription, this.newDeadline, TASK_DEFAULT_STATUS);
-        
+        if (newDeadline == null && targetTask.getDeadline().isPresent()) {
+            newDeadline = targetTask.getDeadline().get();
+        }
+        return new Task (this.newName, this.newDescription, this.newDeadline, TASK_DEFAULT_STATUS);        
     }
 
 	@Override
