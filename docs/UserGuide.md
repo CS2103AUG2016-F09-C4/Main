@@ -31,7 +31,7 @@
 ## Features
  
 #### Adding a task
-Adds a task to the TaskBook<br>
+Adds a task to dowat<br>
 
 Format: `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATE_TIME]` <br>
  
@@ -47,12 +47,13 @@ Format: `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATE_TIME]` <br>
 Examples: 
 * `add CS2103 Lab 6 /desc hand in through codecrunch /by 12 midnight 12-30-16` <br>
 * `add CS2103 V0.4 /by 30 Dec` <br>
+   Adds a task "CS2103 V0.4" with deadline "23:59 30 December 2016"
 
 
 #### Adding an event
-Similar to adding a task, you can also add an event to the TaskBook<br>
+Similar to adding a task, you can also add an event to dowat<br>
 
-Format: `add EVENT_NAME /from START_DATE_TIME [> END_DATE_TIME] [/desc DESCRIPTION]` <br>
+Format: `add EVENT_NAME /from START_DATE_TIME [/to END_DATE_TIME] [/desc DESCRIPTION]` <br>
 
 > With the exception of `EVENT_NAME` and `START_DATE_TIME`, all other parameters are optional. The order of parameters are not fixed. 
 > `START_DATE_TIME` and `END_DATE_TIME` can be entered in natural language.
@@ -60,8 +61,7 @@ Format: `add EVENT_NAME /from START_DATE_TIME [> END_DATE_TIME] [/desc DESCRIPTI
 > Dates entered in numeric form must be in the format of MM-DD-YYYY.
 > Only valid dates are recognised correctly.
 > For time, entering 7pm, 1900 or 19.00 are recognised.
-> If no time is entered, it is assumed to start at 00:00 hours.
-> If no end time is entered, it is assumed to end at 23:59 hours.
+> If no start time is entered, it is assumed to start at 00:00 hours.
 > If `END_DATE_TIME` is not provided, the start and end dates will be the same, the default timing will be set 1 hour apart.
 
 Examples:
@@ -100,12 +100,13 @@ Examples:
 
 
 #### Editing a task
-Edits an existing task/event in TaskBook<br>
+Edits an existing task in dowat<br>
 
 Format: `edit /t INDEX [/name NEW_TASK_NAME] [/desc NEW_TASK_DESCRIPTION] [/by NEW_DEADLINE_DATE_TIME]` <br>
 
 > Edits the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing of tasks.
 > Edits at least 1 field of the task. This includes name and/or description and/or deadline.
+> The order of the fields are flexible.
 > `NEW_DEADLINE_DATE_TIME` can be entered in natural language.
 > Edited tasks are automatically marked as uncompleted.
 
@@ -117,12 +118,13 @@ Examples:
 
 
 #### Editing an event
-Edits an existing event in TaskBook<br>
+Edits an existing event in dowat<br>
 
 Format: `edit /e INDEX [/name NEW_EVENT_NAME] [/desc NEW_EVENT_DESCRIPTION] [/from NEW_START_DATE_TIME > NEW_END_DATE_TIME]`
 
 > Edits the event at the specified `INDEX`. The index refers to the index number shown in the most recent listing of events.
-> Edits any number of fields of the event. This includes name and/or description and/or duration.
+> Edits any number of fields of the event. This includes name and/or description and/or start time and/or end time.
+> The order of the fields are flexible.
 > `NEW_START_DATE_TIME` and `NEW_END_DATE_TIME` can be entered in natural language.
 
 Examples:
@@ -133,12 +135,12 @@ Examples:
 
 
 #### Marking a task as completed
-Mark an existing task as completed in the TaskBook.
+Mark an existing task as completed in dowat.
 
 Format: `mark INDEX`
 
 > Marks the task at the specified `INDEX` as completed. The index refers to the index number shown in the most recent listing of tasks.
-> Completed tasks will not be shown in the list of tasks and will be archived in the TaskBook.
+> Completed tasks will not be shown in the list of tasks and will be archived in dowat.
 
 Examples: 
 * `mark 1`  
@@ -146,7 +148,7 @@ Examples:
   
 
 #### Deleting a task/event
-Deletes an existing task/event from the TaskBook storage completely.  
+Deletes an existing task/event from dowat storage completely.  
 
 Format: `delete /t|/e INDEX`
 
@@ -171,7 +173,7 @@ Examples:
 
   
 #### Changing the save location
-Taskbook data are saved in a file called taskbook.txt in the project root folder. You can change the location by specifying the file path as a program argument.  
+dowat data are saved in a file called taskbook.txt in the project root folder. You can change the location by specifying the file path as a program argument.  
 
 Format: `save FILEPATH`
 
@@ -192,7 +194,7 @@ Examples:
 
 
 #### Undo modifications
-Can go back to historical versions of the TaskBook with the use of undo commands. Only commands that modify the TaskBook in the same session will be restored. Any versions of current session will not be accessible after restarting the TaskBook.  
+Can go back to historical versions of dowat with the use of undo commands. Only commands that modify dowat in the same session will be restored. Any versions of current session will not be accessible after restarting dowat.  
 
 Format: `undo`
 
@@ -264,7 +266,7 @@ Format : `exit`
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Task Book.
+       the file that contains the data of your previous dowat.
        
 ## Command Summary
 
