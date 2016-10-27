@@ -9,6 +9,7 @@ import seedu.taskcommons.core.UnmodifiableObservableList;
 /**
  * Selects an Event identified using it's last displayed index from the task
  * book.
+ * //@@author A0125534L
  */
 public class SelectEventCommand extends SelectCommand {
 
@@ -23,11 +24,11 @@ public class SelectEventCommand extends SelectCommand {
 
 		UnmodifiableObservableList<ReadOnlyEvent> lastShownEventList = model.getFilteredEventList();
 
-		if (lastShownEventList.size() < targetIndex) {
+		if (lastShownEventList.size() < targetIndex) { //check the input index with list size
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
 		}
-
+		
 		EventsCenter.getInstance().post(new JumpToEventListRequestEvent(targetIndex - 1));
 		return new CommandResult(String.format(MESSAGE_SELECT_EVENT_SUCCESS, targetIndex));
 

@@ -20,7 +20,7 @@ import seedu.task.logic.commands.UndoCommand;
 /**
  * Responsible for testing the execution of HelpCommand
  * 
- * @author Yee Heng
+ * //@@author A0125534L
  */
 
 public class HelpCommandTest extends CommandTest {

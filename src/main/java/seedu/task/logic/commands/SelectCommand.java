@@ -1,15 +1,9 @@
 package seedu.task.logic.commands;
-/*
-import seedu.task.commons.events.ui.JumpToListRequestEvent;
-import seedu.task.model.item.ReadOnlyEvent;
-import seedu.task.model.item.ReadOnlyTask;
-import seedu.taskcommons.core.EventsCenter;
-import seedu.taskcommons.core.Messages;
-import seedu.taskcommons.core.UnmodifiableObservableList;
-*/
+
 /**
  * Selects a Task/Event identified using it's last displayed index from the Task
  * book.
+ * //@@author A0125534L
  */
 public abstract class SelectCommand extends Command {
 
