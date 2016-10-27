@@ -74,7 +74,7 @@ public class DeleteCommandTest extends TaskBookGuiTest {
 
         commandBox.runCommand("delete /t " + targetIndexOneIndexed);
 
-        //confirm the list now contains all previous persons except the deleted person
+        //confirm the list now contains all previous tasks except the deleted task
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
@@ -93,7 +93,7 @@ public class DeleteCommandTest extends TaskBookGuiTest {
 
         commandBox.runCommand("delete /e " + targetIndexOneIndexed);
 
-        //confirm the list now contains all previous persons except the deleted person
+        //confirm the list now contains all previous events except the deleted event
         assertTrue(eventListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
