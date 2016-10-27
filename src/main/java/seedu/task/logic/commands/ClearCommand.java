@@ -9,7 +9,7 @@ import seedu.task.model.item.UniqueTaskList;
 
 /**
  * Clears the taskbook's tasks and events according to the tags called
- * @author Tiankai
+ * @@author A0121608N
  */
 public class ClearCommand extends UndoableCommand {
 
