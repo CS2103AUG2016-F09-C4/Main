@@ -84,7 +84,7 @@ public class CalendarTest extends TaskBookGuiTest {
 		
 		//delete an event
 		currentList= TestUtil.removeEventFromList(currentList, 4);
-		commandBox.runCommand("delete -e 1");
+		commandBox.runCommand("delete /e 1");
 		calendarListMatch(currentList);
 		
 		//edit an event
