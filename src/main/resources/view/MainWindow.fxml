@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.geometry.*?>
@@ -44,11 +46,13 @@
                <items>
                   <VBox fx:id="taskList">
                      <children>
+                        <Label alignment="TOP_LEFT" styleClass="panel-header" text="Tasks TO DO!" />
                         <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                   <VBox fx:id="eventList">
                      <children>
+                        <Label alignment="TOP_LEFT" styleClass="panel-header" text="Events TO ATTEND!" />
                         <AnchorPane fx:id="eventListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>

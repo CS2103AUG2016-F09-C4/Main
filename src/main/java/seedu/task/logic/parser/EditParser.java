@@ -71,7 +71,6 @@ public class EditParser implements Parser {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
             }
         } catch (IllegalValueException ive) {
-            System.out.println("IVE");
             return new IncorrectCommand(ive.getMessage());
         } catch (NoSuchElementException nsee) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));

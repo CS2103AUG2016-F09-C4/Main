@@ -40,8 +40,7 @@ public class EventCardHandle extends GuiHandle {
     }
 
     public boolean isSameEvent(ReadOnlyEvent event){
-
-    	return getFullEventName().equals(event.getEvent().fullName) 
+        return getFullEventName().equals(event.getNameWithStatus()) 
                 && getEventDuration().equals(event.getDuration().toString())
                 && getDescription().equals(event.getDescriptionValue());
     }

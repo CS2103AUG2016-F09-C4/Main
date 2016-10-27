@@ -2,7 +2,6 @@ package seedu.task.logic.commands;
 
 import java.time.LocalDateTime;
 import java.util.logging.Logger;
-
 import seedu.task.commons.events.ui.UpdateCalendarEvent;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.StringUtil;
@@ -30,7 +29,7 @@ public class CalendarCommand extends Command {
 	private static final int CALENDAR_VIEW_WEEK = 0;
 	private static final String MESSAGE_SUCCESS = "Calendar showing. %1$s";
 	private static final String COMMAND_LOG_FORMAT = "[Jump to: %1$s Showing: %2$s]";
-	
+
 	private LocalDateTime displayedDateTime;
 	private boolean toWeekView;
 	private boolean toDayView;

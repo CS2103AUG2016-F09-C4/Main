@@ -12,7 +12,7 @@ import seedu.task.model.item.UniqueEventList;
  *
  */
 public class TypicalTestEvents {
-	public static TestEvent  meeting1, meeting2, meeting3, addedEvent, addedEvent2;
+	public static TestEvent  meeting1, meeting2, meeting3, addedEvent, addedEvent2, addedEvent3;
 	
 	public TypicalTestEvents() {
 		try {
@@ -47,6 +47,12 @@ public class TypicalTestEvents {
                     .withDuration("tomorrow 1pm ","next Friday 1pm")
                     .build();
 			
+			addedEvent3 = new EventBuilder()
+                    .withName("manual event 3")
+                    .withDescription("for manual testing")
+                    .withDuration("yesterday 1pm ","yesterday 3pm")
+                    .build();
+			
 		} catch (IllegalValueException e) {
 			e.printStackTrace();
 			assert false : "not possible";
@@ -66,9 +72,14 @@ public class TypicalTestEvents {
 	public TestEvent[] getTypicalAllEvents() {
 		return new TestEvent[]{meeting1, meeting2, meeting3};
 	}
+
+    public TestEvent[] getTypicalAllNotCompletedEvents() {
+        return new TestEvent[]{meeting2, meeting3, addedEvent};
+    }
+	
 	
 	public TestEvent[] getTypicalNotCompletedEvents() {
-		return new TestEvent[]{meeting2, meeting3};
+	    return new TestEvent[]{meeting2, meeting3};
 	}
 	
 	public TaskBook getTypicalTaskBook() {
