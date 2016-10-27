@@ -19,6 +19,7 @@ import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.ui.TaskListPanel.TaskListViewCell;
 import seedu.taskcommons.core.LogsCenter;
 
+//@@author A0127570H
 public class EventListPanel extends UiPart{
     private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
     private static final String FXML = "EventListPanel.fxml";

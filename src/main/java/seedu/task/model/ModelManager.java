@@ -131,9 +131,8 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
-    
-    //@@author
 
+    //@@author A0127570H
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskBook.addTask(task);
@@ -161,7 +160,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredEventListToShowWithStatus(false);
         indicateTaskBookChanged(); 
     }
-
+    //@@author
         
    
     //=========== Filtered Task List Accessors ===============================================================
