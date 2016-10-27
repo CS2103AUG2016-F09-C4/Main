@@ -88,7 +88,7 @@ public class CommandBox extends UiPart {
     }
     
     
-    
+    //@@author A0121608N
     private void addNewCommand() {
         record.add(previousCommandTest);
         index = record.size();
@@ -119,7 +119,7 @@ public class CommandBox extends UiPart {
         }
         
     }
-
+    //@@author
 
     /**
      * Sets the command box style to indicate a correct command.

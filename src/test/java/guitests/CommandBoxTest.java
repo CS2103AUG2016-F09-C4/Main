@@ -26,6 +26,7 @@ public class CommandBoxTest extends TaskBookGuiTest {
         assertEquals(commandBox.getCommandInput(), "invalid command");
     }
     
+    //@@author A0121608N
     // test for DELETE key press
     @Test
     public void commandBox_del_keyPress(){
@@ -56,4 +57,5 @@ public class CommandBoxTest extends TaskBookGuiTest {
         commandBox.keyPress(KeyCode.DOWN);
         assertEquals(commandBox.getCommandInput(), td.engine.getAddCommand());
     }
+    //@@author
 }
