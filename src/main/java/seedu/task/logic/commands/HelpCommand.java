@@ -6,7 +6,7 @@ import seedu.taskcommons.core.EventsCenter;
 
 /**
  * Format full help instructions for every command for display.
- * //@@author A0125534L
+ * @@author A0125534L
  */
 public class HelpCommand extends Command {
 

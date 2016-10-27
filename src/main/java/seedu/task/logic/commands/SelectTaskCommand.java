@@ -10,7 +10,7 @@ import seedu.taskcommons.core.UnmodifiableObservableList;
 /**
  * Selects an Task identified using it's last displayed index from the task
  * book.
- * //@@author A0125534L
+ * @@author A0125534L
  */
 public class SelectTaskCommand extends SelectCommand {
 

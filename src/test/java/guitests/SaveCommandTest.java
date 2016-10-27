@@ -18,7 +18,7 @@ import seedu.task.storage.JsonConfigStorage;
 /**
  * Responsible for testing the execution of SaveCommand
  * 
- * //@@author A0125534L
+ * @@author A0125534L
  */
 
 public class SaveCommandTest extends TaskBookGuiTest {

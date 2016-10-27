@@ -2,7 +2,7 @@
 package seedu.task.commons.events.storage;
 
 /** Handles event changes in storage location
- * //@@author A0125534L
+ * @@author A0125534L
  * */
 
 

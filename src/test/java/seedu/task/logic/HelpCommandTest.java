@@ -1,6 +1,6 @@
 package seedu.task.logic;
 
-import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 
 import org.junit.After;
 import org.junit.Before;
@@ -20,7 +20,7 @@ import seedu.task.logic.commands.UndoCommand;
 /**
  * Responsible for testing the execution of HelpCommand
  * 
- * //@@author A0125534L
+ * @@author A0125534L
  */
 
 public class HelpCommandTest extends CommandTest {

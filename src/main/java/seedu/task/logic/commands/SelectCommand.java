@@ -3,7 +3,7 @@ package seedu.task.logic.commands;
 /**
  * Selects a Task/Event identified using it's last displayed index from the Task
  * book.
- * //@@author A0125534L
+ * @@author A0125534L
  */
 public abstract class SelectCommand extends Command {
 

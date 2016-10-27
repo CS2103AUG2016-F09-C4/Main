@@ -23,7 +23,7 @@ import seedu.task.logic.commands.UndoCommand;
  * Responsible for validating and preparing the arguments for HelpCommand
  * execution
  * 
- * @//@@author A0125534L
+ * @@author A0125534L
  */
 
 public class HelpParser implements Parser {

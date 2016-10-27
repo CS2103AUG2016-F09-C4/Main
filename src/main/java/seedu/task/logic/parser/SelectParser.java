@@ -15,7 +15,7 @@ import seedu.task.logic.commands.IncorrectCommand;
 /**
  * Responsible for validating and preparing the arguments for SelectCommand
  * execution
- * //@@author A0125534L
+ * @@author A0125534L
  */
 
 public class SelectParser implements Parser {
