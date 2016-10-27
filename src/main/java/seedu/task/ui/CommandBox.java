@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.task.commons.events.ui.IncorrectCommandAttemptedEvent;
@@ -13,6 +14,7 @@ import seedu.task.logic.Logic;
 import seedu.task.logic.commands.*;
 import seedu.taskcommons.core.LogsCenter;
 
+import java.awt.event.KeyEvent;
 import java.util.logging.Logger;
 
 public class CommandBox extends UiPart {
@@ -79,6 +81,23 @@ public class CommandBox extends UiPart {
         mostRecentResult = logic.execute(previousCommandTest);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
+    }
+    
+    @FXML
+    private void handleKeyPress(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_F5)
+            System.out.print("asd");
+        //Take a copy of the command text
+        //previousCommandTest = commandTextField.getText();
+
+        /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
+         * in the event handling code {@link #handleIncorrectCommandAttempted}
+         */
+        //setStyleToIndicateCorrectCommand();
+        //mostRecentResult = logic.execute(previousCommandTest);
+        //resultDisplay.postMessage(mostRecentResult.feedbackToUser);
+        //logger.info("Result: " + mostRecentResult.feedbackToUser);
+        
     }
 
 
