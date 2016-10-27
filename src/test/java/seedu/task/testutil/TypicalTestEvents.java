@@ -73,7 +73,7 @@ public class TypicalTestEvents {
 	}
 	
 	public TestEvent[] getTypicalNotCompletedEvents() {
-		return new TestEvent[]{meeting2, meeting3};
+		return new TestEvent[]{meeting2, meeting3, addedEvent};
 	}
 	
 	public TaskBook getTypicalTaskBook() {
