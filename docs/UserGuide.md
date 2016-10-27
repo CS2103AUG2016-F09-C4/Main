@@ -64,9 +64,9 @@ Examples:
 * `add CS2103 Exam /desc final examination @ MPSH3 /from today 4pm > 6pm` <br>
 * `add CS2103 Workshop /desc OOP workshop /from 1-12-16 > 7-12-16` <br>
 
-
+<!-- @@author A0144702N -->
 #### Listing tasks
-Shows a list of tasks that are not marked done. <br>
+Shows a list of tasks that are not marked done. Or shows a list of all tasks. <br>
 
 Format: `list /t [/a]`
 
@@ -81,7 +81,7 @@ Examples:
 
 
 #### Listing events
-Shows a list of all events that are completed. <br>
+Shows a list of events that are not completed. Or shows a list of all events. <br>
 
 Format: `list /e [/a]` <br>
 
@@ -192,19 +192,19 @@ Can go back to historical versions of the TaskBook with the use of undo commands
 
 Format: `undo`
 
-
+<!-- @@author A0144702N -->
 #### Finding for events/tasks
-With the find command, you can find for tasks or events which contain some keywords in their name as well as in their descriptions. 
+With the find command, you can find for tasks or events which contain some keywords in their **name** as well as in their **descriptions**. 
 
 Format: `find [/e|/t] KEYWORD [MORE_KEYWORDS]`
 
-> `KEYWORDS` are case sensitive. Events/Tasks which contain at least one keyword in their names will be returned. 
+> `KEYWORDS` are case insensitive. Events/Tasks which contain at least one keyword in their names will be returned. 
 
 Examples:
-* `find CS2103`
+* `find cs2103`
   Shows tasks and events which have CS2103 (ignoring cases) in their names or description.
-* `find CS2104`
-  Returns relevant information of "CS2103 Exam" but not "cs2103 Exam"
+* `find CS`
+  Partial match is not supported. Will not return any other tasks or events unless they contain "CS" (ignoring cases) in the names or description.
 * `find CS2106 CS2103`
   Returns any tasks or events having "CS2106", "CS2103" in their names. 
 
@@ -250,9 +250,9 @@ Examples:
 * `clear /a` <br>
   Clears all tasks and events.
   
-
+<!-- @@author A0144702N -->
 #### Toggle calendar view
-Toggle the view of calendar and jump to certain time time as user specified. 
+Toggle the view of calendar and focus to certain time time as user specified. 
 
 Format: `show TIME [/day|/wk]`
 
