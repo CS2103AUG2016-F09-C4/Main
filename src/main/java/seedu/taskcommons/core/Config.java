@@ -14,7 +14,7 @@ public class Config {
     private String appTitle = "dowat";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String taskBookFilePath = "taskbook.xml";
+    private String taskBookFilePath = "dowat.xml";
     private String taskBookName = "TypicalTaskBookName";
 
 
@@ -61,13 +61,12 @@ public class Config {
         this.taskBookName = taskBookName;
     }
 
-
     @Override
     public boolean equals(Object other) {
-        if (other == this){
+        if (other == this) {
             return true;
         }
-        if (!(other instanceof Config)){ //this handles null as well.
+        if (!(other instanceof Config)) { // null handler.
             return false;
         }
 

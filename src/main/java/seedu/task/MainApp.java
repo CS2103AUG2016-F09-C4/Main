@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
+import seedu.task.commons.events.storage.StorageLocationChangedEvent;
+import seedu.task.logic.commands.SaveCommand;
 
 /**
  * The main entry point to the application.
@@ -62,6 +64,9 @@ public class MainApp extends Application {
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
+        
+        SaveCommand.setConfig(config);
+        SaveCommand.setStorage(storage);
     }
 
     private String getApplicationParameter(String parameterName){
@@ -81,7 +86,7 @@ public class MainApp extends Application {
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty TaskBook");
             initialData = new TaskBook();
-        } catch (FileNotFoundException e) {
+        } catch (IOException  e) {
             logger.warning("Problem while reading from the file. . Will be starting with an empty TaskBook");
             initialData = new TaskBook();
         }
@@ -180,6 +185,12 @@ public class MainApp extends Application {
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         this.stop();
+    }
+    
+    @Subscribe
+    private void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) {
+        config = event.getConfig();
+        storage = new StorageManager(config.getTaskBookFilePath(), config.getUserPrefsFilePath());
     }
 
     public static void main(String[] args) {

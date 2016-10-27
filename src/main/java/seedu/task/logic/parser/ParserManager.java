@@ -66,6 +66,9 @@ public class ParserManager {
         case ListCommand.COMMAND_WORD:
             return new ListParser().prepare(arguments);
             
+        case SaveCommand.COMMAND_WORD:
+            return new SaveParser().prepare(arguments);
+            
         case UndoCommand.COMMAND_WORD:
         	return new UndoCommand();
             
