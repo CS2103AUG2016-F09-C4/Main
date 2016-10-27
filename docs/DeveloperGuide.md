@@ -108,6 +108,7 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raises from various parts of the App and updates the UI accordingly.
 
+<!-- @@author A0127570H -->
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
@@ -118,6 +119,8 @@ The `UI` component,
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
+
+<!-- @@author -->
 
 ### Model component
 
@@ -275,6 +278,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `TaskBook` and the **Actor** is the `user`, unless specified otherwise)
 
+<!-- @@author A0127570H -->
 #### Use case 1: Add task
 
 **MSS**
@@ -304,6 +308,8 @@ Use case ends.
   > 1a1. Taskbook displays an error message
     Use case resumes at step 1
 
+<!-- @@author A0127570H -->
+
 <br>
 #### Use case 3: List tasks/events
 
@@ -321,6 +327,8 @@ The Use case can be elaborated by the SD as below in addition the SD mentioned i
 The SD for list events is similiar to task. 
 
 <br>
+
+<!-- @@author A0127570H -->
 
 #### Use case 4: Edit task details
 
@@ -353,6 +361,8 @@ The SD for list events is similiar to task.
   Use case resumes at step 2
 
 <br>
+
+<!-- @@author A0127570H -->
 
 #### Use case 6: Mark task as completed
 
