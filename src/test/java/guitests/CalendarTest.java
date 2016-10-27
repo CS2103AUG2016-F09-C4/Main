@@ -19,6 +19,7 @@ import seedu.task.testutil.TestEvent;
 import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestEvents;
 
+//@@author A0144702N
 public class CalendarTest extends TaskBookGuiTest {
 	
 	/*

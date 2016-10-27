@@ -4,6 +4,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.StringUtil;
 import java.time.LocalDateTime;
 
+//@@author A0144702N
 /**
  * Represents an event's duration in the task book. 
  * Guarantees: immutable; 
@@ -112,7 +113,7 @@ public class EventDuration implements Comparable<EventDuration> {
 	public String getEndTimeAsText() {
 		return getEndTime().format(StringUtil.DATE_FORMATTER);
 	}
-	
+	//@@author generated
 	@Override
 	public int hashCode() {
 		final int prime = 31;

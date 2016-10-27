@@ -1,9 +1,11 @@
 package seedu.task.logic.commands;
 
+//@@author A0144702N
 /**
  * Abstract class to represent generic list operations.  
  * @author xuchen
  */
+
 public abstract class ListCommand extends Command {
 	public static final String COMMAND_WORD = "list";
 	

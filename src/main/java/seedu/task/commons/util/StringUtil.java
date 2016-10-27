@@ -19,6 +19,8 @@ import seedu.task.model.item.EventDuration;
  * Helper functions for handling strings.
  */
 public class StringUtil {
+	
+	//@@author A0144702N
 	/**
 	 * DateTimeFormatter for LocalTimeDate fields. 
 	 */
@@ -50,6 +52,7 @@ public class StringUtil {
 		return LocalDateTime.ofInstant(parsedResult.get(DATE_INDEX).toInstant(), ZoneId.systemDefault()); 
 	}
 	
+	//@@author
     public static boolean containsIgnoreCase(String source, String query) {
         String[] split = source.toLowerCase().split("\\s+");
         List<String> strings = Arrays.asList(split);
