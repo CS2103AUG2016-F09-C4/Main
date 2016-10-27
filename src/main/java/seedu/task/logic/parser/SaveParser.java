@@ -10,26 +10,19 @@ import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.SaveCommand;
 
 /**
- * Responsible for validating and preparing the arguments for SaveCommand
- * execution
- * //@@author A0125534L
+ * Parses arguments in the context of the save command.
+ *
+ * @param args
+ * full command args string
+ * @return the prepared command
+ * 
+ * @@author A0125534L
  */
 
 public class SaveParser implements Parser {
 
-	public SaveParser() {
-	}
-
 	private static final Pattern SAVE_ARGS_FORMAT = Pattern.compile("(?<arguments>.*)");
-
-	/**
-	 * Parses arguments in the context of the save command.
-	 *
-	 * @param args
-	 * full command args string
-	 * @return the prepared command
-	 */
-
+	public SaveParser() {}
 
 	public Command prepare(String args) {
 		final Matcher matcher = SAVE_ARGS_FORMAT.matcher(args.trim());

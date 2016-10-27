@@ -12,7 +12,7 @@ import seedu.task.storage.JsonConfigStorage;
 import seedu.task.storage.Storage;
 
 /** Save command that saves current data file to new filepath.
- * //@@author A0125534L
+ * @@author A0125534L
  * */
 
 public class SaveCommand extends Command {
@@ -33,7 +33,7 @@ public class SaveCommand extends Command {
     private static Config config;
     private String newStorageFilePath, oldStorageFilePath;
     private ReadOnlyTaskBook taskBookManager;
-    private static JsonConfigStorage jsonConfigStorage;
+    private JsonConfigStorage jsonConfigStorage;
     private static Storage storage;
     
     public SaveCommand(String newStorageFilePath) {
