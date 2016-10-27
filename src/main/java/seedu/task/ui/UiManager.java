@@ -127,7 +127,7 @@ public class UiManager extends ComponentManager implements Ui {
 		mainWindow.getEventListPanel().scrollTo(event.targetIndex);
 		mainWindow.getCalendarPanel().select(event.targetEvent);
 	}
-	
+	//@@author A0144702N
 	@Subscribe
 	private void handleEventListUpdatedEvent(TaskBookChangedEvent event) {
 		logger.info(LogsCenter.getEventHandlingLogMessage(event));
