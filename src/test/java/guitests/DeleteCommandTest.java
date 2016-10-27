@@ -12,7 +12,7 @@ import static seedu.task.logic.commands.DeleteEventCommand.MESSAGE_DELETE_EVENT_
 
 /**
  * Tests Delete Command for GUI Test.
- * @author Tiankai
+ * @@author A0121608N
  */
 
 public class DeleteCommandTest extends TaskBookGuiTest {

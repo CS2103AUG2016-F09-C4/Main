@@ -11,7 +11,7 @@ import static seedu.task.logic.commands.MarkCommand.MESSAGE_MARK_TASK_SUCCESS;
 
 /**
  * Tests Mark Command for GUI Test.
- * @author Tiankai
+ * @@author A0121608N
  */
 
 public class MarkCommandTest extends TaskBookGuiTest {

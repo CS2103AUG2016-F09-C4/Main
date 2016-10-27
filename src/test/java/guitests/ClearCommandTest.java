@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Tests Clear Command for GUI Test.
- * @author Tiankai
+ * @@author A0121608N
  */
 
 public class ClearCommandTest extends TaskBookGuiTest {
