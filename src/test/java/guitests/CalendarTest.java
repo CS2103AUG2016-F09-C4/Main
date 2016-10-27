@@ -104,7 +104,7 @@ public class CalendarTest extends TaskBookGuiTest {
 		calendarListMatch(currentList);
 		
 		//select a event
-		commandBox.runCommand("select -e 1");
+		commandBox.runCommand("select /e 1");
 		
 		//calendar size should not change
 		calendarListMatch(currentList);
