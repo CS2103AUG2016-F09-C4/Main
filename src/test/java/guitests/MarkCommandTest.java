@@ -55,6 +55,6 @@ public class MarkCommandTest extends TaskBookGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark));
+        assertResultMessage(String.format(MESSAGE_MARK_TASK_SUCCESS, targetIndexOneIndexed));
     }
 }

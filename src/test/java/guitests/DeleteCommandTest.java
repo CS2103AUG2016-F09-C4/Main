@@ -39,6 +39,7 @@ public class DeleteCommandTest extends TaskBookGuiTest {
         commandBox.runCommand("delete /t " + currentTaskList.length + 1);
         assertResultMessage("The task index provided is invalid");
         
+        commandBox.runCommand("clear /t /a");
         
         
         
@@ -50,11 +51,6 @@ public class DeleteCommandTest extends TaskBookGuiTest {
         //delete the last in the list
         currentEventList = TestUtil.removeEventFromList(currentEventList, targetIndex);
         targetIndex = currentEventList.length;
-        assertDeleteEventSuccess(targetIndex, currentEventList);
-
-        //delete from the middle of the list
-        currentEventList = TestUtil.removeEventFromList(currentEventList, targetIndex);
-        targetIndex = currentEventList.length/2;
         assertDeleteEventSuccess(targetIndex, currentEventList);
 
         //invalid index

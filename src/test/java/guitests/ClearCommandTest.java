@@ -57,11 +57,12 @@ public class ClearCommandTest extends TaskBookGuiTest {
         commandBox.runCommand(TypicalTestEvents.meeting1.getAddCommand());
         commandBox.runCommand(TypicalTestEvents.meeting2.getAddCommand());
         assertClearAllEventsCommandSuccess();
+        commandBox.runCommand("clear /a");
 
         //verify other commands can work after a clear command
         commandBox.runCommand(TypicalTestTasks.arts.getAddCommand());
         assertTrue(taskListPanel.isListMatching(TypicalTestTasks.arts));
-        commandBox.runCommand("delete 1");
+        commandBox.runCommand("delete /t 1");
         assertTaskListSize(0);
 
         //verify clear command works when the list is empty
@@ -72,41 +73,41 @@ public class ClearCommandTest extends TaskBookGuiTest {
         commandBox.runCommand("clear /a");
         assertTaskListSize(0);
         assertEventListSize(0);
-        assertResultMessage("Task book has been cleared!");
+        assertResultMessage("All completed and uncompleted tasks and events has been cleared!");
     }
     
     private void assertClearAllCompletedCommandSuccess() {
         commandBox.runCommand("clear");
         assertTaskListSize(2);
         assertEventListSize(2);
-        assertResultMessage("Task book has been cleared!");
+        assertResultMessage("All completed tasks and events has been cleared!");
     }
     
     private void assertClearCompletedTasksCommandSuccess() {
         commandBox.runCommand("clear /t");
         assertTaskListSize(2);
         assertEventListSize(0);
-        assertResultMessage("Task book has been cleared!");
+        assertResultMessage("All completed tasks has been cleared!");
     }
     
     private void assertClearCompletedEventsCommandSuccess() {
         commandBox.runCommand("clear /e");
         assertTaskListSize(0);
         assertEventListSize(2);
-        assertResultMessage("Task book has been cleared!");
+        assertResultMessage("All completed events has been cleared!");
     }
     
     private void assertClearAllTasksCommandSuccess() {
         commandBox.runCommand("clear /t /a");
         assertTaskListSize(0);
-        assertEventListSize(2);
-        assertResultMessage("Task book has been cleared!");
+        assertEventListSize(0);
+        assertResultMessage("All completed and uncompleted tasks has been cleared!");
     }
     
     private void assertClearAllEventsCommandSuccess() {
         commandBox.runCommand("clear /e /a");
-        assertTaskListSize(2);
+        assertTaskListSize(0);
         assertEventListSize(0);
-        assertResultMessage("Task book has been cleared!");
+        assertResultMessage("All completed and uncompleted events has been cleared!");
     }
 }
