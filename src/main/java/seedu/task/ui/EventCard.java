@@ -43,7 +43,7 @@ public class EventCard extends UiPart {
     }
 
     private void initialiseDescription() {
-        description.setText(event.getDescriptionValue());
+        description.setText(event.getDescriptionToString());
         if (event.getDescription().isPresent()) {
             description.setManaged(true);
         } else {
