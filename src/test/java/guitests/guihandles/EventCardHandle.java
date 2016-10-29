@@ -47,12 +47,12 @@ public class EventCardHandle extends GuiHandle {
         if (!event.getDescription().isPresent()) {
             return true;
         } else {
-            return getDescription().equals(event.getDescriptionToString());
+            return getDescription().equals(event.getDescriptionToString().trim());
         }
     }
 
     private boolean isSameDuration(ReadOnlyEvent event) {
-        return getEventDuration().equals(event.getDuration().toString());
+        return getEventDuration().equals(event.getDuration().toString().trim());
     }
 
     private boolean isSameName(ReadOnlyEvent event) {
