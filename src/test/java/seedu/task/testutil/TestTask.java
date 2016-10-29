@@ -83,15 +83,6 @@ public class TestTask implements ReadOnlyTask {
         sb.append("/desc " + this.getDescriptionValue() + " ");
         return sb.toString();
     }
-    
-    public String getFullEditCommand(int index) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("edit /t " + index + " ");
-        sb.append("/name " + this.getTask().fullName + " ");
-        sb.append("/desc " + this.getDescriptionValue() + " ");
-        sb.append("/by " + this.getDeadlineValue() + " ");
-        return sb.toString();
-    }
 
     @Override
     public Optional<Deadline> getDeadline() {
