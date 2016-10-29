@@ -38,12 +38,12 @@ public class EventCard extends UiPart {
         name.setText(event.getNameWithStatus());
         index.setText(displayedIndex + ". ");
         initialiseDescription();
-        duration.setText(event.getDuration().toString());
+        duration.setText(event.getDuration().toString().trim());
         setCompletionBackgroundText();
     }
 
     private void initialiseDescription() {
-        description.setText(event.getDescriptionToString());
+        description.setText(event.getDescriptionToString().trim());
         if (event.getDescription().isPresent()) {
             description.setManaged(true);
         } else {
