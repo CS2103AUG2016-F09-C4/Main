@@ -42,14 +42,6 @@ public class TestTask implements ReadOnlyTask {
         return name;
     }
 
-    public Description getDescriptionRaw() {
-        return description.get();
-    }
-
-    public Deadline getDeadlineRaw() {
-        return this.deadline.get();
-    }
-
     @Override
     public Boolean getTaskStatus() {
         return isTaskCompleted;

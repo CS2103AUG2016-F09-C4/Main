@@ -77,7 +77,6 @@ public class TestUtil {
                     new Task(new Name("Social Science Project 1"), new Description("Complete my part before meeting"),null,false),
             };
         } catch (IllegalValueException e) {
-            assert false;
             //not possible
             return null;
         }

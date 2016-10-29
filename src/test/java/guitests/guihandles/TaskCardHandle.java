@@ -35,13 +35,7 @@ public class TaskCardHandle extends GuiHandle {
 
     public String getDeadline() {
         return getTextFromLabel(DEADLINE_FIELD_ID);
-    }
-    
-    public Boolean getTaskStatus() {
-    	return false;
-    }
-
-    
+    }    
 
     public boolean isSameTask(ReadOnlyTask task){
         return isSameName(task) && isSameDescription(task) && isSameDeadline(task);
