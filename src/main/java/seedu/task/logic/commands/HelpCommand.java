@@ -23,7 +23,6 @@ public class HelpCommand extends Command {
 			+ "Parameters: help [KEY_WORD]\n"
 			+ "Example: "+ COMMAND_WORD + " add\n\n";
 	
-	
 	public HelpCommand(String commandWord, boolean helpWindowPopUp) { //values passed from help parser
 		this.commandWord = commandWord;
 		this.isPopUp = helpWindowPopUp;

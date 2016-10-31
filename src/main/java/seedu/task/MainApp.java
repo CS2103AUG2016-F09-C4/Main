@@ -187,8 +187,9 @@ public class MainApp extends Application {
         this.stop();
     }
     
+
     @Subscribe
-    public void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) {
+    private void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) {
         config = event.getConfig();
         storage = new StorageManager(config.getTaskBookFilePath(), config.getUserPrefsFilePath());
     }

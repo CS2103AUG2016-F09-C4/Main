@@ -8,8 +8,9 @@ import seedu.task.commons.exceptions.DataConversionException;
 
 /**
  * Represents a storage for {@link seedu.taskell.commons.core.Config}.
- * //@@author A0125534L
+ * @@author A0125534L
  */
+
 public interface ConfigStorage {
     /**
      * Returns Config data from storage.

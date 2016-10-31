@@ -12,8 +12,9 @@ import seedu.task.commons.util.FileUtil;
 
 /**
  * A class to access Config stored in the hard disk as a json file
- * //@@author A0125534L
+ * @@author A0125534L
  */
+
 
 public class JsonConfigStorage implements ConfigStorage {
 

@@ -23,7 +23,9 @@ public class SaveCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + "\n" 
     		+ "Saves data file to new location specified. "
-            + "New files can be auto-created as long as given directory is valid.\n"
+            + "New folders with the file can be auto-created as long as given directory is valid.\n"
+    		+ "Main Directory will the dafault save location for any valid but unspecifed file path\n"
+            + "Example: " + COMMAND_WORD + " C: /Users/Computin/Desktop/CS2103" + "Take note: No spacing after :\n"
             + "Parameters: FILEPATH (must be valid)\n"
             + "Example: " + COMMAND_WORD + " C:/Users/Computing/Desktop/CS2103";
     
@@ -33,7 +35,7 @@ public class SaveCommand extends Command {
     private static Config config;
     private String newStorageFilePath, oldStorageFilePath;
     private ReadOnlyTaskBook taskBookManager;
-    private JsonConfigStorage jsonConfigStorage;
+    private static JsonConfigStorage jsonConfigStorage;
     private static Storage storage;
     
     public SaveCommand(String newStorageFilePath) {

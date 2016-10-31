@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.logging.Logger;
 import seedu.task.commons.events.storage.StorageLocationChangedEvent;
 
+
 /**
  * A ui for the status bar that is displayed at the footer of the application.
  */
@@ -99,7 +100,8 @@ public class StatusBarFooter extends UiPart {
     }
     
     @Subscribe
-        public void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) {
-            setSaveLocation(event.getConfig().getTaskBookFilePath());
-        }
+    public void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) {
+        setSaveLocation(event.getConfig().getTaskBookFilePath());
+    }
+    
 }

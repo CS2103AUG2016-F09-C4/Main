@@ -20,6 +20,7 @@ import java.util.logging.Logger;
  */
 public class StorageManager extends ComponentManager implements Storage {
 
+	
 	private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
 	private XmlTaskBookStorage taskBookStorage;
 	private JsonUserPrefStorage userPrefStorage;
@@ -76,6 +77,7 @@ public class StorageManager extends ComponentManager implements Storage {
 		taskBookStorage.saveTaskBook(taskManager, filePath);
 	}
 
+	
 	@Override
 	@Subscribe
 	public void handleTaskBookChangedEvent(TaskBookChangedEvent event) {

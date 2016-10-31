@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.logging.Level;
 
 /**
- * Config values used by the app
+ * Configure values used by the app
  */
 public class Config {
 
@@ -85,7 +85,7 @@ public class Config {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);

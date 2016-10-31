@@ -74,6 +74,7 @@ public class HelpParser implements Parser {
 		default:
 			return new HelpCommand(HelpCommand.MESSAGE_USAGE, true);
 			
+			
 		}
 	}
 }

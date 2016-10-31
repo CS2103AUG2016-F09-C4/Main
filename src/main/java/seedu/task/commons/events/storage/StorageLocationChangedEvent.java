@@ -5,7 +5,6 @@ package seedu.task.commons.events.storage;
  * @@author A0125534L
  * */
 
-
 import seedu.taskcommons.core.Config;
 import seedu.task.commons.events.BaseEvent;
 
