@@ -28,7 +28,7 @@ public class FindCommandTest extends CommandTest {
 
 
     @Test
-    public void execute_find_onlyMatchesFullWordsInNamesOrDescription() throws Exception {
+    public void execute_find_onlyMatchesSimiliarWordsInNamesOrDescription() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         
         //prepare Tasks

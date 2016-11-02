@@ -269,8 +269,8 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return taskKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTask().fullName, keyword) 
-                    		|| StringUtil.containsIgnoreCase(task.getDescriptionValue() , keyword))
+                    .filter(keyword -> StringUtil.findMatch(task.getTask().fullName, keyword) 
+                    		|| StringUtil.findMatch(task.getDescriptionValue() , keyword))
                     .findAny()
                     .isPresent();
         }
@@ -283,8 +283,8 @@ public class ModelManager extends ComponentManager implements Model {
 		@Override
 		public boolean run(ReadOnlyEvent event) {
 			return taskKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(event.getEvent().fullName, keyword)
-                    		|| StringUtil.containsIgnoreCase(event.getDescriptionValue(), keyword))
+                    .filter(keyword -> StringUtil.findMatch(event.getEvent().fullName, keyword)
+                    		|| StringUtil.findMatch(event.getDescriptionValue(), keyword))
                     .findAny()
                     .isPresent();
 		}

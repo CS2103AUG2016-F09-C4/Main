@@ -30,7 +30,8 @@ public class StringUtil {
 			+ "But Fri, Mon, etc is okay.\n"
 			+ "MM DD YY is the expected numerical sequence. \n"
 			+ "Possible event duration could be:"
-			+ "today 4pm /to tomorrow 4pm"; 
+			+ "today 4pm /to tomorrow 4pm";
+	private static final int SIMILIAR_THRESHOLD = 2; 
 	/**
 	 * Parse a String argument into date format. 
 	 * @param parser
@@ -76,4 +77,59 @@ public class StringUtil {
     public static boolean isUnsignedInteger(String s){
         return s != null && s.matches("^0*[1-9]\\d*$");
     }
+
+    
+    public static boolean findMatch(String a, String b) {
+    	//short circuit if one of null
+    	if(a == null || b == null) {
+        	return false;
+        }
+        
+    	//short circuit if contains
+    	if(containsIgnoreCase(a, b)) {
+    		return true;
+    	}
+    	
+    	//short circuit if length differ by more than 3.
+    	if(Math.abs(a.length()- b.length()) > SIMILIAR_THRESHOLD) {
+    		return false;
+    	}
+    	
+        return getDistance(a, b) <= SIMILIAR_THRESHOLD;
+    }
+
+    public static int getDistance(String a, String b) {
+        
+    	int aIndex = a.length()-1;
+        int bIndex = b.length()-1;
+        
+        return levenshteinDistance(a.toUpperCase(), b.toUpperCase(), aIndex, bIndex, 0);
+    }
+
+    private static int levenshteinDistance(String a, String b, int aIndex, int bIndex, int currentCost) {
+        //short circuit
+    	if(aIndex <= 0) return bIndex;
+        if(bIndex <= 0) return aIndex;
+        if(currentCost > SIMILIAR_THRESHOLD) {
+        	return currentCost;
+        }
+        
+        int subCost = (a.charAt(aIndex) == b.charAt(bIndex)) ? 0 : 1;
+        
+        return min(
+                levenshteinDistance(a, b, aIndex-1, bIndex, currentCost+1)+1,
+                levenshteinDistance(a, b, aIndex, bIndex-1, currentCost+1)+1,
+                levenshteinDistance(a, b, aIndex-1, bIndex-1, (currentCost+subCost))+subCost
+                );
+ 
+    }
+
+    private static int min(int i, int j, int k) {
+        int min = i;
+        if(j<min) min =j;
+        if(k<min) min = k;
+        
+        return min;
+    }
+
 }

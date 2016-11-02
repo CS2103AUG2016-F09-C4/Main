@@ -21,7 +21,7 @@ import seedu.task.logic.commands.FindCommand;
  */
 public class FindParser implements Parser {
 	private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+            Pattern.compile("(?<keywords>[^/]+(?:/+[^/]+)*)"); // one or more keywords separated by '/'
 
     /**
      * Parses arguments in the context of the find person command.
@@ -38,7 +38,7 @@ public class FindParser implements Parser {
         }
 
         // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
+        final String[] keywords = matcher.group("keywords").split("/");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
 		
