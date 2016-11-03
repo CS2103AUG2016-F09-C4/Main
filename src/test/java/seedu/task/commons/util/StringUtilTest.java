@@ -38,19 +38,19 @@ public class StringUtilTest {
         String e = new String("myString");
         String f = new String("mynString");
         
-        String g = new String("abcd");
-        String h = new String("efgh");
+        String g = new String("an");
+        String h = new String("di");
         
         assertEquals("Changing XuChen to Xu Chen requires operations:", 1, StringUtil.getDistance(a, b));
         assertEquals("Changing Kitten to Kitsen requires operations:", 1, StringUtil.getDistance(c, d));
         assertEquals("Changing myString to mynString requires operations:", 1, StringUtil.getDistance(e, f));
-        assertEquals("Changing abcde to efgh requires operations:", 3, StringUtil.getDistance(g, h));
+        assertEquals("Changing abcde to efgh requires operations:", 2, StringUtil.getDistance(g, h));
     }
     
     
     @Test
     public void isSimilar_twoNonEmptySimilarStrings_shouldReturnTrue(){
-        String a = new String("XussChen");
+        String a = new String("XusChen");
         String b = new String("XuChen");
         
         String c = new String("long string");

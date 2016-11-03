@@ -31,7 +31,7 @@ public class StringUtil {
 			+ "MM DD YY is the expected numerical sequence. \n"
 			+ "Possible event duration could be:"
 			+ "today 4pm /to tomorrow 4pm";
-	private static final int SIMILIAR_THRESHOLD = 2; 
+	private static final int SIMILIAR_THRESHOLD = 1; 
 	/**
 	 * Parse a String argument into date format. 
 	 * @param parser
@@ -53,11 +53,9 @@ public class StringUtil {
 		return LocalDateTime.ofInstant(parsedResult.get(DATE_INDEX).toInstant(), ZoneId.systemDefault()); 
 	}
 	
-	//@@author
+	
     public static boolean containsIgnoreCase(String source, String query) {
-        String[] split = source.toLowerCase().split("\\s+");
-        List<String> strings = Arrays.asList(split);
-        return strings.stream().filter(s -> s.equals(query.toLowerCase())).count() > 0;
+        return source.toUpperCase().indexOf(query.toUpperCase()) != -1;
     }
 
     /**
@@ -80,6 +78,7 @@ public class StringUtil {
 
     
     public static boolean findMatch(String a, String b) {
+    	
     	//short circuit if one of null
     	if(a == null || b == null) {
         	return false;
@@ -108,8 +107,8 @@ public class StringUtil {
 
     private static int levenshteinDistance(String a, String b, int aIndex, int bIndex, int currentCost) {
         //short circuit
-    	if(aIndex <= 0) return bIndex;
-        if(bIndex <= 0) return aIndex;
+    	if(aIndex < 0) return bIndex+1;
+        if(bIndex < 0) return aIndex+1;
         if(currentCost > SIMILIAR_THRESHOLD) {
         	return currentCost;
         }
