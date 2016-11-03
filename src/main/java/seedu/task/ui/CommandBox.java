@@ -109,7 +109,7 @@ public class CommandBox extends UiPart {
                 break;
             case DOWN:
                 commandTextField.getStyleClass().remove("error");
-                if(index < record.size())
+                if(index < (record.size() - 1))
                     index++;
                 commandTextField.setText(record.get(index));
                 break;
