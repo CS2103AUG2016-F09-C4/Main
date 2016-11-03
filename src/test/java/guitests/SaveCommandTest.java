@@ -3,54 +3,44 @@ package guitests;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.junit.Test;
-
-import seedu.task.TestApp;
 import seedu.taskcommons.core.Config;
-import seedu.taskcommons.core.LogsCenter;
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.logic.commands.SaveCommand;
 import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
 import seedu.task.storage.JsonConfigStorage;
 
 /**
- * Responsible for testing the execution of SaveCommand
+ * Responsible for testing the GUI execution of SaveCommand
  * 
  * @@author A0125534L
  */
 
+//------------------------Tests for Valid arguments----------------
+	/*
+	 * Command input: "save" , "save [filePath]"
+	 * 
+	 * Valid filePath 
+	 * : C:/folder 
+	 * : C:/folder/folder 
+	 * : D: 
+	 * : [Drive]:[filePath]
+	 * 
+	 */
+
 
 public class SaveCommandTest extends TaskBookGuiTest {
-    
-    private static final Logger logger = LogsCenter.getLogger(SaveCommandTest.class);
-    
+   
     private static final String CONFIG_JSON = "config.json";
     private static final String CONFIG_LOCATION = "./src/test/data/SaveCommandTest";
     
-    private static final String DEFAULT_SAVE_LOCATION = TestApp.SAVE_LOCATION_FOR_TESTING;
-
+    //valid filePath
     @Test
-    public void saveToValidFilePath() throws DataConversionException, IOException, DuplicateTaskException {
+    public void saveTo_Valid_FilePath() throws DataConversionException, IOException, DuplicateTaskException {
         String testFilePath = "./src/test/data/SaveCommandTest/newStorageLocation/";
         commandBox.runCommand("save " + testFilePath);
         assertWriteToJsonSuccess();
        
-    }
-    
-    
-    @Test
-    public void saveToInvalidFilePath() throws DataConversionException {
-        JsonConfigStorage jsonConfigStorage = new JsonConfigStorage(CONFIG_LOCATION);
-
-        commandBox.runCommand("save AABBCCDD23");   
-        
-        Optional<Config> newConfig = jsonConfigStorage.readConfig(CONFIG_JSON);
-        String newFilePath = newConfig.get().getTaskBookFilePath();
-        logger.info("New path: " + newFilePath);
-        
-        assert(newFilePath.equals(DEFAULT_SAVE_LOCATION));
     }
     
     /** NOTE: 	because of the way SaveStorageLocationCommand works, after running this command
@@ -58,8 +48,9 @@ public class SaveCommandTest extends TaskBookGuiTest {
      *          config.json to default data
      * */
     
+    //Reset filePath
     @Test
-    public void resetConfigFile() throws IOException {
+    public void reset_ConfigFile() throws IOException {
         Config config = new Config();
         config.setAppTitle("dowat");
         config.setLogLevel(Level.INFO);
