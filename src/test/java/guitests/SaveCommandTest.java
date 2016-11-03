@@ -44,7 +44,7 @@ public class SaveCommandTest extends TaskBookGuiTest {
     public void saveToInvalidFilePath() throws DataConversionException {
         JsonConfigStorage jsonConfigStorage = new JsonConfigStorage(CONFIG_LOCATION);
 
-        commandBox.runCommand("save AABBCCDD23:");   
+        commandBox.runCommand("save AABBCCDD23");   
         
         Optional<Config> newConfig = jsonConfigStorage.readConfig(CONFIG_JSON);
         String newFilePath = newConfig.get().getTaskBookFilePath();
