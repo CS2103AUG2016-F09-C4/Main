@@ -104,8 +104,24 @@ public class EditCommandTest extends CommandTest {
                 "edit /t 1 /name   ",
                 String.format(ArgumentTokenizer.MESSAGE_EMPTY_VALUE),
                 expectedAB,
-                expectedAB.getTaskList()); 
+                expectedAB.getTaskList());          
         
+    }
+    
+    // invalid removing deadline in floating task
+    @Test
+    public void execute_editInvalidDeadlineRemoval_invalid() throws Exception {
+        // setup expectations
+        TaskBook expectedAB = new TaskBook();
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.computingDescTask();
+        expectedAB.addTask(toBeAdded);
+
+        assertEditTaskCommandBehavior(helper.generateAddDescTaskCommand(toBeAdded),helper.generateListTaskCommand(),
+                "edit /t 1 /by rm   ",
+                EditTaskCommand.MESSAGE_INVALID_DEADLINE_REMOVAL,
+                expectedAB,
+                expectedAB.getTaskList());
     }
     
     // Invalid argument format

@@ -27,6 +27,7 @@ public class EditTaskCommand extends EditCommand  {
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     private static final Boolean TASK_DEFAULT_STATUS = false;
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task book";
+    public static final String MESSAGE_INVALID_DEADLINE_REMOVAL = "This task does not have a deadline";
     
     private Name newName;
     private Description newDescription;
@@ -48,7 +49,7 @@ public class EditTaskCommand extends EditCommand  {
     public EditTaskCommand(Integer index, String name, String description, String deadline) throws IllegalValueException {
         
         setTargetIndex(index);
-        isDeadlineToBeRemoved = checkRemoveDeadlineFlag(deadline);
+        isDeadlineToBeRemoved = checkPresenceOfRemoveDeadlineFlag(deadline);
         if (!name.isEmpty()) {
             newName = new Name(name);
         } 
@@ -60,7 +61,7 @@ public class EditTaskCommand extends EditCommand  {
         }
     }
 
-    private boolean checkRemoveDeadlineFlag(String deadline) {
+    private boolean checkPresenceOfRemoveDeadlineFlag(String deadline) {
         return deadline.equals(Flag.removeFlag);
     } 
 
@@ -88,6 +89,9 @@ public class EditTaskCommand extends EditCommand  {
         } catch (IndexOutOfBoundsException ie) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        } catch (IllegalValueException e) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(e.getMessage());
         } 
     }
 
@@ -95,14 +99,18 @@ public class EditTaskCommand extends EditCommand  {
      * Edits the necessary fields.
      * Assumes task completion status is reinstated to not completed.
      * @return task that has the fields according to edit requirements.
+     * @throws IllegalValueException 
      */    
-    private Task editTask(ReadOnlyTask targetTask) {
+    private Task editTask(ReadOnlyTask targetTask) throws IllegalValueException {
         
         if (newName == null) {
             newName = targetTask.getTask();
         }
         if (newDescription == null) {
             newDescription = targetTask.getDescription().orElse(null);
+        }
+        if (isDeadlineToBeRemoved && !targetTask.getDeadline().isPresent()) {
+            throw new IllegalValueException(MESSAGE_INVALID_DEADLINE_REMOVAL);
         }
         if (newDeadline == null && targetTask.getDeadline().isPresent() && !isDeadlineToBeRemoved) {
             newDeadline = targetTask.getDeadline().get();
