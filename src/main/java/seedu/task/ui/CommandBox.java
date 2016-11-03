@@ -105,13 +105,17 @@ public class CommandBox extends UiPart {
                 commandTextField.getStyleClass().remove("error");
                 if(index > 0)
                     index--;
-                commandTextField.setText(record.get(index));
+                if(index >= 0 && index < record.size()){
+                    commandTextField.setText(record.get(index));
+                }
                 break;
             case DOWN:
                 commandTextField.getStyleClass().remove("error");
                 if(index < (record.size() - 1))
                     index++;
-                commandTextField.setText(record.get(index));
+                if(index >= 0 && index < record.size()){
+                    commandTextField.setText(record.get(index));
+                }
                 break;
         default:
             break;

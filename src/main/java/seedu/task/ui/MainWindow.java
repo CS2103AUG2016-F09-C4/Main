@@ -15,6 +15,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -92,6 +93,7 @@ public class MainWindow extends UiPart {
         rootLayout = (VBox) node;
         
         //@@author A0121608N
+        // adds an event filter to bypass default focus traversal hierarchy
         rootLayout.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -105,6 +107,20 @@ public class MainWindow extends UiPart {
                 }
             }
         });
+        
+        // adds an event filter to handle mouse selection 
+        rootLayout.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                for (int i=0;i<3;i++){
+                    Node element = focusElements.get(i);
+                    if(element.isFocused()){
+                        focusNumber = i;
+                    }
+                }
+            }
+        });
+
         //@@author
     }
 
