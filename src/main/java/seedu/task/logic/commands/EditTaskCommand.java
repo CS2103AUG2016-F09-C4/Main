@@ -48,7 +48,7 @@ public class EditTaskCommand extends EditCommand  {
     public EditTaskCommand(Integer index, String name, String description, String deadline) throws IllegalValueException {
         
         setTargetIndex(index);
-        isDeadlineToBeRemoved = checkRemoveFlag(deadline);
+        isDeadlineToBeRemoved = checkRemoveDeadlineFlag(deadline);
         if (!name.isEmpty()) {
             newName = new Name(name);
         } 
@@ -60,7 +60,7 @@ public class EditTaskCommand extends EditCommand  {
         }
     }
 
-    private boolean checkRemoveFlag(String deadline) {
+    private boolean checkRemoveDeadlineFlag(String deadline) {
         return deadline.equals(Flag.removeFlag);
     } 
 
@@ -79,7 +79,7 @@ public class EditTaskCommand extends EditCommand  {
             editTask = editTask(targetTask);
             model.editTask(editTask, targetTask);
             
-            logger.info("-------[Executing EditTaskCommand]" + this.toString());
+            logger.info("-------[Executed EditTaskCommand]" + this.toString());
             
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editTask));
 

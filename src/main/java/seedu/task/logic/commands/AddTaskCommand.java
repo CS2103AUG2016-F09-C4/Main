@@ -3,12 +3,12 @@ package seedu.task.logic.commands;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.item.*;
 
+//@@author A0127570H
 /**
  * Adds a task to the task book.
  * @author kian ming
  */
 
-//@@author A0127570H
 public class AddTaskCommand extends AddCommand {
 
 	public static final String MESSAGE_SUCCESS = "New task added: %1$s";

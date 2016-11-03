@@ -1,11 +1,11 @@
 package seedu.task.logic.commands;
 
+//@@author A0127570H
 /**
  * Abstract class to represent generic edit operations for task and event.  
  * @author kian ming
  */
 
-//@@author A0127570H
 public abstract class EditCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "edit";

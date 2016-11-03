@@ -70,12 +70,14 @@ public class EditEventCommand extends EditCommand {
 	 */
 	@Override
 	public CommandResult execute() {
-	    logger.info("-------[Executing EditEventCommand]" + this.toString());
+	    logger.info("-------[Executing EditEventCommand]");
 	    try {
 		    UnmodifiableObservableList<ReadOnlyEvent> lastShownList = model.getFilteredEventList();	        
 	        targetEvent = lastShownList.get(getTargetIndex());
 	        editEvent = editEvent(targetEvent); 		    
 		    model.editEvent(editEvent, targetEvent);
+		    
+		    logger.info("-------[Executed EditEventCommand]" + this.toString());
 
 			return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editEvent));
 
@@ -107,16 +109,26 @@ public class EditEventCommand extends EditCommand {
 		if (newStartDuration.isEmpty() && newEndDuration.isEmpty()) {
 			newDuration = targetEvent.getDuration();
 		} else {
-		    if (newStartDuration.isEmpty()) {
-		        newDuration = new EventDuration (targetEvent.getDuration().getStartTimeAsText(), newEndDuration);
-		    } else if (newEndDuration.isEmpty()){
-		        newDuration = new EventDuration (newStartDuration, targetEvent.getDuration().getEndTimeAsText());
-		    } else {
-                newDuration = new EventDuration (newStartDuration, newEndDuration);
-            }
+		    setupNewDuration(targetEvent);
 		}
+		
 		return new Event(this.newName, this.newDescription, this.newDuration);
 	}
+
+	/**
+     * Setups new duration for event.
+     * 
+     * @throws IllegalValueException 
+     */
+    private void setupNewDuration(ReadOnlyEvent targetEvent) throws IllegalValueException {
+        if (newStartDuration.isEmpty() && !newEndDuration.isEmpty()) {
+            newDuration = new EventDuration (targetEvent.getDuration().getStartTimeAsText(), newEndDuration);
+        } else if (!newStartDuration.isEmpty() && newEndDuration.isEmpty()){
+            newDuration = new EventDuration (newStartDuration, targetEvent.getDuration().getEndTimeAsText());
+        } else {
+            newDuration = new EventDuration (newStartDuration, newEndDuration);
+        }
+    }
 
 	@Override
 	public CommandResult undo() {
@@ -130,6 +142,11 @@ public class EditEventCommand extends EditCommand {
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
 		}
+	}
+	
+	@Override
+	public String toString() {
+	    return COMMAND_WORD+ " from " + this.targetEvent.getAsText()+ " to " + this.editEvent.getAsText();
 	}
 
 }

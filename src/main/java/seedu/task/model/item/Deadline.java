@@ -71,15 +71,13 @@ public class Deadline implements Comparable<Deadline> {
 		}
 		
 		Deadline other = (Deadline) obj;
-		if (deadLine == null) {
-			if (other.deadLine != null)
-				return false;
+		if (deadLine == null && (other.deadLine != null)) {
+			return false;
 		} else if (!this.toString().equals(other.toString())) /*Standardized String to compare for equality */ {
 			return false;
 		}
 		return true;
 	}
-
 
 	@Override
 	public int compareTo(Deadline o) {
