@@ -2,7 +2,6 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.task.testutil.TestEvent;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
 
