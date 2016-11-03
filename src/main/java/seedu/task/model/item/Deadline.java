@@ -11,6 +11,8 @@ import seedu.task.commons.util.StringUtil;
  * Guarantees: immutable; is valid as declared in {@link #isValidDeadline(String)}
  * @author kian ming
  */
+
+//@@author A0127570H
 public class Deadline implements Comparable<Deadline> {
 
     public static final String MESSAGE_DEADLINE_CONSTRAINTS = 
@@ -27,19 +29,18 @@ public class Deadline implements Comparable<Deadline> {
      *
      * @throws IllegalValueException if given deadline string is invalid.
      */
-    public Deadline(String deadlineArg) throws IllegalValueException {
+    public Deadline(String deadlineArg) throws IllegalValueException{
         assert deadlineArg != null;
-        deadlineArg = deadlineArg.trim();
-   
-        if (deadlineArg.isEmpty()) {
-            throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
-        }   
-        
+        deadlineArg = deadlineArg.trim();          
         try {
         	this.deadLine = StringUtil.parseStringToTime(deadlineArg);
         } catch (IllegalValueException e) {
         	throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
         }
+    }
+    
+    public LocalDateTime getTime() {
+    	return this.deadLine;
     }
 
 

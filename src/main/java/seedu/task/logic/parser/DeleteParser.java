@@ -14,7 +14,7 @@ import seedu.task.logic.commands.IncorrectCommand;
 
 /**
  * Responsible for validating and preparing the arguments for DeleteCommand execution
- * @author Tiankai
+ * @@author A0121608N
  */
 public class DeleteParser implements Parser {
 
@@ -22,11 +22,11 @@ public class DeleteParser implements Parser {
     
     // remember to trim 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?:-t)\\s(?<index>\\d*)");
+            Pattern.compile("(?:/t)\\s(?<index>\\d*)");
     
  // remember to trim 
     private static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?:-e)\\s(?<index>\\d*)");
+            Pattern.compile("(?:/e)\\s(?<index>\\d*)");
     
     /**
      * Parses arguments in the context of the add person command.

@@ -16,6 +16,8 @@ import seedu.taskcommons.core.UnmodifiableObservableList;
  * 
  * @author kian ming
  */
+
+//@@author A0127570H
 public class EditEventCommand extends EditCommand {
 
 	public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
@@ -40,7 +42,7 @@ public class EditEventCommand extends EditCommand {
 	 *             if any of the raw values are invalid
 	 */
 	public EditEventCommand(Integer index, String name, String description, 
-	        String startDuration, String endDuration) throws IllegalValueException, IndexOutOfBoundsException {
+	        String startDuration, String endDuration) throws IllegalValueException {
 
 		setTargetIndex(index);
 		newStartDuration = startDuration;

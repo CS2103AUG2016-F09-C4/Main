@@ -34,7 +34,7 @@ public class LogicManager extends ComponentManager implements Logic {
         this.parser = new ParserManager();
         this.commandList = new UndoableCommandHistory();
     }
-
+    //@@author A0144702N
     @Override
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -60,4 +60,16 @@ public class LogicManager extends ComponentManager implements Logic {
     	model.updateFilteredEventListToShowWithStatus(false);
         return model.getFilteredEventList();
     }
+    
+    @Override
+    public List<ReadOnlyEvent> getAllEvents() {
+    	return model.getTaskBook().getEventList();
+    }
+	
+    @Override
+	public List<ReadOnlyTask> getAllTasks() {
+		return model.getTaskBook().getTaskList();
+	}
+    
+    
 }

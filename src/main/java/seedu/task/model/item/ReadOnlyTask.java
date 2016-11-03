@@ -7,7 +7,6 @@ import java.util.Optional;
  * Implementations should guarantee: 
  *      Details are present and not null, with the exception of Deadline field. 
  *      Field values are validated.
- * @author kian ming
  */
 public interface ReadOnlyTask {
 
@@ -54,7 +53,7 @@ public interface ReadOnlyTask {
      * If null, empty string is returned
      */
     default String getDeadlineToString() {
-        return getDeadline().isPresent()? " Deadline: " + getDeadline().get().toString() : "";
+        return getDeadline().isPresent()? getDeadline().get().toString() : "";
     }
     
     /**
@@ -79,5 +78,13 @@ public interface ReadOnlyTask {
     default String getTaskStatusToString() {
         return getTaskStatus() ? " Status: Completed" : " Status: Not completed";
     }
+    
+    /**
+     * Appends the name of a task with [DONE] if task is completed
+     */
+    default String getNameWithStatus() {
+        return getTaskStatus() ? getTask().toString() + " [DONE]" : getTask().toString();
+    }
+
 
 }

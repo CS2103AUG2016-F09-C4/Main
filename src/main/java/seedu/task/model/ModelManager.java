@@ -79,6 +79,7 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TaskBookChangedEvent(taskBook));
     }
 
+    //@@author A0121608N
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskBook.removeTask(target);
@@ -125,6 +126,15 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public synchronized void markTask(ReadOnlyTask target){
+        taskBook.markTask(target);
+        updateFilteredTaskListToShowWithStatus(false);
+        indicateTaskBookChanged();
+    }
+    
+    //@@author A0127570H
+
+    @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskBook.addTask(task);
         updateFilteredTaskListToShowWithStatus(false);
@@ -135,13 +145,6 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addEvent(Event event) throws DuplicateEventException {
         taskBook.addEvent(event);
         updateFilteredEventListToShowWithStatus(false);
-        indicateTaskBookChanged();
-    }
-    
-    @Override
-    public synchronized void markTask(ReadOnlyTask target){
-        taskBook.markTask(target);
-        updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
    
@@ -158,11 +161,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredEventListToShowWithStatus(false);
         indicateTaskBookChanged(); 
     }
-
+    //@@author 
         
    
     //=========== Filtered Task List Accessors ===============================================================
 
+    //@@author A0144702N
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
     	SortedList<Task> sortedTasks = new SortedList<>(filteredTasks);
@@ -209,7 +213,7 @@ public class ModelManager extends ComponentManager implements Model {
     	filteredEvents.setPredicate(null);
 	}
     
-
+    //@@author
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
@@ -285,7 +289,7 @@ public class ModelManager extends ComponentManager implements Model {
                     .isPresent();
 		}
     }
-    
+    //@@author A0144702N
     private class StatusQualifier implements Qualifier {
     	private Boolean status;
     	
@@ -305,7 +309,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 		@Override
 		public boolean run(ReadOnlyEvent event) {
-			return event.isEventCompleted() != status;
+			return event.isEventCompleted() == status;
 		}
     	
     }

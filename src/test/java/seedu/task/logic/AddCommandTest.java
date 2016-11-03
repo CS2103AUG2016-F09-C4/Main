@@ -20,6 +20,7 @@ import seedu.task.model.item.EventDuration;
 import seedu.task.model.item.Name;
 import seedu.task.model.item.Task;
 
+//@@author A0127570H
 public class AddCommandTest extends CommandTest{
 
 	/*
@@ -31,9 +32,8 @@ public class AddCommandTest extends CommandTest{
 	 *         -> Task with desc
 	 *         -> Task with deadline
 	 *         -> Task with desc and deadline
-	 *     - Adding duplicate event 
-	 *         -> Event with duration (TODO)
-	 *         -> Event with duration and description (TODO)
+	 *     - Adding duplicate event
+	 *         -> Event with duration and description
 	 */ 
 	
     // Invalid argument format
@@ -68,6 +68,10 @@ public class AddCommandTest extends CommandTest{
         //empty desc abbreviation
         assertCommandBehavior_task(
                 "add validName /desc    /by 1 September 17 ", ArgumentTokenizer.MESSAGE_EMPTY_VALUE);
+        
+        //invalid desc
+        assertCommandBehavior_task(
+                "add validName /desc  //  /by 1 September 17 ", Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
     }
     
     //Invalid data field format
@@ -307,6 +311,7 @@ public class AddCommandTest extends CommandTest{
      *  - Event with duration
      *  - Event with desc and duration
      *  - Event with desc and duration in varying order
+     *  - Event with end duration only
      */
     
     //Event with duration
@@ -354,6 +359,23 @@ public class AddCommandTest extends CommandTest{
 
         // execute command and verify result
         assertEventCommandBehavior(helper.generateDiffOrderedAddEventCommand(toBeAdded),
+                String.format(AddEventCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getEventList());
+
+    }
+    
+    //Event with end duration only
+    @Test
+    public void execute_addEvent_endDuration_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Event toBeAdded = helper.computingEndDurationUpComingEvent();
+        TaskBook expectedAB = new TaskBook();
+        expectedAB.addEvent(toBeAdded);
+
+        // execute command and verify result
+        assertEventCommandBehavior(helper.generateAddNoDescEventCommand(toBeAdded),
                 String.format(AddEventCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getEventList());

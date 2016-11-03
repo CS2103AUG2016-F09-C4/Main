@@ -8,6 +8,7 @@ import  seedu.task.model.item.Flag;
  * API of the Parser component
  */
 
+//@@author A0127570H
 public interface Parser {
     
     public static final Prefix taskPrefix = new Prefix(Flag.taskFlag);  
@@ -17,6 +18,11 @@ public interface Parser {
     public static final Prefix deadlinePrefix = new Prefix(Flag.deadlineFlag);
     public static final Prefix durationStartPrefix = new Prefix(Flag.durationStartFlag);
     public static final Prefix durationEndPrefix = new Prefix(Flag.durationEndFlag);  
+    public static final Prefix calendarViewWeekPrefix = new Prefix(Flag.calendarWeek);
+    public static final Prefix calendarViewDayPrefix = new Prefix(Flag.calendarDay);
+    public static final Prefix allPrefix = new Prefix(Flag.allFlag);
+    public static final Prefix taskPresencePrefix = new Prefix(Flag.taskPresenceFlag);
+    public static final Prefix eventPresencePrefix = new Prefix(Flag.eventPresenceFlag);
     
     /**
      * Prepares the command and returns the prepared Command.

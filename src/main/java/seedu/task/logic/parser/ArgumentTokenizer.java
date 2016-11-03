@@ -98,6 +98,7 @@ public class ArgumentTokenizer {
         extractArguments(argsString, positions);
     }
 
+    //@@author A0127570H
     /**
      * Returns last value of given prefix.
      * @throws EmptyValueException  Exception thrown is value is empty string
@@ -110,6 +111,14 @@ public class ArgumentTokenizer {
         }
         
         return outputValue;
+    }
+    //@@author    
+    
+    /**
+     * Returns true if prefix exists.
+     */
+    public boolean hasPrefix(Prefix prefix) {
+    	return this.tokenizedArguments.containsKey(prefix);
     }
 
     /**
@@ -138,6 +147,7 @@ public class ArgumentTokenizer {
         } else {
             return Optional.empty();
         }
+        
     }
 
     private void resetTokenizerState() {

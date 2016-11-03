@@ -12,6 +12,8 @@ import seedu.taskcommons.core.UnmodifiableObservableList;
  * book.
  * @@author A0125534L
  */
+
+//@@author A0125534L
 public class SelectTaskCommand extends SelectCommand {
 
 	public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected Task: %1$s";
@@ -29,8 +31,8 @@ public class SelectTaskCommand extends SelectCommand {
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 		}
-
-		EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(targetIndex - 1));
+		ReadOnlyTask targetTask = model.getFilteredTaskList().get(targetIndex-1);
+		EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(targetTask, targetIndex - 1));
 		return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
 
 	}

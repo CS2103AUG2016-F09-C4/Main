@@ -8,6 +8,8 @@ import seedu.task.model.item.EventDuration;
 import seedu.task.model.item.Name;
 import seedu.task.model.item.ReadOnlyEvent;
 
+//@@author A0144702N
+
 public class TestEvent implements ReadOnlyEvent {
 	private Name name;
 	private Optional <Description> description;
@@ -37,20 +39,12 @@ public class TestEvent implements ReadOnlyEvent {
 
 	@Override
 	public boolean isEventCompleted() {
-		return this.eventDuration.getEndTime().isAfter(LocalDateTime.now());
+		return !(this.eventDuration.getEndTime().isAfter(LocalDateTime.now()));
 	}	
 	
 	@Override
 	public String toString() {
 		return getAsText();
-	}
-	
-	public String getListEventCommand() {
-		return "list -e";
-	}
-	
-	public String getListAllEventCommand() {
-		return "list -e -a";
 	}
 	
     public String getAddCommand() {

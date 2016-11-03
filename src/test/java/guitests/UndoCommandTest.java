@@ -12,7 +12,7 @@ import seedu.task.testutil.TypicalTestTasks;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-
+//@@author A0144702N
 /**
  * GUI test for undo command
  * @author xuchen
@@ -52,7 +52,7 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		assertTrue(taskListPanel.isListMatching(currentList));
 
 		// delete one task
-		commandBox.runCommand("delete -t 1");
+		commandBox.runCommand("delete /t 1");
 		assertTaskListSize(currentList.length - 1);
 		currentList = TestUtil.removeTaskFromList(currentList, 1);
 		// undo
@@ -89,7 +89,7 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		assertTrue(taskListPanel.isListMatching(currentList));
 
 		// delete one task
-		commandBox.runCommand("delete -t 1");
+		commandBox.runCommand("delete /t 1");
 		currentList = TestUtil.removeTaskFromList(currentList, 1);
 		assertTaskListSize(currentList.length);
 		assertTrue(taskListPanel.isListMatching(currentList));
@@ -127,7 +127,7 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		assertTrue(eventListPanel.isListMatching(currentList));
 
 		// delete one event
-		commandBox.runCommand("delete -e 1");
+		commandBox.runCommand("delete /e 1");
 		assertEventListSize(currentList.length - 1);
 		currentList = TestUtil.removeEventFromList(currentList, 1);
 		// undo
@@ -149,7 +149,7 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		assertTrue(eventListPanel.isListMatching(currentList));
 		
 		//delete one event
-		commandBox.runCommand("delete -e 1");
+		commandBox.runCommand("delete /e 1");
 		currentList = TestUtil.removeEventFromList(currentList, 1);
 		assertEventListSize(currentList.length);
 		assertTrue(eventListPanel.isListMatching(currentList));
@@ -179,8 +179,8 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		assertResultMessage(UndoCommand.MESSAGE_UNDO_FAILURE);
 
 		// undo after having undone all modifications
-		commandBox.runCommand("delete -e 1");
-		commandBox.runCommand("delete -t 1");
+		commandBox.runCommand("delete /e 1");
+		commandBox.runCommand("delete /t 1");
 		commandBox.runCommand("undo");
 		commandBox.runCommand("undo");
 
@@ -198,23 +198,23 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		TestTask[] unCompletedTaskList= td.getTypicalTasks();
 		
 		//clear all completed tasks
-		commandBox.runCommand("clear -t");
+		commandBox.runCommand("clear /t");
 		assertTrue(taskListPanel.isListMatching(unCompletedTaskList));
 		//undo
 		commandBox.runCommand("undo");
-		commandBox.runCommand("list -t -a");
+		commandBox.runCommand("list /t /a");
 		assertTrue(taskListPanel.isListMatching(allTaskList));
 		
 		//clear all completed events
-		commandBox.runCommand("clear -e");
+		commandBox.runCommand("clear /e");
 		assertTrue(eventListPanel.isListMatching(unCompletedEventList));
 		//undo
 		commandBox.runCommand("undo");
-		commandBox.runCommand("list -e -a");
+		commandBox.runCommand("list /e /a");
 		assertTrue(eventListPanel.isListMatching(allEventList));
 		
 		//clear all tasks and events 
-		commandBox.runCommand("clear -a");
+		commandBox.runCommand("clear /a");
 		assertEventListSize(0);
 		assertTaskListSize(0);
 		//undo

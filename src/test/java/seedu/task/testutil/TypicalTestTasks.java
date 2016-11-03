@@ -4,9 +4,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.TaskBook;
 import seedu.task.model.item.*;
 
-/**
- *
- */
+//@@author A0127570H
 public class TypicalTestTasks {
 
     public static TestTask cs1010, cs1020, computing, science, biz, engine, music, arts, socSciences, slack;
@@ -18,9 +16,8 @@ public class TypicalTestTasks {
             computing = new TaskBuilder().withName("Computing Project 1").withDescription("Complete my part before meeting").withDeadline("01-01-17").build();
             science = new TaskBuilder().withName("Science Project 1").withDescription("Complete my part before meeting").withDeadline("01-01-17").build();
             biz = new TaskBuilder().withName("Biz Project 1").withDescription("Complete my part before meeting").withDeadline("01-01-17").build();
-            engine = new TaskBuilder().withName("Engineering Project 1").withDescription("Complete my part before meeting").withDeadline("01-01-17").build();
             music = new TaskBuilder().withName("Music Project 1").withDescription("Complete my part before meeting").withDeadline("01-01-17").build();
-
+            engine = new TaskBuilder().withName("Engineering Project 1").withDescription("Complete my part before meeting").withDeadline("01-01-17").build();
             //completed tasks
             slack = new TaskBuilder().withName("slack for one hour").withDescription("do not do any work").withStatus(true).build();
           
@@ -37,10 +34,10 @@ public class TypicalTestTasks {
     public static void loadTestBookWithSampleData(TaskBook tb) {
 
         try {
-            tb.addTask(new Task(music));
-            tb.addTask(new Task(engine));
-            tb.addTask(new Task(cs1010));
-            tb.addTask(new Task(cs1020));
+        	tb.addTask(new Task(cs1010));
+        	tb.addTask(new Task(cs1020));
+        	tb.addTask(new Task(engine));
+        	tb.addTask(new Task(music));
             tb.addTask(new Task(slack));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";

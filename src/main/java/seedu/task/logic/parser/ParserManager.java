@@ -69,6 +69,8 @@ public class ParserManager {
         case SaveCommand.COMMAND_WORD:
             return new SaveParser().prepare(arguments);
             
+        case CalendarCommand.COMMAND_WORD:
+        	return new CalendarParser().prepare(arguments);
             
         case UndoCommand.COMMAND_WORD:
         	return new UndoCommand();

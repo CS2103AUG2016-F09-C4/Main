@@ -65,6 +65,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         this.events.getInternalList().setAll(events);
     }
     
+    //@@author A0121608N
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<? extends ReadOnlyEvent> newEvents) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setEvents(newEvents.stream().map(Event::new).collect(Collectors.toList()));
@@ -73,8 +74,10 @@ public class TaskBook implements ReadOnlyTaskBook {
     public void resetData(ReadOnlyTaskBook newData) {
         resetData(newData.getTaskList(), newData.getEventList());
     }
+    //@@author
 
 //// event-level operations
+    //@@author A0127570H
     /**
      * Adds an event to the task book.
      *
@@ -84,6 +87,12 @@ public class TaskBook implements ReadOnlyTaskBook {
         events.add(p);
     }
     
+    //@@author A0121608N
+    /**
+     * Removes an event in the task book.
+     *
+     * @throws UniqueTaskList.EventNotFoundException if specified event does not exist.
+     */
     public boolean removeEvent(ReadOnlyEvent key) throws UniqueEventList.EventNotFoundException {
         if (events.remove(key)) {
             return true;
@@ -91,6 +100,7 @@ public class TaskBook implements ReadOnlyTaskBook {
             throw new UniqueEventList.EventNotFoundException();
         }
     }
+    //@@author A0127570H
     
     /**
      * Edits an event in the task book.
@@ -113,6 +123,12 @@ public class TaskBook implements ReadOnlyTaskBook {
         tasks.add(p);;
     }
 
+    //@@author A0121608N
+    /**
+     * Removes a task in the task book.
+     *
+     * @throws UniqueTaskList.TaskNotFoundException if specified task does not exist.
+     */
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
@@ -121,10 +137,13 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
     }
 
-
+    /**
+     * Marks a task in the task book.
+     */
     public void markTask(ReadOnlyTask key){
         tasks.mark(key);
 	}
+    //@@author A0127570H
     
     /**
      * Edits a task in the task book.
@@ -134,14 +153,14 @@ public class TaskBook implements ReadOnlyTaskBook {
     public void editTask(Task editTask, ReadOnlyTask targetTask) throws UniqueTaskList.DuplicateTaskException {
         tasks.edit(editTask, targetTask);
     }
-
+    //@@author 
     
 //// util methods
 
     @Override
     public String toString() {
         return tasks.getInternalList().size() + " tasks";
-        // TODO: refine later
+        
     }
 
     @Override

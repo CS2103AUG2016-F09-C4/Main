@@ -5,7 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.task.model.item.ReadOnlyEvent;
-
+//@@author A0144702N-reused
 public class EventCard extends UiPart {
     private static final String FXML = "EventListCard.fxml";
 
@@ -24,9 +24,6 @@ public class EventCard extends UiPart {
     private ReadOnlyEvent event;
     private int displayedIndex;
 
-    public EventCard(){
-
-    }
 
     public static EventCard load(ReadOnlyEvent event, int displayedIndex){
         EventCard card = new EventCard();
@@ -35,14 +32,33 @@ public class EventCard extends UiPart {
         return UiPartLoader.loadUiPart(card);
     }
 
+    //@@author-A0127570H
     @FXML
     public void initialize() {
-        name.setText(event.getEvent().fullName);
+        name.setText(event.getNameWithStatus());
         index.setText(displayedIndex + ". ");
-        description.setText(event.getDescriptionValue());
-        duration.setText(event.getDuration().toString());
+        initialiseDescription();
+        duration.setText(event.getDuration().toString().trim());
+        setCompletionBackgroundText();
     }
 
+    private void initialiseDescription() {
+        description.setText(event.getDescriptionToString().trim());
+        if (event.getDescription().isPresent()) {
+            description.setManaged(true);
+        } else {
+            description.setManaged(false);
+        }
+    }
+    
+    //Adds the lavender colour to the background if the task status is completed
+    private void setCompletionBackgroundText() {
+        if (event.isEventCompleted()) {
+            cardPane.getStyleClass().add("status-complete");
+        }
+    }
+
+    //@@author
     public HBox getLayout() {
         return cardPane;
     }

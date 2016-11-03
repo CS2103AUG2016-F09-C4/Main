@@ -42,14 +42,6 @@ public class TestTask implements ReadOnlyTask {
         return name;
     }
 
-    public Description getDescriptionRaw() {
-        return description.get();
-    }
-
-    public Deadline getDeadlineRaw() {
-        return this.deadline.get();
-    }
-
     @Override
     public Boolean getTaskStatus() {
         return isTaskCompleted;
@@ -72,6 +64,7 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getTask().fullName + " ");
         sb.append("/desc " + this.getDescriptionValue() + " ");
+        sb.append("/by" + this.getDeadlineValue());
         return sb.toString();
     }
     
@@ -80,15 +73,6 @@ public class TestTask implements ReadOnlyTask {
         sb.append("edit /t " + index + " ");
         sb.append("/name " + this.getTask().fullName + " ");
         sb.append("/desc " + this.getDescriptionValue() + " ");
-        return sb.toString();
-    }
-    
-    public String getFullEditCommand(int index) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("edit /t " + index + " ");
-        sb.append("/name " + this.getTask().fullName + " ");
-        sb.append("/desc " + this.getDescriptionValue() + " ");
-        sb.append("/by " + this.getDeadlineValue() + " ");
         return sb.toString();
     }
 
