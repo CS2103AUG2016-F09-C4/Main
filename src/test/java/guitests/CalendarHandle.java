@@ -18,6 +18,7 @@ import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
+import seedu.task.ui.CalendarHelper;
 
 //@@author A0144702N
 public class CalendarHandle extends GuiHandle {
