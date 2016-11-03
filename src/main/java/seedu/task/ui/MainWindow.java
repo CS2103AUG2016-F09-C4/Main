@@ -107,7 +107,7 @@ public class MainWindow extends UiPart {
                 }
             }
         });
-        
+       
         // adds an event filter to handle mouse selection 
         rootLayout.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
