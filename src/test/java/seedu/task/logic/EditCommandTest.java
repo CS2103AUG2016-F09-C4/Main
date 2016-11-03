@@ -172,6 +172,7 @@ public class EditCommandTest extends CommandTest {
      *      -> Editing name
      *      -> Editing description
      *      -> Editing name and description
+     *      -> Removing deadline to change to floating task
      *      -> Adding deadline to change to deadline task
      *      -> Editing all 3 fields
      *      

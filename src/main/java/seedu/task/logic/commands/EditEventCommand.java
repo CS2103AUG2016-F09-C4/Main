@@ -1,5 +1,7 @@
 package seedu.task.logic.commands;
 
+import java.util.logging.Logger;
+
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.item.Description;
 import seedu.task.model.item.Event;
@@ -8,18 +10,20 @@ import seedu.task.model.item.Name;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.UniqueEventList;
 import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
+import seedu.taskcommons.core.LogsCenter;
 import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
+//@@author A0127570H
 /**
  * Executes editing of events according to the input argument.
  * 
  * @author kian ming
  */
 
-//@@author A0127570H
 public class EditEventCommand extends EditCommand {
 
+    private final Logger logger = LogsCenter.getLogger(EditTaskCommand.class);    
 	public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
 	public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the task book";
 
@@ -61,10 +65,13 @@ public class EditEventCommand extends EditCommand {
 	 * Executes the editing of the event
 	 * 
 	 * @throws DuplicateTaskException
+	 * @throws IllegalValueException Fields edited do not abide by restrictions
+	 * @throws IndexOutOfBoundsException Index provided is not valid
 	 */
 	@Override
 	public CommandResult execute() {
-		try {
+	    logger.info("-------[Executing EditEventCommand]" + this.toString());
+	    try {
 		    UnmodifiableObservableList<ReadOnlyEvent> lastShownList = model.getFilteredEventList();	        
 	        targetEvent = lastShownList.get(getTargetIndex());
 	        editEvent = editEvent(targetEvent); 		    
