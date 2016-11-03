@@ -6,6 +6,10 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import seedu.task.logic.TestDataHelper;
+import seedu.task.model.item.Deadline;
+import seedu.task.model.item.Description;
+import seedu.task.model.item.EventDuration;
+import seedu.task.model.item.Name;
 import seedu.task.model.item.Task;
 
 /**
@@ -20,14 +24,13 @@ public class CollectionUtilTest {
 
     @Test
     public void test() throws Exception{
-        TestDataHelper helper = new TestDataHelper();
+        Name testName = new Name("Task 1");
+        Description testDescription = new Description("finish my part");
+        Deadline testDeadline = null;
+        EventDuration testEventDuration = new EventDuration("today", "next week");
         
-        Task t1 = helper.generateTask(1);
-        Task t2 = helper.generateTask(2);
-        Task t3 = helper.generateTask(3);
-        
-        assertTrue(CollectionUtil.isAnyNull(t2, null, t1, t3));
-        assertFalse(CollectionUtil.isAnyNull(t1, t2, t3));
+        assertTrue(CollectionUtil.isAnyNull(testName, testDescription, testDeadline, testEventDuration));
+        assertFalse(CollectionUtil.isAnyNull(testName, testDescription, testEventDuration));
     }
 
 }
