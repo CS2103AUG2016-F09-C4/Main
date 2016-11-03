@@ -1,21 +1,25 @@
 package seedu.task.model;
 
-import javafx.collections.FXCollections;
-import seedu.taskcommons.core.UnmodifiableObservableList;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static seedu.task.testutil.TestUtil.assertThrows;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import java.util.*;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.task.testutil.TestUtil.assertThrows;
+import javafx.collections.FXCollections;
+import seedu.taskcommons.core.UnmodifiableObservableList;
 
 public class UnmodifiableObservableListTest {
 

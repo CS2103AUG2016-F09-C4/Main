@@ -1,10 +1,10 @@
 package guitests;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 import javafx.scene.input.KeyCode;
-
-import static org.junit.Assert.assertEquals;
 
 /*
  * GUI test for CommandBox

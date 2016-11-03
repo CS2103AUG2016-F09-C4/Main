@@ -1,11 +1,7 @@
 package guitests;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
-import java.util.stream.Collectors;
 
 import guitests.guihandles.GuiHandle;
 import javafx.stage.Stage;
@@ -17,7 +13,6 @@ import seedu.task.TestApp;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.testutil.TestUtil;
-import seedu.task.ui.CalendarHelper;
 
 //@@author A0144702N
 public class CalendarHandle extends GuiHandle {

@@ -1,12 +1,12 @@
 package guitests;
 
+import static org.junit.Assert.assertTrue;
+import static seedu.task.logic.commands.MarkCommand.MESSAGE_MARK_TASK_SUCCESS;
+
 import org.junit.Test;
 
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
-
-import static org.junit.Assert.assertTrue;
-import static seedu.task.logic.commands.MarkCommand.MESSAGE_MARK_TASK_SUCCESS;
 
 /**
  * Tests Mark Command for GUI Test.

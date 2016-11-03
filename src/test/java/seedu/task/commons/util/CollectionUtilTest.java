@@ -5,12 +5,10 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.task.logic.TestDataHelper;
 import seedu.task.model.item.Deadline;
 import seedu.task.model.item.Description;
 import seedu.task.model.item.EventDuration;
 import seedu.task.model.item.Name;
-import seedu.task.model.item.Task;
 
 /**
  * Utility methods test cases
