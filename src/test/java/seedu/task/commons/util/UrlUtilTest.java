@@ -42,4 +42,12 @@ public class UrlUtilTest {
         URL url2 = new URL("https://www.google.com/A/acb");
         assertFalse(UrlUtil.compareBaseUrls(url1, url2));
     }
+    
+    //@@author A0121608N
+    @Test
+    public void comapareBaseUrls_null_fail()throws MalformedURLException{
+        URL url1 = new URL("https://www.Google.com/a/ac_b/");
+        URL url2 = null;
+        assertFalse(UrlUtil.compareBaseUrls(url1, url2));
+    }
 }
