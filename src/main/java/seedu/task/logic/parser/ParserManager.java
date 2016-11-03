@@ -18,6 +18,7 @@ import seedu.task.logic.commands.HelpCommand;
 import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.ListCommand;
 import seedu.task.logic.commands.MarkCommand;
+import seedu.task.logic.commands.SaveCommand;
 import seedu.task.logic.commands.SelectCommand;
 import seedu.task.logic.commands.UndoCommand;
 
