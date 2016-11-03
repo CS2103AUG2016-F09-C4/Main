@@ -102,5 +102,10 @@ public class EventListPanel extends UiPart{
             }
         }
     }
+    
+    //@@author A0121608N
+    public Node getEventListView(){
+        return eventListView;
+    }
 
 }
