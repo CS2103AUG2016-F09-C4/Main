@@ -20,6 +20,7 @@ import seedu.taskcommons.core.ComponentManager;
 import seedu.taskcommons.core.LogsCenter;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
