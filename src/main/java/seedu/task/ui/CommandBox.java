@@ -119,6 +119,10 @@ public class CommandBox extends UiPart {
         }
         
     }
+    
+    public Node getCommandTextField(){
+        return commandTextField;
+    }
     //@@author
 
     /**
