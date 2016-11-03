@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import seedu.task.commons.util.StringUtil;
 
->>>>>>> master
 public class StringUtilTest {
 
     @Test
