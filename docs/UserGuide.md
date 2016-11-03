@@ -3,6 +3,7 @@
 
 * [Quick Start](#quick-start)
 * [Features](#features)
+* [UI Control](#ui-control)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
@@ -71,6 +72,7 @@ Examples:
 * `add CS2103 Workshop /desc OOP workshop /from 12-01-16 > 12-07-16` <br>
 
 <!-- @@author A0144702N -->
+
 #### Listing tasks
 Shows a list of tasks that are not marked done. Or shows a list of all tasks. <br>
 
@@ -136,7 +138,7 @@ Examples:
 * `edit /e 4 /desc CS2103 TaskBook Project Meeting 4`  
   Edits the description of the 4th task to “CS2103 TaskBook Project Meeting 4”
 
-<!-- @@author -->
+<!-- @@author A0121608N -->
 
 #### Marking a task as completed
 Mark an existing task as completed in dowat.
@@ -163,6 +165,7 @@ Examples:
 * `delete /t 1`  
   Deletes the 1st task in the most recent listing
 
+<!-- @@author -->
   
 #### Selecting a task/event
 Selects an existing task/event from the last shown task/event list.  
@@ -203,22 +206,28 @@ Can go back to historical versions of dowat with the use of undo commands. Only 
 Format: `undo`
 
 <!-- @@author A0144702N -->
+
 #### Finding for events/tasks
 With the find command, you can find for tasks or events which contain some keywords in their **name** as well as in their **descriptions**. 
 
-Format: `find [/e|/t] KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD [/ MORE_KEYWORDS]`
 
+You can supply the `/power` flag to indicate a more powerful search, where events or tasks will be found as long as they contain some of the keywords. 
+
+Format: `find KEYWORD [/ MORE_KEYWORDS] [/power]`
+
+> When finding items, two strings are matched if they are similar, where they have a distance of less than 2. Refer to [FAQ](#faq) for a detailed definition of word distance. 
 > `KEYWORDS` are case insensitive. Events/Tasks which contain at least one keyword in their names will be returned. 
 
 Examples:
 * `find cs2103`
-  Shows tasks and events which have CS2103 (ignoring cases) in their names or description.
+  Shows tasks and events which have CS2103 (ignoring cases) in their names or description, or have similar words. 
 * `find CS`
   Partial match is not supported. Will not return any other tasks or events unless they contain "CS" (ignoring cases) in the names or description.
-* `find CS2106 CS2103`
-  Returns any tasks or events having "CS2106", "CS2103" in their names. 
+* `find cs210X /power`
+  Returns any tasks or events having which contain similar words of "cs210X" in the descriptiosn or names. 
 
-<!-- @@author-->
+<!-- @@author A0121608N -->
 
 #### Clearing of tasks
 Clears all completed tasks or clears all tasks. <br>
@@ -262,6 +271,7 @@ Examples:
   Clears all tasks and events.
   
 <!-- @@author A0144702N -->
+
 #### Toggle calendar view
 Toggle the view of calendar and focus to certain time time as user specified. 
 
@@ -281,14 +291,60 @@ Examples:
 #### Exiting the program
 Format : `exit`
 
+<!-- @@author A0121608N -->
 
+## UI Control
+
+#### Traversing between Windows
+The four main windows in which the user can traverse are:
+
+	* Command Box
+	* Result Display Panel
+	* Task Panel
+	* Event Panel
+
+By utilizing the TAB key, the user is able to switch between the different windows in the above-mentioned order. The order of traversal is descending down the list before it loops back to the beginning. 
+
+The window in which the user is currently on is shown by a brown border highlight.
+
+<img src="images/MockUI.png" width="600">
+
+
+#### Command Box Features
+When the Command Box is selected, it has 2 main features:
+
+* Clearing the Command Box
+
+	Pressing the DELETE key will clear the Command Box of its text content. This allows for easy clearing of commands.
+
+* Accessing past History of Commands
+	
+	Pressing the UP key will access the previous command in the history and will copy it into the Command Box. Pressing the DOWN key will access the next command in the history and will copy it into the Command Box. 
+
+	The Command history resets itself after each session of usage (i.e exit the program).
+
+#### Result Display Panel Features
+When the Result Display Panel is selected, it has a scrolling feature where the UP and DOWN key would be able to control the scroll bar within the window. This prevents the need to use the mouse wheel for scrolling.
+
+#### Task and Event Panel Features
+When the Task or Event Panel is selected, it has a scrolling feature where the UP and DOWN key would be able to control the scroll bar within the window. This prevents the need to use the mouse wheel for scrolling.
+
+<!-- @@author-->
+
+#### Interpreting Task and Event Card
+
+#### Calendar thingies
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous dowat.
-       
+       the file that contains the data of your previous dowat.<br>
+
+**Q**: What is word distance? <br>
+**A**: It is the Levenshtein distance between two words is the minimum number of single-character edits (i.e. insertions, deletions or substitutions) required to change one word into the other.
+
+
 ## Command Summary
 
  Command | Format  
@@ -304,7 +360,7 @@ Format : `exit`
 [Save](#changing-the-save-location) | `save FILEPATH`
 [Help](#viewing-help) | `help [COMMAND]`
 [Undo](#undo-modifications) | `undo`
-[Find](#finding-for-events/tasks) | `find KEYWORD [MORE_KEYWORDS]`
+[Find](#finding-for-events/tasks) | `find KEYWORD [/ MORE_KEYWORDS][/power]`
 [Clear Tasks or Events](#clearing-completed/uncompleted-tasks/events) |`clear /t|/e [/a]`
 [Clear Tasks and Events](#clearing-completed/uncompleted-tasks and events) |`clear [/a]`
 [Show Day/Week view of the calendar of certain time](#toggle-calendar-view) | `show today [/day|/wk]`

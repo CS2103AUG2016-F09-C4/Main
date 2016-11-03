@@ -20,6 +20,8 @@ public class Flag {
 	public static final String calendarDay = "/day";
     public static final String allFlag = "/a";
     public static final String removeFlag = "rm";
+    public static final String powerSearchFlag = "/power";
+    public static final String findKeywordFlag = "/ ";
 
 }
 
