@@ -1,5 +1,7 @@
 package seedu.task.model;
 
+import java.util.Set;
+
 import seedu.task.model.item.Event;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
@@ -7,8 +9,6 @@ import seedu.task.model.item.Task;
 import seedu.task.model.item.UniqueEventList;
 import seedu.task.model.item.UniqueTaskList;
 import seedu.taskcommons.core.UnmodifiableObservableList;
-
-import java.util.Set;
 
 /**
  * The API of the Model component.
@@ -57,10 +57,10 @@ public interface Model {
     void updateFilteredTaskListToShowAll();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    void showFoundTaskList(Set<String> keywords, boolean isPowerFind);
     
     /** Updates the filter of the filtered event list to filter by the given keywords*/
-    void updateFilteredEventList(Set<String> keywords);
+    void showFoundEventList(Set<String> keywords, boolean isPowerFind);
     
     /** Updates the filter of the filtered task list to filter by the status*/
     void updateFilteredTaskListToShowWithStatus(Boolean statusCompleted);
