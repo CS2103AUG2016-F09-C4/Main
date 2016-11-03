@@ -21,6 +21,9 @@ import seedu.task.model.item.Name;
 import seedu.task.model.item.Task;
 
 //@@author A0127570H
+/*
+ * Logic test for Add Command
+ */
 public class AddCommandTest extends CommandTest{
 
 	/*

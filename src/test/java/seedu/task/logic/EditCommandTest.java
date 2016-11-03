@@ -19,6 +19,9 @@ import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
 import seedu.taskcommons.core.Messages;
 
 //@@author A0127570H
+/*
+ * Logic test for Edit Command
+ */
 public class EditCommandTest extends CommandTest {
 
     /*
@@ -372,28 +375,6 @@ public class EditCommandTest extends CommandTest {
         // execute command and verify result
         assertEditTaskCommandBehavior(helper.generateAddTaskCommand(toBeAdded),helper.generateListTaskCommand(),
                 helper.generateEditTaskCommand(toBeEdited,1),
-                String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, toBeEdited),
-                expectedAB,
-                expectedAB.getTaskList());
-
-    }
-    
-    //Removing deadline to change to floating task
-    //TODO
-    @Ignore
-    @Test
-    public void execute_editTask_remove_deadline_successful() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.computingTask();
-        TaskBook expectedAB = new TaskBook();
-        expectedAB.addTask(toBeAdded);
-        Task toBeEdited = helper.computingDescTask();
-        expectedAB.editTask(toBeEdited, toBeAdded);
-
-        // execute command and verify result
-        assertEditTaskCommandBehavior(helper.generateAddTaskCommand(toBeAdded),helper.generateListTaskCommand(),
-                helper.generateEditFloatTaskCommand(toBeEdited,1),
                 String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, toBeEdited),
                 expectedAB,
                 expectedAB.getTaskList());

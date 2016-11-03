@@ -14,6 +14,9 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Ignore;
 
 //@@author A0127570H
+/*
+ * GUI test for Select Command
+ */
 public class SelectCommandTest extends TaskBookGuiTest {
 
     @Test
