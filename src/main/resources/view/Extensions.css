@@ -65,11 +65,6 @@
 
 
 /* For today */
-.status-today .cell_big_label {
-    -fx-font-size: 16px;
-    -fx-text-fill: #d35400;
-}
-
 .status-today {
     -fx-background-image: url('/images/notice.png');
     -fx-background-position: right center;
@@ -88,7 +83,9 @@
   	-fx-border-width:2px;
 }
 
-
+.status-overdue .cell_big_label, .status-overdue .cell_index_label {
+    -fx-text-fill: #c0392b;
+}
 
 /*
  * 
