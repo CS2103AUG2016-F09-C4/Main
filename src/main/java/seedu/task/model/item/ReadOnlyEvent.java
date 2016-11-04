@@ -41,7 +41,7 @@ public interface ReadOnlyEvent {
      * If null, empty string is returned
      */
     default String getDescriptionToString() {
-        return getDescription().isPresent()? " Desc: " + getDescription().get().toString() : "";
+        return getDescription().isPresent()?  getDescription().get().toString() : "";
     }
     
     /**
