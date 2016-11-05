@@ -1,7 +1,7 @@
 package seedu.task.logic.commands;
 
 import seedu.task.commons.events.ui.JumpToEventListRequestEvent;
-import seedu.task.model.item.*;
+import seedu.task.model.item.ReadOnlyEvent;
 import seedu.taskcommons.core.EventsCenter;
 import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
@@ -9,6 +9,7 @@ import seedu.taskcommons.core.UnmodifiableObservableList;
 /**
  * Selects an Event identified using it's last displayed index from the task
  * book.
+ * @@author A0125534L
  */
 public class SelectEventCommand extends SelectCommand {
 
@@ -22,13 +23,17 @@ public class SelectEventCommand extends SelectCommand {
 	public CommandResult execute() {
 
 		UnmodifiableObservableList<ReadOnlyEvent> lastShownEventList = model.getFilteredEventList();
-
-		if (lastShownEventList.size() < targetIndex) {
+		
+		//check the input index with list size or check the input index not equals to zero
+		if (lastShownEventList.size() < targetIndex || (targetIndex == 0)) { 
+			
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
 		}
-
-		EventsCenter.getInstance().post(new JumpToEventListRequestEvent(targetIndex - 1));
+		
+		ReadOnlyEvent targetEvent = model.getFilteredEventList().get(targetIndex-1);
+		
+		EventsCenter.getInstance().post(new JumpToEventListRequestEvent(targetEvent, targetIndex - 1));
 		return new CommandResult(String.format(MESSAGE_SELECT_EVENT_SUCCESS, targetIndex));
 
 	}

@@ -1,15 +1,15 @@
 package seedu.task.logic.commands;
 
 import seedu.task.commons.events.ui.JumpToTaskListRequestEvent;
-
-import seedu.task.model.item.*;
+import seedu.task.model.item.ReadOnlyTask;
 import seedu.taskcommons.core.EventsCenter;
 import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
 /**
- * Selects an Event identified using it's last displayed index from the task
+ * Selects an Task identified using it's last displayed index from the task
  * book.
+ * @@author A0125534L
  */
 public class SelectTaskCommand extends SelectCommand {
 
@@ -24,12 +24,15 @@ public class SelectTaskCommand extends SelectCommand {
 
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
-		if (lastShownList.size() < targetIndex) {
+		//check the input index with list size or check the input index not equals to zero
+		if ((lastShownList.size() < targetIndex) || (targetIndex == 0)) { 
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 		}
-
-		EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(targetIndex - 1));
+		
+		
+		ReadOnlyTask targetTask = model.getFilteredTaskList().get(targetIndex-1);
+		EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(targetTask, targetIndex - 1));
 		return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
 
 	}
