@@ -1,19 +1,12 @@
 package seedu.task.ui;
 
-import javafx.fxml.FXML;
+import java.time.LocalDateTime;
 
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import seedu.task.model.item.Deadline;
 import seedu.task.model.item.ReadOnlyTask;
-
-import java.time.LocalDateTime;
-import java.util.Optional;
-
-import com.guigarage.flatterfx.emoji.EmojiFactory;
 
 
 public class TaskCard extends UiPart{
