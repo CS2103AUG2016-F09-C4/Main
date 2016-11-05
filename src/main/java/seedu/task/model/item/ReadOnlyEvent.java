@@ -29,9 +29,10 @@ public interface ReadOnlyEvent {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getEvent())
-               .append(getDescriptionToString())
-               .append(" Duration: ")
+        builder.append(" Name: ")
+               .append(getEvent())
+               .append(getFormalDescriptionToString())
+               .append(" From: ")
                .append(getDuration());
         return builder.toString();
     }
@@ -42,6 +43,14 @@ public interface ReadOnlyEvent {
      */
     default String getDescriptionToString() {
         return getDescription().isPresent()?  getDescription().get().toString() : "";
+    }
+    
+    /**
+     * Formats the description as text.
+     * If null, empty string is returned
+     */
+    default String getFormalDescriptionToString() {
+        return getDescription().isPresent()? " Desc: " + getDescription().get().toString() : "";
     }
     
     /**
