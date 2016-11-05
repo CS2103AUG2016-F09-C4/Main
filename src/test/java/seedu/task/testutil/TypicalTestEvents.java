@@ -5,53 +5,40 @@ import seedu.task.model.TaskBook;
 import seedu.task.model.item.Event;
 import seedu.task.model.item.UniqueEventList;
 
-//@@author A0144702N
 /**
  * Constructing events for GUI testing
  * @author xuchen
  *
  */
 public class TypicalTestEvents {
-	public static TestEvent  meeting1, meeting2, meeting3, addedEvent, addedEvent2, addedEvent3;
+	public static TestEvent  meeting1, meeting2, meeting3, addedEvent;
 	
 	public TypicalTestEvents() {
 		try {
 			meeting1 = new EventBuilder()
 					.withName("ms v0")
 					.withDescription("for CS2103t project")
-					.withDuration(" yesterday 1pm "," yesterday 2pm")
+					.withDuration("yesterday 1pm > yesterday 2pm")
 					.build();
 			
 			meeting2 = new EventBuilder()
 					.withName("ms v1")
 					.withDescription("for CS2103t project")
-					.withDuration("tomorrow 2pm ","tomorrow 4pm")
+					.withDuration("tomorrow 3pm > tomorrow 4pm")
 					.build();
 			
 			meeting3 = new EventBuilder()
 					.withName("ms v2")
 					.withDescription("for CS2103 discussion")
-					.withDuration("tomorrow 8pm","tomorrow 11pm")
+					.withDuration("tomorrow 8pm > tomorrow 11pm")
 					.build();
 			
 			//manually added events
 			addedEvent = new EventBuilder()
 					.withName("manual event")
 					.withDescription("for manual testing")
-					.withDuration("tomorrow 1pm", "next Friday 1pm")
+					.withDuration("tomorrow 1pm > next Friday")
 					.build();
-			
-			addedEvent2 = new EventBuilder()
-                    .withName("manual event 2")
-                    .withDescription("for manual testing")
-                    .withDuration("tomorrow 1pm ","next Friday 1pm")
-                    .build();
-			
-			addedEvent3 = new EventBuilder()
-                    .withName("manual event 3")
-                    .withDescription("for manual testing")
-                    .withDuration("yesterday 1pm ","yesterday 3pm")
-                    .build();
 			
 		} catch (IllegalValueException e) {
 			e.printStackTrace();
@@ -72,14 +59,9 @@ public class TypicalTestEvents {
 	public TestEvent[] getTypicalAllEvents() {
 		return new TestEvent[]{meeting1, meeting2, meeting3};
 	}
-
-    public TestEvent[] getTypicalAllNotCompletedEvents() {
-        return new TestEvent[]{meeting2, meeting3, addedEvent};
-    }
-	
 	
 	public TestEvent[] getTypicalNotCompletedEvents() {
-	    return new TestEvent[]{meeting2, meeting3};
+		return new TestEvent[]{meeting2, meeting3};
 	}
 	
 	public TaskBook getTypicalTaskBook() {

@@ -1,10 +1,9 @@
 package guitests;
 
-import static org.junit.Assert.assertTrue;
-
+import guitests.guihandles.HelpWindowHandle;
 import org.junit.Test;
 
-import guitests.guihandles.HelpWindowHandle;
+import static org.junit.Assert.assertTrue;
 
 public class HelpWindowTest extends TaskBookGuiTest {
 

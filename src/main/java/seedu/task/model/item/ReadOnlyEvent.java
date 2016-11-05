@@ -1,6 +1,7 @@
 package seedu.task.model.item;
 
-import java.util.Optional;
+import seedu.task.model.item.Description;
+import seedu.task.model.item.Name;
 
 /**
  * A read-only immutable interface for an event in the task book.
@@ -9,7 +10,7 @@ import java.util.Optional;
 public interface ReadOnlyEvent {
 
     Name getEvent();
-    Optional <Description> getDescription();
+    Description getDescription();
     EventDuration getDuration();
     boolean isEventCompleted();
 
@@ -30,33 +31,12 @@ public interface ReadOnlyEvent {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getEvent())
-               .append(getDescriptionToString())
+               .append(" Desc: ")
+               .append(getDescription())
                .append(" Duration: ")
                .append(getDuration());
         return builder.toString();
     }
-    
-    /**
-     * Formats the description as text.
-     * If null, empty string is returned
-     */
-    default String getDescriptionToString() {
-        return getDescription().isPresent()? " Desc: " + getDescription().get().toString() : "";
-    }
-    
-    /**
-     * Formats the description as string.
-     * If null, empty string is returned
-     */
-    default String getDescriptionValue() {
-        return getDescription().isPresent()? getDescription().get().toString() : "";
-    }	
-    
-    /**
-     * Appends the name of a event with [PAST] if task is completed
-     */
-    default String getNameWithStatus() {
-        return isEventCompleted() ? getEvent().toString() + " [PAST]" : getEvent().toString();
-    }
+	
 
 }

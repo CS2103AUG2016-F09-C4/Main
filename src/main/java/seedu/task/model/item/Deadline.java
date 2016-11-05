@@ -6,13 +6,11 @@ import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.StringUtil;
 
 
-//@@author A0127570H
 /**
  * Represents a Task's deadline in the task book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDeadline(String)}
  * @author kian ming
  */
-
 public class Deadline implements Comparable<Deadline> {
 
     public static final String MESSAGE_DEADLINE_CONSTRAINTS = 
@@ -21,6 +19,7 @@ public class Deadline implements Comparable<Deadline> {
     		+ "M D Y, eg: Oct 12 2016\n"
     		+ "M/D/Y, eg: 01/30/16\n"
     		+ "RELATIVE_DAY TIME, tomorrow 4pm\n";
+    
 
     private LocalDateTime deadLine; 
 
@@ -29,18 +28,19 @@ public class Deadline implements Comparable<Deadline> {
      *
      * @throws IllegalValueException if given deadline string is invalid.
      */
-    public Deadline(String deadlineArg) throws IllegalValueException{
+    public Deadline(String deadlineArg) throws IllegalValueException {
         assert deadlineArg != null;
-        deadlineArg = deadlineArg.trim();          
+        deadlineArg = deadlineArg.trim();
+   
+        if (deadlineArg.isEmpty()) {
+            throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
+        }   
+        
         try {
         	this.deadLine = StringUtil.parseStringToTime(deadlineArg);
         } catch (IllegalValueException e) {
         	throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
         }
-    }
-    
-    public LocalDateTime getTime() {
-    	return this.deadLine;
     }
 
 
@@ -60,24 +60,23 @@ public class Deadline implements Comparable<Deadline> {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		
 		Deadline other = (Deadline) obj;
-		if (deadLine == null && (other.deadLine != null)) {
+		if (deadLine == null) {
+			if (other.deadLine != null)
+				return false;
+		} else if (!this.toString()
+				.equals(other.toString())) /*Standardized String to compare for equality */
 			return false;
-		} else if (!this.toString().equals(other.toString())) /*Standardized String to compare for equality */ {
-			return false;
-		}
 		return true;
 	}
+
 
 	@Override
 	public int compareTo(Deadline o) {

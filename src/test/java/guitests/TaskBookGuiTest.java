@@ -1,10 +1,7 @@
 package guitests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.concurrent.TimeoutException;
-
+import guitests.guihandles.*;
+import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -12,24 +9,20 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 
-import guitests.guihandles.CalendarHandle;
-import guitests.guihandles.CommandBoxHandle;
-import guitests.guihandles.EventCardHandle;
-import guitests.guihandles.EventListPanelHandle;
-import guitests.guihandles.MainGuiHandle;
-import guitests.guihandles.MainMenuHandle;
-import guitests.guihandles.ResultDisplayHandle;
-import guitests.guihandles.TaskCardHandle;
-import guitests.guihandles.TaskListPanelHandle;
-import javafx.stage.Stage;
 import seedu.task.TestApp;
 import seedu.task.model.TaskBook;
-import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
+import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestEvents;
 import seedu.task.testutil.TypicalTestTasks;
+import seedu.task.ui.EventListPanel;
 import seedu.taskcommons.core.EventsCenter;
+
+import java.util.concurrent.TimeoutException;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * A GUI Test class for TaskBook.
@@ -55,7 +48,6 @@ public abstract class TaskBookGuiTest {
     protected EventListPanelHandle eventListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
-    protected CalendarHandle calendar;
     private Stage stage;
 
     @BeforeClass
@@ -77,7 +69,6 @@ public abstract class TaskBookGuiTest {
             eventListPanel = mainGui.getEventListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
-            calendar = mainGui.getCalendar();
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
@@ -116,13 +107,6 @@ public abstract class TaskBookGuiTest {
      */
     public void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndTask(card, task));
-    }
-    
-    /**
-     * Asserts the event shown in the card is same as the given event
-     */
-    public void assertMatching(ReadOnlyEvent event, EventCardHandle card) {
-        assertTrue(TestUtil.compareCardAndEvent(card, event));
     }
 
     /**

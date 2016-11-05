@@ -1,11 +1,6 @@
 package seedu.task.logic.parser;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import seedu.task.commons.exceptions.EmptyValueException;
 
@@ -81,10 +76,6 @@ public class ArgumentTokenizer {
         public Prefix getPrefix() {
             return this.prefix;
         }
-        @Override
-        public String toString() {
-            return startPosition  + " " + prefix.getPrefix();
-        }
     }
 
     /**
@@ -103,7 +94,6 @@ public class ArgumentTokenizer {
         extractArguments(argsString, positions);
     }
 
-    //@@author A0127570H
     /**
      * Returns last value of given prefix.
      * @throws EmptyValueException  Exception thrown is value is empty string
@@ -116,14 +106,6 @@ public class ArgumentTokenizer {
         }
         
         return outputValue;
-    }
-    //@@author    
-    
-    /**
-     * Returns true if prefix exists.
-     */
-    public boolean hasPrefix(Prefix prefix) {
-    	return this.tokenizedArguments.containsKey(prefix);
     }
 
     /**
@@ -152,7 +134,6 @@ public class ArgumentTokenizer {
         } else {
             return Optional.empty();
         }
-        
     }
 
     private void resetTokenizerState() {
@@ -204,7 +185,7 @@ public class ArgumentTokenizer {
         // Add a dummy PrefixPosition to represent the end of the string
         PrefixPosition endPositionMarker = new PrefixPosition(new Prefix(""), argsString.length());
         prefixPositions.add(endPositionMarker);
-        
+
         // Extract the prefixed arguments and preamble (if any)
         for (int i = 0; i < prefixPositions.size() - 1; i++) {
             String argValue = extractArgumentValue(argsString, prefixPositions.get(i), prefixPositions.get(i + 1));

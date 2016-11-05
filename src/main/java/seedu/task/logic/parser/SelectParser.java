@@ -1,19 +1,8 @@
 package seedu.task.logic.parser;
 
-/**
- * Parses arguments in the context of the add task command.
- *
- * @param args full command args string
- * @return the prepared command
- * @author Yee Heng
- */
-
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.SelectCommand;

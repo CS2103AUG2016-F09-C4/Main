@@ -1,9 +1,8 @@
 package seedu.task.logic.parser;
 
-import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.IncorrectCommand;
@@ -11,7 +10,7 @@ import seedu.task.logic.commands.MarkCommand;
 
 /**
  * Responsible for validating and preparing the arguments for MarkCommand execution
- * @@author A0121608N
+ * @author Tiankai
  */
 
 public class MarkParser implements Parser {

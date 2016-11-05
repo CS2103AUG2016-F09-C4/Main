@@ -2,13 +2,12 @@ package seedu.task.logic.commands;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.item.Description;
-import seedu.task.model.item.Event;
 import seedu.task.model.item.EventDuration;
+import seedu.task.model.item.Event;
 import seedu.task.model.item.Name;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.UniqueEventList;
 
-//@@author A0127570H
 /**
  * Adds an event to the task book.
  * @author kian ming
@@ -27,17 +26,13 @@ public class AddEventCommand extends AddCommand {
      * @throws IllegalValueException
      *             if any of the raw values are invalid
      */
-    public AddEventCommand(String name, String description, String startDuration, String endDuration) throws IllegalValueException {
-        
-        if (description.isEmpty()) {
-            this.toAddEvent = new Event(new Name(name), null, new EventDuration(startDuration, endDuration));
-        } else {
-            this.toAddEvent = new Event(new Name(name), new Description(description), new EventDuration(startDuration, endDuration));
-        }
+  //TODO: more flexible of events type
+    public AddEventCommand(String name, String description, String duration) throws IllegalValueException {
+        this.toAddEvent = new Event(new Name(name), new Description(description), new EventDuration(duration));
     }
 
     public AddEventCommand(ReadOnlyEvent event) {
-    	this.toAddEvent = new Event(event);
+    	this.toAddEvent = new Event(event.getEvent(), event.getDescription(), event.getDuration());
 	}
 
 	@Override

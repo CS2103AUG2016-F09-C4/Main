@@ -11,8 +11,6 @@ import seedu.taskcommons.core.UnmodifiableObservableList;
  * book.
  * @@author A0125534L
  */
-
-//@@author A0125534L
 public class SelectEventCommand extends SelectCommand {
 
 	public static final String MESSAGE_SELECT_EVENT_SUCCESS = "Selected Event: %1$s";
@@ -25,8 +23,10 @@ public class SelectEventCommand extends SelectCommand {
 	public CommandResult execute() {
 
 		UnmodifiableObservableList<ReadOnlyEvent> lastShownEventList = model.getFilteredEventList();
-
-		if (lastShownEventList.size() < targetIndex) { //check the input index with list size
+		
+		//check the input index with list size or check the input index not equals to zero
+		if (lastShownEventList.size() < targetIndex || (targetIndex == 0)) { 
+			
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
 		}

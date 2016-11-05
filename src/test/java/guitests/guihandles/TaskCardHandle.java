@@ -35,30 +35,37 @@ public class TaskCardHandle extends GuiHandle {
 
     public String getDeadline() {
         return getTextFromLabel(DEADLINE_FIELD_ID);
-    }    
+    }
+    
+    public Boolean getTaskStatus() {
+    	return false;
+    }
+
+    
 
     public boolean isSameTask(ReadOnlyTask task){
+
+//        if (isSameDeadline(task) && getDeadline().isEmpty() && task.getDeadlineValue().isEmpty()) {
+//            System.out.println("Same Card Task Deadline:"+ getDeadline());
+//            System.out.println("Same Model Deadline:" + task.getDeadlineValue());
+//        } else {
+//            System.out.println("Card Task Name:"+ getFullTaskName());
+//            System.out.println("Card Task Deadline:"+ getDeadline());
+//            System.out.println("Model Deadline:" + task.getDeadlineValue());
+//        }
         return isSameName(task) && isSameDescription(task) && isSameDeadline(task);
     }
 
     private boolean isSameName(ReadOnlyTask task) {
-        return getFullTaskName().equals(task.getNameWithStatus());
+        return getFullTaskName().equals(task.getTask().fullName);
     }
     
     private boolean isSameDeadline(ReadOnlyTask task) {
-        if (!task.getDeadline().isPresent()) {
-            return true;
-        } else {
-            return (task.getDeadlineValue().isEmpty() && getDeadline().isEmpty()) || (getDeadline().equals(task.getDeadlineToString().trim()));
-        }
+        return (task.getDeadlineValue().isEmpty() && getDeadline().isEmpty()) || (getDeadline().equals(task.getDeadlineToString().trim()));
     }
     
     private boolean isSameDescription(ReadOnlyTask task) {
-        if (!task.getDescription().isPresent()) {
-            return true;
-        } else {
-            return (getDescription().equals(task.getDescriptionToString().trim())) || (task.getDescriptionValue().isEmpty() && getDescription().isEmpty()); 
-        }
+        return (getDescription().equals(task.getDescriptionToString().trim())) || (task.getDescriptionValue().isEmpty() && getDescription().isEmpty()); 
     }
 
     @Override

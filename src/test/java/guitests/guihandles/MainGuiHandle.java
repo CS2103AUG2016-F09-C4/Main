@@ -1,7 +1,6 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
-import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.task.TestApp;
 
@@ -32,10 +31,6 @@ public class MainGuiHandle extends GuiHandle {
 
     public MainMenuHandle getMainMenu() {
         return new MainMenuHandle(guiRobot, primaryStage);
-    }
-    
-    public CalendarHandle getCalendar() {
-    	return new CalendarHandle(guiRobot, primaryStage);
     }
 
 }

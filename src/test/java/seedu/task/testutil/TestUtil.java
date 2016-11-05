@@ -1,19 +1,5 @@
 package seedu.task.testutil;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.TimeoutException;
-import java.util.stream.Collectors;
-
-import org.loadui.testfx.GuiTest;
-import org.testfx.api.FxToolkit;
-
 import com.google.common.io.Files;
 
 import guitests.guihandles.EventCardHandle;
@@ -26,19 +12,27 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import junit.framework.AssertionFailedError;
+import org.loadui.testfx.GuiTest;
+import org.testfx.api.FxToolkit;
+
 import seedu.task.TestApp;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.FileUtil;
 import seedu.task.commons.util.XmlUtil;
 import seedu.task.model.TaskBook;
-import seedu.task.model.item.Description;
-import seedu.task.model.item.Name;
-import seedu.task.model.item.ReadOnlyEvent;
-import seedu.task.model.item.ReadOnlyTask;
-import seedu.task.model.item.Task;
-import seedu.task.model.item.UniqueEventList;
-import seedu.task.model.item.UniqueTaskList;
+import seedu.task.model.item.*;
 import seedu.task.storage.XmlSerializableTaskBook;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
 
 /**
  * A utility class for test cases.
@@ -83,10 +77,26 @@ public class TestUtil {
                     new Task(new Name("Social Science Project 1"), new Description("Complete my part before meeting"),null,false),
             };
         } catch (IllegalValueException e) {
+            assert false;
             //not possible
             return null;
         }
     }
+
+//    public static final Tag[] sampleTagData = getSampleTagData();
+//
+//    private static Tag[] getSampleTagData() {
+//        try {
+//            return new Tag[]{
+//                    new Tag("relatives"),
+//                    new Tag("friends")
+//            };
+//        } catch (IllegalValueException e) {
+//            assert false;
+//            return null;
+//            //not possible
+//        }
+//    }
 
     public static List<Task> generateSampleTaskData() {
         return Arrays.asList(sampleTaskData);
@@ -343,18 +353,6 @@ public class TestUtil {
     }
     
     /**
-     * Replaces a task in the array of tasks at certain index.
-     * @param tasks A array of tasks.
-     * @param taskToEdit The tasks that are to be edited.
-     * @return The modified array of tasks.
-     */
-    public static TestTask[] editTasksToListAtIndex(final TestTask[] tasks,int index, TestTask taskToEdit) {
-        List<TestTask> listOfTasks = asList(tasks);
-        listOfTasks.set(index, taskToEdit);
-        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
-    }
-    
-    /**
      * Appends events to the array of events.
      * @param events A array of events.
      * @param eventsToAdd The events that are to be appended behind the original array.
@@ -390,19 +388,6 @@ public class TestUtil {
         listOfTasks.set(index, taskToEdit);
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
-    
-    /**
-     * Edits events according to index in the array of events.
-     * @param events A array of events.
-     * @param eventsToEdit The events that are to be edited in the original array.
-     * @param index Integer of event index to edit
-     * @return The modified array of events.
-     */
-    public static TestEvent[] editEventsToList(final TestEvent[] events, int index, TestEvent eventToEdit) {
-        List<TestEvent> listOfEvents = asList(events);
-        listOfEvents.set(index, eventToEdit);
-        return listOfEvents.toArray(new TestEvent[listOfEvents.size()]);
-    }
 
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();
@@ -419,5 +404,26 @@ public class TestUtil {
     public static boolean compareCardAndEvent(EventCardHandle card, ReadOnlyEvent event) {
         return card.isSameEvent(event);
     }
+
+//    public static Tag[] getTagList(String tags) {
+//
+//        if (tags.equals("")) {
+//            return new Tag[]{};
+//        }
+//
+//        final String[] split = tags.split(", ");
+//
+//        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
+//            try {
+//                return new Tag(e.replaceFirst("Tag: ", ""));
+//            } catch (IllegalValueException e1) {
+//                //not possible
+//                assert false;
+//                return null;
+//            }
+//        }).collect(Collectors.toList());
+//
+//        return collect.toArray(new Tag[split.length]);
+//    }
 
 }

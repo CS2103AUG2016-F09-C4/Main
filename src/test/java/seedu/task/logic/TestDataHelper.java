@@ -17,7 +17,7 @@ import seedu.task.model.item.Task;
 /**
  * A utility class to generate test data.
  */
-public class TestDataHelper{
+class TestDataHelper{
 
     /*
      * Tasks
@@ -129,29 +129,15 @@ public class TestDataHelper{
     public Event computingUpComingEvent() throws Exception {
         Name name = new Name("Attend CS2103 Workshop");
         Description des = new Description("post on Github");
-        EventDuration dur = new EventDuration("tomorrow 3pm", "tomorrow 4pm");
+        EventDuration dur = new EventDuration("tomorrow 3pm > tomorrow 4pm");
         
         return new Event(name, des, dur);
-    }
-    
-    public Event computingNoDescUpComingEvent() throws Exception {
-        Name name = new Name("Attend CS2103 Workshop");
-        EventDuration dur = new EventDuration("tomorrow 3pm", "tomorrow 4pm");
-        
-        return new Event(name, null, dur);
-    }
-    
-    public Event computingEndDurationUpComingEvent() throws Exception {
-        Name name = new Name("Attend CS2103 Workshop");
-        EventDuration dur = new EventDuration("", "tomorrow 4pm");
-        
-        return new Event(name, null, dur);
     }
     
     public Event computingEditedNameUpComingEvent() throws Exception {
         Name name = new Name("Attend CS2106 Workshop");
         Description des = new Description("post on Github");
-        EventDuration dur = new EventDuration("tomorrow 3pm","tomorrow 4pm");
+        EventDuration dur = new EventDuration("tomorrow 3pm > tomorrow 4pm");
         
         return new Event(name, des, dur);
     }
@@ -159,7 +145,7 @@ public class TestDataHelper{
     public Event computingEditedDescUpComingEvent() throws Exception {
         Name name = new Name("Attend CS2103 Workshop");
         Description des = new Description("To post on Github");
-        EventDuration dur = new EventDuration("tomorrow 3pm","tomorrow 4pm");
+        EventDuration dur = new EventDuration("tomorrow 3pm > tomorrow 4pm");
         
         return new Event(name, des, dur);
     }
@@ -167,23 +153,7 @@ public class TestDataHelper{
     public Event computingEditedDurationUpComingEvent() throws Exception {
         Name name = new Name("Attend CS2103 Workshop");
         Description des = new Description("post on Github");
-        EventDuration dur = new EventDuration("tomorrow 5pm","tomorrow 6pm");
-        
-        return new Event(name, des, dur);
-    }
-    
-    public Event computingEditedStartDurationUpComingEvent() throws Exception {
-        Name name = new Name("Attend CS2103 Workshop");
-        Description des = new Description("post on Github");
-        EventDuration dur = new EventDuration("tomorrow 3.30pm","tomorrow 4pm");
-        
-        return new Event(name, des, dur);
-    }
-    
-    public Event computingEditedEndDurationUpComingEvent() throws Exception {
-        Name name = new Name("Attend CS2103 Workshop");
-        Description des = new Description("post on Github");
-        EventDuration dur = new EventDuration("tomorrow 3pm","tomorrow 6pm");
+        EventDuration dur = new EventDuration("tomorrow 5pm > tomorrow 6pm");
         
         return new Event(name, des, dur);
     }
@@ -191,7 +161,7 @@ public class TestDataHelper{
     public Event computingUpComingEvent2() throws Exception {
         Name name = new Name("Attend CS2106 Workshop");
         Description des = new Description("To post on Github");
-        EventDuration dur = new EventDuration("tomorrow 7pm","tomorrow 8pm");
+        EventDuration dur = new EventDuration("tomorrow 7pm > tomorrow 8pm");
         
         return new Event(name, des, dur);
     }
@@ -199,7 +169,7 @@ public class TestDataHelper{
     public Event completedEvent() throws Exception {
     	Name name = new Name("Completed Event");
     	Description des = new Description("for testing");
-    	EventDuration dur = new EventDuration("yesterday 1pm","yesterday 2pm");
+    	EventDuration dur = new EventDuration("yesterday 1pm > yesterday 2pm");
     	return new Event(name, des, dur);
     }
 
@@ -230,7 +200,7 @@ public class TestDataHelper{
         return new Event(
                 new Name("Event " + seed),
                 new Description("Description" + Math.abs(seed)),
-                new EventDuration("tomorrow " + seed + "pm", "")
+                new EventDuration("tomorrow " + seed + "pm")
                );
     }
     
@@ -245,7 +215,7 @@ public class TestDataHelper{
         return new Event(
                 new Name("Event " + seed),
                 new Description("Description" + Math.abs(seed)),
-                new EventDuration("yesterday " + seed + "pm", "")
+                new EventDuration("yesterday " + seed + "pm")
                );
     }
     
@@ -320,44 +290,17 @@ public class TestDataHelper{
         cmd.append("add ");
 
         cmd.append(p.getEvent().toString());
-        cmd.append(" /desc ").append(p.getDescriptionValue());
-        cmd.append(" /from ").append(p.getDuration().getStartTimeAsText());
-        cmd.append(" /to ").append(p.getDuration().getEndTimeAsText());
+        cmd.append(" /desc ").append(p.getDescription().toString());
+        cmd.append(" /from ").append(p.getDuration().toString());
 
         return cmd.toString();
     }
     
-    /** Generates the correct add event command based on the event given */
-    public String generateAddNoDescEventCommand(Event p) {
-        StringBuffer cmd = new StringBuffer();
-
-        cmd.append("add ");
-
-        cmd.append(p.getEvent().toString());
-        cmd.append(" /from ").append(p.getDuration().getStartTimeAsText());
-        cmd.append(" /to ").append(p.getDuration().getEndTimeAsText());
-
-        return cmd.toString();
-    }
-    
-    /** Generates the correct different ordered add event command based on the event given */
-    public String generateDiffOrderedAddEventCommand(Event p) {
-        StringBuffer cmd = new StringBuffer();
-
-        cmd.append("add ");
-
-        cmd.append(p.getEvent().toString());
-        cmd.append(" /from ").append(p.getDuration().getStartTimeAsText());
-        cmd.append(" /to ").append(p.getDuration().getEndTimeAsText());
-        cmd.append(" /desc ").append(p.getDescriptionValue());       
-
-        return cmd.toString();
-    }
-    
+    /** Generates the correct edit task command based on the new description string given */
     public String generateEditFloatTaskCommand(Task p, int index) {
         StringBuffer cmd = new StringBuffer();
 
-        cmd.append("edit /t " + index);
+        cmd.append("edit -t " + index);
         cmd.append(" /name ").append(p.getTask().toString());
         cmd.append(" /desc ").append(p.getDescription().get().toString());
 
@@ -368,20 +311,10 @@ public class TestDataHelper{
     public String generateEditTaskCommand(Task p, int index) {
         StringBuffer cmd = new StringBuffer();
 
-        cmd.append("edit /t " + index);
+        cmd.append("edit -t " + index);
         cmd.append(" /name ").append(p.getTask().toString());
         cmd.append(" /desc ").append(p.getDescription().get().toString());
         cmd.append(" /by ").append(p.getDeadline().get().toString());
-
-        return cmd.toString();
-    }
-    
-    /** Generates the correct edit task command to remove deadline */
-    public String generateEditDeadlineTaskCommand(Task p, int index) {
-        StringBuffer cmd = new StringBuffer();
-
-        cmd.append("edit /t " + index);
-        cmd.append(" /by  rm");
 
         return cmd.toString();
     }
@@ -390,56 +323,10 @@ public class TestDataHelper{
     public String generateEditEventCommand(Event p, int index) {
         StringBuffer cmd = new StringBuffer();
 
-        cmd.append("edit /e " + index);
+        cmd.append("edit -e " + index);
         cmd.append(" /name ").append(p.getEvent().toString());
-        cmd.append(" /desc ").append(p.getDescription().get().toString());
-        cmd.append(" /from ").append(p.getDuration().getStartTimeAsText());
-        cmd.append(" /to ").append(p.getDuration().getEndTimeAsText());
-        
-
-        return cmd.toString();
-    }
-    
-    /** Generates the correct edit event duration command based on the new description string given */
-    public String generateEditEventDurationCommand(Event p, int index) {
-        StringBuffer cmd = new StringBuffer();
-
-        cmd.append("edit /e " + index);
-        cmd.append(" /from ").append(p.getDuration().getStartTimeAsText());
-        cmd.append(" /to ").append(p.getDuration().getEndTimeAsText());
-        
-
-        return cmd.toString();
-    }
-    
-    /** Generates the correct edit event start duration command based on the new description string given */
-    public String generateEditEventStartDurationCommand(Event p, int index) {
-        StringBuffer cmd = new StringBuffer();
-
-        cmd.append("edit /e " + index);
-        cmd.append(" /from ").append(p.getDuration().getStartTimeAsText());        
-
-        return cmd.toString();
-    }
-    
-    /** Generates the correct edit event end duration command based on the new description string given */
-    public String generateEditEventEndDurationCommand(Event p, int index) {
-        StringBuffer cmd = new StringBuffer();
-
-        cmd.append("edit /e " + index);
-        cmd.append(" /to ").append(p.getDuration().getEndTimeAsText());
-        
-
-        return cmd.toString();
-    }
-    
-    /** Generates the correct edit event desc command based on the new description string given */
-    public String generateEditEventDescCommand(Event p, int index) {
-        StringBuffer cmd = new StringBuffer();
-
-        cmd.append("edit /e " + index);
-        cmd.append(" /desc ").append(p.getDescriptionValue());
-        
+        cmd.append(" /desc ").append(p.getDescription().toString());
+        cmd.append(" /from ").append(p.getDuration().toString());
 
         return cmd.toString();
     }
@@ -628,7 +515,7 @@ public class TestDataHelper{
         return new Event(
                 new Name("dummy name"),
                 new Description(desc),
-                new EventDuration("today 4pm","today 5pm")
+                new EventDuration("today 4pm > today 5pm")
         );
     }
     
@@ -639,7 +526,7 @@ public class TestDataHelper{
         return new Event(
                 new Name(name),
                 new Description("dummy description"),
-                new EventDuration("today 4pm","today 5pm")
+                new EventDuration("today 4pm > today 5pm")
         );
     }
     
@@ -670,11 +557,11 @@ public class TestDataHelper{
     /**
      * Generates a Event object with given name. Other fields will have some dummy values.
      */
-    public Event generateEventWithNameAndDuration(String name, String startDuration, String endDuration) throws Exception {
+    public Event generateEventWithNameAndDuration(String name, String duration) throws Exception {
         return new Event(
                 new Name(name),
                 new Description("dummy description"),
-                new EventDuration(startDuration,endDuration)
+                new EventDuration(duration)
         );
     }
 

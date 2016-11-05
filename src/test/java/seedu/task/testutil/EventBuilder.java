@@ -5,8 +5,6 @@ import seedu.task.model.item.Description;
 import seedu.task.model.item.EventDuration;
 import seedu.task.model.item.Name;
 
-//@@author A0144702N
-
 public class EventBuilder {
 	private TestEvent event;
 	
@@ -19,13 +17,13 @@ public class EventBuilder {
 		return this;
 	}
 	
-	public EventBuilder withDuration(String start, String end) throws IllegalValueException {
-		this.event.setEventDuration(new EventDuration(start,end));
+	public EventBuilder withDuration(String duration) throws IllegalValueException {
+		this.event.setEventDuration(new EventDuration(duration));
 		return this;
 	}
 	
 	public EventBuilder withDescription(String desc) throws IllegalValueException {
-	    this.event.setDescription(new Description(desc));
+		this.event.setDescription(new Description(desc));
 		return this;
 	}
 	

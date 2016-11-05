@@ -6,7 +6,6 @@ import seedu.taskcommons.core.EventsCenter;
 
 /**
  * Format full help instructions for every command for display.
- * @@author A0125534L
  */
 public class HelpCommand extends Command {
 
@@ -19,11 +18,13 @@ public class HelpCommand extends Command {
 			+ "Example: " + COMMAND_WORD + "\n\n"  
 			+ "List of available commands for help\n" + COMMAND_WORD + " add\n" + COMMAND_WORD + " delete\n"
 			+ COMMAND_WORD + " find\n" + COMMAND_WORD + " list\n" + COMMAND_WORD + " select\n" + COMMAND_WORD
-			+ " mark\n" + COMMAND_WORD + " undo\n" + COMMAND_WORD + " save\n" + COMMAND_WORD + " clear\n" + COMMAND_WORD + " exit\n"
+			+ " mark\n" + COMMAND_WORD + " clear\n" + COMMAND_WORD + " exit"
 			+ "Parameters: help [KEY_WORD]\n"
-			+ "Example: "+ COMMAND_WORD + " add\n\n";
+			+ "Example: "+COMMAND_WORD+"add\n\n";
 	
-	public HelpCommand(String commandWord, boolean helpWindowPopUp) { //values passed from help parser
+
+	public HelpCommand(String commandWord, boolean helpWindowPopUp) {
+		// TODO Auto-generated constructor stub
 		this.commandWord = commandWord;
 		this.isPopUp = helpWindowPopUp;
 	}
@@ -31,7 +32,7 @@ public class HelpCommand extends Command {
 	@Override
 	public CommandResult execute() {
 
-		if (isPopUp == true) { //check if there is a need to have the help popup window
+		if (isPopUp == true) {
 			EventsCenter.getInstance().post(new ShowHelpEvent());
 			return new CommandResult(commandWord);
 		} else {

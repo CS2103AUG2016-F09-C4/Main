@@ -1,11 +1,11 @@
 package seedu.task.model.item;
 
+import seedu.task.commons.exceptions.IllegalValueException;
+import seedu.task.commons.util.CollectionUtil;
+
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.Optional;
-
-import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.commons.util.CollectionUtil;
 
 /**
  * Represents a Task in the task book.
@@ -25,7 +25,23 @@ public class Task implements ReadOnlyTask {
      * Fields which are empty are to be null.
      * @throws IllegalValueException 
      */
-    
+//
+//    public Task(String name, String description, String deadline, boolean status) throws IllegalValueException {
+//        assert !CollectionUtil.isAnyNull(name,description,deadline,status);
+//        this.name = new Name(name);
+//        if (description.isEmpty()) {
+//            this.description = new Description(description);
+//        } else {
+//            this.description = null;
+//        } 
+//        if (deadline.isEmpty()) {
+//            this.deadline = new Deadline(deadline);
+//        } else {
+//            this.deadline = null;
+//        }
+//        this.isTaskCompleted = status;
+//    }
+//    
     public Task (Name name, Description description, Deadline deadline, boolean status) {
         assert !CollectionUtil.isAnyNull(name,status);
         this.name = name;
@@ -84,8 +100,7 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
-    
-    //@@author A0144702N
+
 	/**
 	 * Sort deadline from earliest to latest
 	 * @param o

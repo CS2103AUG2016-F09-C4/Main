@@ -2,10 +2,7 @@ package seedu.task.testutil;
 
 import java.util.Optional;
 
-import seedu.task.model.item.Deadline;
-import seedu.task.model.item.Description;
-import seedu.task.model.item.Name;
-import seedu.task.model.item.ReadOnlyTask;
+import seedu.task.model.item.*;
 
 /**
  * A mutable task object. For testing only.
@@ -45,6 +42,14 @@ public class TestTask implements ReadOnlyTask {
         return name;
     }
 
+    public Description getDescriptionRaw() {
+        return description.get();
+    }
+
+    public Deadline getDeadlineRaw() {
+        return this.deadline.get();
+    }
+
     @Override
     public Boolean getTaskStatus() {
         return isTaskCompleted;
@@ -67,13 +72,12 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getTask().fullName + " ");
         sb.append("/desc " + this.getDescriptionValue() + " ");
-        sb.append("/by" + this.getDeadlineValue());
         return sb.toString();
     }
     
     public String getEditFloatTaskCommand(int index) {
         StringBuilder sb = new StringBuilder();
-        sb.append("edit /t " + index + " ");
+        sb.append("edit -t " + index + " ");
         sb.append("/name " + this.getTask().fullName + " ");
         sb.append("/desc " + this.getDescriptionValue() + " ");
         return sb.toString();

@@ -1,13 +1,11 @@
 package seedu.task.storage;
 
-import javax.xml.bind.annotation.XmlElement;
-
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.model.item.Description;
-import seedu.task.model.item.Event;
-import seedu.task.model.item.EventDuration;
-import seedu.task.model.item.Name;
-import seedu.task.model.item.ReadOnlyEvent;
+import seedu.task.model.item.*;
+
+import javax.xml.bind.annotation.XmlElement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * JAXB-friendly version of the Event.
@@ -21,10 +19,7 @@ public class XmlAdaptedEvent {
 	private String description;
 	
 	@XmlElement
-	private String startDuration;
-	
-	@XmlElement
-    private String endDuration;
+	private String duration;
 
 
     /**
@@ -32,7 +27,7 @@ public class XmlAdaptedEvent {
      */
     public XmlAdaptedEvent() {}
 
-    //@@author A0127570H
+
     /**
      * Converts a given event into this class for JAXB use.
      *
@@ -40,9 +35,8 @@ public class XmlAdaptedEvent {
      */
     public XmlAdaptedEvent(ReadOnlyEvent source) {
         name = source.getEvent().fullName;
-        description = source.getDescriptionValue();
-        startDuration = source.getDuration().getStartTimeAsText();
-        endDuration = source.getDuration().getEndTimeAsText();
+        description = source.getDescription().value;
+        duration = source.getDuration().toString();
     }
 
     /**
@@ -53,10 +47,9 @@ public class XmlAdaptedEvent {
     public Event toModelType() throws IllegalValueException {
 
         final Name name = new Name(this.name);
-        final Description description = this.description.isEmpty()? null : new Description(this.description);
-        final EventDuration eventDuration = new EventDuration(this.startDuration, this.endDuration);
+        final Description description = new Description(this.description);
+        final EventDuration eventDuration = new EventDuration(this.duration);
         
         return new Event(name, description, eventDuration);
     }
-    
 }

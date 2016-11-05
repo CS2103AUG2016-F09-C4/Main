@@ -1,17 +1,15 @@
 package seedu.task.storage;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Optional;
-
 import seedu.task.commons.events.model.TaskBookChangedEvent;
 import seedu.task.commons.events.storage.DataSavingExceptionEvent;
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.model.ReadOnlyTaskBook;
 import seedu.task.model.UserPrefs;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
+
 /**
  * API of the Storage component
  */
@@ -27,7 +25,7 @@ public interface Storage extends TaskBookStorage, UserPrefsStorage {
     String getTaskBookFilePath();
 
     @Override
-    Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException,IOException;
+    Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, FileNotFoundException;
 
     @Override
     void saveTaskBook(ReadOnlyTaskBook taskBook) throws IOException;
@@ -38,7 +36,4 @@ public interface Storage extends TaskBookStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleTaskBookChangedEvent(TaskBookChangedEvent abce);
-
-	
-
 }

@@ -1,12 +1,11 @@
 package seedu.task.logic;
 
-import java.util.List;
-import java.util.logging.Logger;
-
 import javafx.collections.ObservableList;
+
+import seedu.task.logic.commands.UndoableCommand;
+import seedu.task.commons.exceptions.UndoableException;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.CommandResult;
-import seedu.task.logic.commands.UndoableCommand;
 import seedu.task.logic.parser.ParserManager;
 import seedu.task.model.Model;
 import seedu.task.model.item.ReadOnlyEvent;
@@ -14,6 +13,11 @@ import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.storage.Storage;
 import seedu.taskcommons.core.ComponentManager;
 import seedu.taskcommons.core.LogsCenter;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * The main LogicManager of dowat.
@@ -30,7 +34,7 @@ public class LogicManager extends ComponentManager implements Logic {
         this.parser = new ParserManager();
         this.commandList = new UndoableCommandHistory();
     }
-    //@@author A0144702N
+
     @Override
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -56,16 +60,4 @@ public class LogicManager extends ComponentManager implements Logic {
     	model.updateFilteredEventListToShowWithStatus(false);
         return model.getFilteredEventList();
     }
-    
-    @Override
-    public List<ReadOnlyEvent> getAllEvents() {
-    	return model.getTaskBook().getEventList();
-    }
-	
-    @Override
-	public List<ReadOnlyTask> getAllTasks() {
-		return model.getTaskBook().getTaskList();
-	}
-    
-    
 }

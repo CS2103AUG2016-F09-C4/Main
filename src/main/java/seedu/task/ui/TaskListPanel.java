@@ -1,7 +1,5 @@
 package seedu.task.ui;
 
-import java.util.logging.Logger;
-
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,6 +13,8 @@ import javafx.stage.Stage;
 import seedu.task.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.taskcommons.core.LogsCenter;
+
+import java.util.logging.Logger;
 
 /**
  * Panel containing the list of tasks.
@@ -104,9 +104,5 @@ public class TaskListPanel extends UiPart {
             }
         }
     }
-    
-    //@@author A0121608N
-    public Node getTaskListView(){
-        return taskListView;
-    }
+
 }

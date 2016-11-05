@@ -1,10 +1,10 @@
 package seedu.task.storage;
 
-import java.io.IOException;
-import java.util.Optional;
-
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.model.UserPrefs;
+
+import java.io.IOException;
+import java.util.Optional;
 
 /**
  * Represents a storage for {@link seedu.task.model.UserPrefs}.

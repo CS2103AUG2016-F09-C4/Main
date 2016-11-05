@@ -3,6 +3,9 @@
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
+* [Testing](#testing)
+* [Continuous Integration](#continuous-integration)
+* [Making a Release](#making-a-release)
 * [Managing Dependencies](#managing-dependencies)
 * [Appendix A: User Stories](#appendix-a--user-stories)
 * [Appendix B: Use Cases](#appendix-b--use-cases)
@@ -41,23 +44,13 @@
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
 
-## Problem Domain
-
-With the use of Activity Diagrams, we can understand the context under which `Dowat` is used.
-Users of `Dowat` receive their task and event items mainly from their email inbox.
-By storing the task or event received immediately into `Dowat`, the user can archive the email immediately.
-By accessing `Dowat`, the user is able to determine the important tasks at hand and upcoming events for the day or week.
-This will help the user plan their use of time more effectively.
-
-<img src="images/ADForEmailAndDowat.png" width="850" height="500"><br>
-
 ## Design
 
 <img src="images/Architecture.png" width="600"><br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/task/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke clean up method where necessary.
 
@@ -77,19 +70,17 @@ Each of the four components
 * Defines its _API_ an interface with the same name as the Component. `Logic.java`
 * Exposes its functionality using a `{Component Name}Manager` class e.g. `LogicManager.java`
 
-<!-- @@author A0127570H -->
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete /t 1`.
+command `delete 1`.
 
-<img src="images/SDforDeleteTask.png" width="800">
+<img src="images\SDforDeleteTask.png" width="800">
 
 >Note how the `Model` simply raises a `ModelChangedEvent` when the model is changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-
-<img src="images/SDforDeleteTaskEventHandling.png" width="800">
+<img src="images\SDforDeleteTaskEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
@@ -101,49 +92,43 @@ The sections below give more details of each component.
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/task/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`, `EventListPanel`, `CalendarView`,
-`StatusBarFooter` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
+`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/task/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raises from various parts of the App and updates the UI accordingly.
-<!-- @@author -->
-<!-- @@author A0144702N -->
 
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/task/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
-5. The UndoableCommandHistory applies the Singleton pattern which holds the sole copy of the modifications done to the `Dowat`. 
-6. We did not choose to store a list of events/tasks, or copies of `Dowat` as a history. Instead, we chose to store a stack of commands which are more lightweighted, and occupy less storage. 
-<!-- @@author  -->
-<!-- @@author A0127570H -->
 
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/task/model/Model.java)
+**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
 The `Model`,
 * Stores a `UserPref` object that represents the user's preferences
-* Stores the dowat data
-* Exposes a `UnmodifiableObservableList<ReadOnlyTask>` as well as `UnmodifiableObservableList<ReadOnlyEvent>` that can be 'observed' e.g. the UI can be bound to this list
+* Stores the Address Book data
+* Exposes a `UnmodifiableObservableList<ReadOnlyPerson` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
 
@@ -151,16 +136,15 @@ The `Model`,
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/task/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save dowat data in xml format and read it back.
-<!-- @@author  -->
+* can save the Address Book data in xml format and read it back.
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.taskbook.commans` package. 
+Classes used by multiple components are in the `seedu.addressbook.commans` package. 
 
 ## Implementation
 
@@ -200,20 +184,65 @@ Certain properties of the application can be controlled (e.g App name, logging l
 (default: `config.json`):
 
 
-<!-- @@author A0144702N -->
+## Testing
+
+**In Eclipse**: 
+> If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
+  as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
+
+* To run all tests, right-click on the `src/test/java` folder and choose 
+  `Run as` > `JUnit Test`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose 
+  to run as a JUnit test.
+  
+**Using Gradle**:
+* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle. 
+
+Tests can be found in the `./src/test/java` folder.
+
+1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
+   These are in the `guitests` package.
+  
+2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
+   1. _Unit tests_ targeting the lowest level methods/classes. <br>
+      e.g. `seedu.address.commons.UrlUtilTest`
+   2. _Integration tests_ that are checking the integration of multiple code units 
+     (those code units are assumed to be working).<br>
+      e.g. `seedu.address.storage.StorageManagerTest`
+   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+      how the are connected together.<br>
+      e.g. `seedu.address.logic.LogicManagerTest`
+  
+**Headless GUI Testing** :
+Thanks to the ([TestFX](https://github.com/TestFX/TestFX)) library we use,
+ our GUI tests can be run in the _headless_ mode. 
+ In the headless mode, GUI tests do not show up on the screen.
+ That means the developer can do other things on the Computer while the tests are running.<br>
+ See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
+  
+## Continuous Integration
+
+We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
+See [UsingTravis.md](UsingTravis.md) for more details.
+
+## Making a Release
+
+Here are the steps to create a new release.
+ 
+ 1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
+ 2. Tag the repo with the version number. e.g. `v0.1`
+ 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+    and upload the JAR file your created.
+   
 ## Managing Dependencies
-We use several external dependencies:
 
-1. [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing.
-2. [Guava](https://github.com/google/guava)
-3. [Controlsfx](http://fxexperience.com/controlsfx/) for javafx controls.
-4. [testfx](https://github.com/TestFX/TestFX) for javafx testing. 
-5. [prettytime](https://github.com/ocpsoft/prettytime/tree/master/nlp) for natural language processing of time and date. 
-6. [jfxtras](http://jfxtras.org) for calendar view controls. 
-The dependencies are bound into the jar release and will not require extra dependencies handling for end users. 
+A project often depends on third party libraries. For example, Address Book depends on the 
+[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
+can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
+is better than these alternatives.<br>
+a. Include those libraries in the repo (this bloats the repo size)<br>
+b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
-
-<!-- @@author-->
 ## Appendix A : User Stories
 :bomb: Priorities:
 - High (Must Have): `* * *`
@@ -226,6 +255,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | be able to list all the tasks in the database | keep track of all my tasks that I have to do 
 `* * *` | user | be able to list the tasks undone or done | keep track of tasks which are done which are not
 `* * *` | user | be able to edit the description of an existing task in the program | keep my tasks updated
+`* * *` | user | be able to edit the priority of an existing task in the program | keep my priorities updated
 `* * *` | user | be able to edit the deadline of an existing task in the program | keep the deadlines for my tasks updated
 `* * *` | user | be able to edit the occurrence and duration of an event in the program | keep my events updated
 `* * *` | user | be able to mark the completion of an existing task in the program | keep update list of uncompleted tasks 
@@ -233,31 +263,30 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | be able to specify my storage location to save my files | keep my files saved in different responsories
 `* * *` | user | be able to seek help with the operations and commands of the program | keep the program user friendly
 `* * *` | user | be able to exit the program | keep a proper shutdown of the program
-`* * *` | user | be able to simple search for tasks using keywords that are in the name and description | retrieve tasks easily
-`* * *` | user | be able undo the most recent modification | revert from unintended modifications
-`* * *` | user | be able to use flexible commands when adding tasks | have greater flexibility in adding tasks
+`* * *` | user | be able to simple search for tasks using keywords that are in the description | retrieve tasks easily
+`* * *` | user | be able undo the most recent modification | revert from unintended modifications. 
+`* * *` | user | be able to use flexible commands when adding tasks | have greater flexibility in adding tasks.
+`* *` | user | be able to edit the category of an existing task or event in the program | correct any changes in categorization
 `* *` | user | be able to search any words related to a task | retrieve tasks more easily
-`* *` | user | see a snapshot of events in the calendar view | retrieve informaiton in a graphical way.
+
 
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is `Dowat` and the **Actor** is the `user`, unless specified otherwise)
-
-<!-- @@author A0127570H -->
+(For all use cases below, the **System** is the `TaskBook` and the **Actor** is the `user`, unless specified otherwise)
 
 #### Use case 1: Add task
 
 **MSS**
 
 1. User requests to add task of specified parameters
-2. `Dowat` adds task to system
+2. TaskBook adds task to system
 Use case ends.
 
 **Extensions**
 
 1a. The add task request has invalid format
-  > 1a1. `Dowat` displays an error message
+  > 1a1. Taskbook displays an error message
   Use case resumes at step 1
 
 <br>
@@ -267,22 +296,21 @@ Use case ends.
 **MSS**
 
 1. User requests to add event of specified parameters
-2. `Dowat` adds event to system
+2. TaskBook adds event to system
 Use case ends.
 
 **Extensions**
 1a. The add event request has invalid format
-  > 1a1. `Dowat` displays an error message
+  > 1a1. Taskbook displays an error message
     Use case resumes at step 1
 
 <br>
-<!-- @@author A0144702N -->
 #### Use case 3: List tasks/events
 
 **MSS**
 
 1. User requests to list tasks/events
-2. `Dowat` shows a list of tasks/events
+2. TaskBook shows a list of tasks/events
 Use case ends.
 
 The Use case can be elaborated by the SD as below in addition the SD mentioned in the [Design](#design):  
@@ -293,20 +321,19 @@ The Use case can be elaborated by the SD as below in addition the SD mentioned i
 The SD for list events is similiar to task. 
 
 <br>
-<!-- @@author A0127570H -->
 
 #### Use case 4: Edit task details
 
 **MSS**
 1. User requests to list tasks
-2. `Dowat` displays a list of tasks
+2. TaskBook displays a list of tasks
 3. User requests to edit task in the list with new specified parameters with the index of task in the list
-4. `Dowat` edits existing task in database according to new specified parameters
+4. TaskBook edits existing task in database according to new specified parameters
   Use case ends.
 
 **Extensions**
 3a. The given index is invalid
-  > 3a1. `Dowat` displays an error message that task cannot be found
+  > 3a1. Taskbook displays an error message that task cannot be found
   Use case resumes at step 2
 
 <br>
@@ -315,33 +342,32 @@ The SD for list events is similiar to task.
 
 **MSS**
 1. User requests to list events
-2. `Dowat` displays a list of events
+2. TaskBook displays a list of events
 3. User requests to edit event in the list with new specified parameters with the index of event in the list
-4. `Dowat` edits existing event in database according to new specified parameters
+4. TaskBook edits existing event in database according to new specified parameters
   Use case ends.
 
 **Extensions**
 3a. The given index is invalid
-  > 3a1. `Dowat` displays an error message that the event cannot be found
+  > 3a1. Taskbook displays an error message that the event cannot be found
   Use case resumes at step 2
 
 <br>
-<!-- @@author A0121608N -->
 
 #### Use case 6: Mark task as completed
 
 **MSS**
 1. User requests to list tasks
-2. `Dowat` displays a list of tasks
+2. TaskBook displays a list of tasks
 3. User requests to mark a task as completed with the index of task in the list
-4. `Dowat` marks the existing task as completed and archives the completed task
-5. `Dowat` displays the updated list of tasks
+4. TaskBook marks the existing task as completed and archives the completed task
+5. TaskBook displays the updated list of tasks
 
   Use case ends.
 
 **Extensions**
 3a. The given index is invalid
-  > 3a1. `Dowat` displays an error message that the task cannot be found
+  > 3a1. Taskbook displays an error message that the task cannot be found
   Use case resumes at step 2
 
 <br>
@@ -350,32 +376,31 @@ The SD for list events is similiar to task.
 
 **MSS**
 1. User requests to list tasks or events
-2. `Dowat` displays a list of tasks or events
+2. TaskBook displays a list of tasks or events
 3. User requests to delete an existing task or event with the index in the list
-4. `Dowat` deletes the task or event
-5. `Dowat` displays the updated list of tasks or events
+4. TaskBook deletes the task or event
+5. Taskbook displays the updated list of tasks or events
 
   Use case ends.
 
 **Extensions**
 3a. The given index is invalid
-  > 3a1. `Dowat` displays an error message that the task or event cannot be found
+  > 3a1. Taskbook displays an error message that the task cannot be found
   Use case resumes at step 2
 
 <br>
-<!-- @@author -->
 
 #### Use case 8: Specify storage location
 
 **MSS**
 1. User request to save file at a specific directory 
-2. `Dowat` saves the file at the specified directory
+2. Taskbook saves the file at the specified directory
 
   Use case ends.
 
 **Extensions**
 1a. The selected directory is invalid
-  > 1a1. `Dowat` displays an error message that directory cannot be found
+  > 1a1. Taskbook displays an error message that directory cannot be found
   Use case resumes at step 1
 
 <br>
@@ -385,28 +410,28 @@ The SD for list events is similiar to task.
 
 **MSS**
 1. User requests for Help 
-2. `Dowat` displays the Help list 
+2. TaskBook displays the Help list 
 
   Use case ends.
 
 **Extensions**
 1a. The KEYWORD for Help Command is invalid
-  > 1a1. `Dowat` displays an error message that KEYWORD cannot be found
+  > 1a1. Taskbook displays an error message that KEYWORD cannot be found
   Use case resumes at step 1
 
 <br>
-<!-- @@author A0144702N -->
+
 #### Use case 10: Simple find for tasks  
 
 **MSS**
 1. User request to find for tasks containing a set of keywords in description
-2. `Dowat` displays zero or more tasks matching the find criteria
+2. TaskBook displays zero or more tasks matching the find criteria
 
   Use case ends.
 
 **Extensions**
 1a. No keywords entered after command word
-  > 1a1. `Dowat` displays help message on the find command
+  > 1a1. Taskbook displays help message on the find command
   Use case resumes at step 1  
 
 
@@ -415,52 +440,31 @@ The SD for list events is similiar to task.
 
 <br>
 
-<!-- @@author A0144702N -->
 #### Use case 11: Undo modification
 
 **MSS**
 1. User requests to undo the last modification. 
-2. `Dowat` shows the last command which modified the `Dowat` database
-3. `Dowat` undoes the the last modification
+2. TaskBook shows the last command which modified the TaskBook database
+3. TaskBook undoes the the last modification
 
   Use case ends.
 
 **Extensions**
 Extensions
-1a. There is no command which modified the `Dowat` during this session
-  > 1a1. `Dowat` displays displays a message indicating no commands can be undone
+1a. There is no command which modified the TaskBook during this session
+  > 1a1. Taskbook displays displays a message indicating no commands can be undone
   Use case ends
 
-Besides the abstract SD as shown in the section [Design](#design). A more detailed Sequence Diagram of undo a deletion of task is shown below. 
+Besides the abstract SD as shown in the section [Design](#design). A more detailed Sequence Diagram of undo a deletion of task is shown below:
 
 <img src="images/UndoOverall.png" width="800"><br>
 <img src="images/UndoRefSD.png" width="800"><br>
 
-#### Use case 12: Show calendar views
-
-**MSS**
-1. User requests to show a certain time period with a certain view.
-2. Calendar view is updated in the `Dowat`. 
-  
-  Use Case ends
 
 
-**Extensions**
-1a. User key in invalid time or date. 
-  > 1a1. `Dowat` feedbacks time is not valid.
-
-  Use Case ends
-
-Notice how this command does not involve the Model Component at all. Since it does not need to retrieve or modidfy data in the model. 
-
-<img src="images/ShowSD.png" width="800"><br>
-
-<!-- @@author --> 
-
-<!-- @@author A0121608N -->
 ## Appendix C : Non Functional Requirements
 - Storage
-  - Should not use relational databases. Data storage must be done using text, json, xml files you create yourself. 
+  - Should not use relational databases. Data storage must be done using text files you create yourself. 
   - Should be stored locally and should be in a human editable text file. The intention of this constraint is to allow advanced users to manipulate the data by editing the data file.
 
 - GUI
@@ -478,11 +482,13 @@ Notice how this command does not involve the Model Component at all. Since it do
 - Should work stand-alone. It should not be a plug-in to another software. 
 - Should follow the Object-oriented paradigm. 
 - Should work without requiring an installer. Having an optional installer is OK as longs as the portable (non-installed) version has all the critical functionality. 
-- Should only work with Third Party User/Libraries if they are free.
-- do not require any installation by the user of your software.
-- do not violate other constraints. 
+- Should only work with Third Party User/Libraries if they,
+are 
+  - free.
+  - do not require any installation by the user of your software.
+  - do not violate other constraints. 
 
-<!-- @@author --> 
+
 {More to be added}
 
 ## Appendix D : Glossary
@@ -503,7 +509,6 @@ Notice how this command does not involve the Model Component at all. Since it do
 
 ## Appendix E : Product Survey
 
-<!-- @@author A0144702N -->
 ####iCalendar 
 ------
 **Summary** 
@@ -547,9 +552,6 @@ Notice how this command does not involve the Model Component at all. Since it do
 **Feedback**
 > Highly recommended for all memebrs to use it. 
 
-<!-- @@author -->
-<!-- @@author A0127570H -->
-
 ------
 ####Todo.txt
 **Summary:**
@@ -591,7 +593,6 @@ Notice how this command does not involve the Model Component at all. Since it do
 > 2. Requires user to use Apple products for mobile phones and laptop as the app is limited to the Apple community
 
 
-<!-- @@author A0144702N -->
 ## Appendix F : Pull Request
 
 None of the parts below are compulsory for a PR, but a good template to follow in general. Developers are free to add in or remove sections as stated below. 

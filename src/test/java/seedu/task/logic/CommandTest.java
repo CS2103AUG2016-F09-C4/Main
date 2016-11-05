@@ -11,16 +11,20 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.task.logic.commands.CommandResult;
 import seedu.task.logic.commands.HelpCommand;
+import seedu.task.model.ModelManager;
 import seedu.task.model.ReadOnlyTaskBook;
 import seedu.task.model.TaskBook;
 import seedu.task.model.item.Event;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.Task;
+import seedu.task.storage.StorageManager;
+import seedu.taskcommons.core.EventsCenter;
 
 public class CommandTest extends LogicBasicTest {
 
@@ -118,7 +122,7 @@ public class CommandTest extends LogicBasicTest {
     protected void assertEventCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyTaskBook expectedTaskBook,
                                        List<? extends ReadOnlyEvent> expectedShownList) throws Exception {
-        
+
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
         //List<ReadOnlyEvent> list = model.getFilteredEventList();

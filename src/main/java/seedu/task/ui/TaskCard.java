@@ -1,13 +1,10 @@
 package seedu.task.ui;
 
 import javafx.fxml.FXML;
-
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.task.model.item.ReadOnlyTask;
-import com.guigarage.flatterfx.emoji.EmojiFactory;
-
 
 public class TaskCard extends UiPart{
 
@@ -39,41 +36,13 @@ public class TaskCard extends UiPart{
         return UiPartLoader.loadUiPart(card);
     }
 
-    //@@author-A0127570H
     @FXML
     public void initialize() {
-        name.setText(task.getNameWithStatus());
+        name.setText(task.getTask().fullName);
         index.setText(displayedIndex + ". ");
-        initialiseDescription();
-        initialiseDeadline();   
-        setCompletionBackgroundText();
-    }
-
-    private void initialiseDeadline() {
-        deadline.setText(task.getDeadlineToString().trim());
-        if (task.getDeadline().isPresent()) {
-            deadline.setManaged(true);
-        } else {
-            deadline.setManaged(false);
-        }
-    }
-
-    private void initialiseDescription() {
         description.setText(task.getDescriptionToString().trim());
-        if (task.getDescription().isPresent()) {
-            description.setManaged(true);
-        } else {
-            description.setManaged(false);
-        }
+        deadline.setText(task.getDeadlineToString().trim());
     }
-
-    //Adds the lavender colour to the background if the task status is completed
-    private void setCompletionBackgroundText() {
-        if (task.getTaskStatus()) {
-            cardPane.getStyleClass().add("status-complete");
-        }
-    }
-    //@@author
 
     public HBox getLayout() {
         return cardPane;

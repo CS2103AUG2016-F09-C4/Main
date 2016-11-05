@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.logging.Level;
 
 /**
- * Configure values used by the app
+ * Config values used by the app
  */
 public class Config {
 
@@ -14,7 +14,7 @@ public class Config {
     private String appTitle = "dowat";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String taskBookFilePath = "dowat.xml";
+    private String taskBookFilePath = "taskbook.xml";
     private String taskBookName = "TypicalTaskBookName";
 
 
@@ -61,12 +61,13 @@ public class Config {
         this.taskBookName = taskBookName;
     }
 
+
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
+        if (other == this){
             return true;
         }
-        if (!(other instanceof Config)) { // null handler.
+        if (!(other instanceof Config)){ //this handles null as well.
             return false;
         }
 
@@ -85,7 +86,7 @@ public class Config {
     }
 
     @Override
-    public String toString() {
+    public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);

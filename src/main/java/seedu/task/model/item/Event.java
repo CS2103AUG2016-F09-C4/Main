@@ -1,11 +1,12 @@
 package seedu.task.model.item;
 
+import seedu.task.commons.util.CollectionUtil;
+import seedu.task.model.item.Description;
+import seedu.task.model.item.Name;
+
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Objects;
-import java.util.Optional;
-
-import seedu.task.commons.util.CollectionUtil;
 
 /**
  * Represents a event in the task book.
@@ -18,11 +19,14 @@ public class Event implements ReadOnlyEvent {
     private EventDuration eventDuration;
 
     /**
-     * Name and event duration must be present and not null.
+     * Every field must be present and not null.
      */
+    public Event(Name name, Description description) {
+    	this(name, description, null);    
+    }
     
     public Event(Name name, Description description, EventDuration eventDuration) {
-        assert !CollectionUtil.isAnyNull(name, eventDuration);
+        assert !CollectionUtil.isAnyNull(name, description);
         this.name = name;
         this.description = description;
         this.eventDuration = eventDuration;
@@ -32,16 +36,16 @@ public class Event implements ReadOnlyEvent {
      * Copy constructor.
      */
     public Event(ReadOnlyEvent source) {
-        this(source.getEvent(), source.getDescription().orElse(null), source.getDuration());
+        this(source.getEvent(), source.getDescription(), source.getDuration());
     }
     
     /**
      * Return if an event has passed by comparing its endTime to the current time.
-     * @return true if event passed; false if otherwise. 
+     * @return false if event passed; true if otherwise. 
      */
     @Override
 	public boolean isEventCompleted() {
-		return !(getDuration().getEndTime().isAfter(LocalDateTime.now()));
+		return getDuration().getEndTime().isAfter(LocalDateTime.now());
 	}
 
     @Override
@@ -50,14 +54,15 @@ public class Event implements ReadOnlyEvent {
     }
 
     @Override
-    public Optional<Description> getDescription() {
-        return Optional.ofNullable(this.description);
+    public Description getDescription() {
+        return description;
     }
     
     @Override
     public EventDuration getDuration() {
         return eventDuration;
     }
+
 
     @Override
     public boolean equals(Object other) {
@@ -77,7 +82,6 @@ public class Event implements ReadOnlyEvent {
         return getAsText();
     }
     
-    //@@author A0144702N
     /**
 	 * Sort duration from earliest to latest
 	 * @param o
@@ -97,5 +101,4 @@ public class Event implements ReadOnlyEvent {
 		return byStartTime.thenComparing(byName);
 		
 	} 
-	
 }

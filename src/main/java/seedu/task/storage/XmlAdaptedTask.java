@@ -1,13 +1,11 @@
 package seedu.task.storage;
 
-import javax.xml.bind.annotation.XmlElement;
-
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.model.item.Deadline;
-import seedu.task.model.item.Description;
-import seedu.task.model.item.Name;
-import seedu.task.model.item.ReadOnlyTask;
-import seedu.task.model.item.Task;
+import seedu.task.model.item.*;
+
+import javax.xml.bind.annotation.XmlElement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * JAXB-friendly version of the Task.
@@ -34,7 +32,7 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask() {}
 
-    //@@author A0127570H
+
     /**
      * Converts a given task into this class for JAXB use.
      *

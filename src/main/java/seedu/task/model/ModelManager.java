@@ -1,8 +1,5 @@
 package seedu.task.model;
 
-import java.util.Set;
-import java.util.logging.Logger;
-
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.task.commons.events.model.TaskBookChangedEvent;
@@ -15,17 +12,16 @@ import seedu.task.model.item.UniqueEventList;
 import seedu.task.model.item.UniqueEventList.DuplicateEventException;
 import seedu.task.model.item.UniqueEventList.EventNotFoundException;
 import seedu.task.model.item.UniqueTaskList;
+import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
 import seedu.task.model.item.UniqueTaskList.TaskNotFoundException;
 import seedu.taskcommons.core.ComponentManager;
 import seedu.taskcommons.core.LogsCenter;
 import seedu.taskcommons.core.UnmodifiableObservableList;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+
 import java.util.Set;
 import java.util.logging.Logger;
 
+import com.google.common.collect.Ordering;
 
 /**
  * Represents the in-memory model of the task book data.
@@ -83,7 +79,6 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TaskBookChangedEvent(taskBook));
     }
 
-    //@@author A0121608N
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskBook.removeTask(target);
@@ -130,15 +125,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void markTask(ReadOnlyTask target){
-        taskBook.markTask(target);
-        updateFilteredTaskListToShowWithStatus(false);
-        indicateTaskBookChanged();
-    }
-    
-    //@@author A0127570H
-
-    @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskBook.addTask(task);
         updateFilteredTaskListToShowWithStatus(false);
@@ -149,6 +135,13 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addEvent(Event event) throws DuplicateEventException {
         taskBook.addEvent(event);
         updateFilteredEventListToShowWithStatus(false);
+        indicateTaskBookChanged();
+    }
+    
+    @Override
+    public synchronized void markTask(ReadOnlyTask target){
+        taskBook.markTask(target);
+        updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
    
@@ -165,12 +158,11 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredEventListToShowWithStatus(false);
         indicateTaskBookChanged(); 
     }
-    //@@author 
+
         
    
     //=========== Filtered Task List Accessors ===============================================================
 
-    //@@author A0144702N
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
     	SortedList<Task> sortedTasks = new SortedList<>(filteredTasks);
@@ -181,7 +173,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public UnmodifiableObservableList<ReadOnlyEvent> getFilteredEventList() {
-        SortedList<Event> sortedEvents = new SortedList<>(filteredEvents);
+    	SortedList<Event> sortedEvents = new SortedList<>(filteredEvents);
     	sortedEvents.setComparator(Event.getAscComparator());
     	return new UnmodifiableObservableList<>(sortedEvents);
     }
@@ -192,13 +184,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void showFoundTaskList(Set<String> keywords, boolean isPowerSearch){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords, isPowerSearch)));
+    public void updateFilteredTaskList(Set<String> keywords){
+        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
     
     @Override
-    public void showFoundEventList(Set<String> keywords, boolean isPowerSearch){
-        updateFilteredEventList(new PredicateExpression(new NameQualifier(keywords, isPowerSearch)));
+    public void updateFilteredEventList(Set<String> keywords){
+        updateFilteredEventList(new PredicateExpression(new NameQualifier(keywords)));
     }
     
     @Override
@@ -217,7 +209,7 @@ public class ModelManager extends ComponentManager implements Model {
     	filteredEvents.setPredicate(null);
 	}
     
-    //@@author
+
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
@@ -256,7 +248,7 @@ public class ModelManager extends ComponentManager implements Model {
             return qualifier.toString();
         }
     }
-    //@@author A0144702N
+
     interface Qualifier {
         boolean run(ReadOnlyTask task);
         boolean run(ReadOnlyEvent event);
@@ -264,89 +256,33 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private class NameQualifier implements Qualifier {
-    	private boolean isPowerSearch;
-    	private Set<String> keyWords;
-    	
-        private String taskName;
-        private String taskDesc; 
-        private String eventName;
-        private String eventDesc; 
-        NameQualifier(Set<String> keyWords, boolean isPowerSearch) {
-            this.keyWords = keyWords;
-            this.isPowerSearch = isPowerSearch;
+        private Set<String> taskKeyWords;
+
+        NameQualifier(Set<String> taskKeyWords) {
+            this.taskKeyWords = taskKeyWords;
         }
 
-		@Override
+        @Override
         public boolean run(ReadOnlyTask task) {
-        	taskName = task.getTask().fullName;
-    		taskDesc = task.getDescriptionValue();
-    		List<String> sourceSet = new ArrayList<>();
-    		
-        	if(isPowerSearch) {
-        		//break the name and desc to allow power search
-        		sourceSet = new ArrayList<>(Arrays.asList(taskName.split("\\s")));
-        		sourceSet.addAll(Arrays.asList(taskDesc.split("\\s")));
-        		
-        		//break the keyword to allow power search
-        		List<String> tempSet = new ArrayList<>(keyWords);
-        		keyWords = new HashSet<>();
-        		tempSet.stream().forEach(keyword -> keyWords.addAll(Arrays.asList(keyword.split("\\s"))));
-        		
-        	} else {
-        		sourceSet.add(taskName);
-        		sourceSet.add(taskDesc);
-        	}
-        	
-        	for(String source: sourceSet) {
-    			boolean found = keyWords.stream()
-                .filter(keyword -> StringUtil.findMatch(source.trim(), keyword.trim()))
-                .findAny()
-                .isPresent();
-    			
-    			if (found) {
-    				return true;
-    			}
-    		}
-    		return false;
+            return taskKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTask().fullName, keyword) 
+                    		|| StringUtil.containsIgnoreCase(task.getDescriptionValue() , keyword))
+                    .findAny()
+                    .isPresent();
         }
 
         @Override
         public String toString() {
-            return "task=" + String.join(", ", keyWords);
+            return "task=" + String.join(", ", taskKeyWords);
         }
 
 		@Override
 		public boolean run(ReadOnlyEvent event) {
-			eventName = event.getEvent().fullName;
-    		eventDesc = event.getDescriptionValue();
-    		List<String> sourceSet = new ArrayList<>();
-    		
-        	if(isPowerSearch) {
-        		//break the name and desc to allow power search
-        		sourceSet = new ArrayList<>(Arrays.asList(eventName.split("\\s")));
-        		sourceSet.addAll(Arrays.asList(eventDesc.split("\\s")));
-        		
-        		//break the keyword to allow power search
-        		List<String> tempSet = new ArrayList<>(keyWords);
-        		keyWords = new HashSet<>();
-        		tempSet.stream().forEach(keyword -> keyWords.addAll(Arrays.asList(keyword.split("\\s"))));
-        		
-        	} else {
-        		sourceSet.add(eventName);
-        		sourceSet.add(eventDesc);
-        	}
-        	
-        	for(String source: sourceSet) {
-    			boolean found = keyWords.stream()
-                .filter(keyword -> StringUtil.findMatch(source.trim(), keyword.trim()))
-                .findAny()
-                .isPresent();
-    			
-    			if (found) {
-    				return true;
-    			}
-    		}
-    		return false;
+			return taskKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(event.getEvent().fullName, keyword)
+                    		|| StringUtil.containsIgnoreCase(event.getDescription().value, keyword))
+                    .findAny()
+                    .isPresent();
 		}
     }
     
@@ -369,7 +305,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 		@Override
 		public boolean run(ReadOnlyEvent event) {
-			return event.isEventCompleted() == status;
+			return event.isEventCompleted() != status;
 		}
     	
     }

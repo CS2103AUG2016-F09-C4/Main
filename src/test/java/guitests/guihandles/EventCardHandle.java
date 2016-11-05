@@ -4,11 +4,11 @@ import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.task.model.item.ReadOnlyEvent;
-//@@author A0144702N-reused
+
 /**
  * Provides a handle to an event card in the event list panel.
  * (Morphed from TaskCardHandle) 
- * @author 
+ * @author xuchen
  */
 public class EventCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
@@ -38,25 +38,17 @@ public class EventCardHandle extends GuiHandle {
     public String getEventDuration() {
         return getTextFromLabel(DURATION_FIELD_ID);
     }
+    
+//    //TODO: check on this
+//    public Boolean getEventStatus() {
+//    	return false;
+//    }
 
     public boolean isSameEvent(ReadOnlyEvent event){
-        return isSameName(event) && isSameDuration(event) && isSameDescription(event);
-    }
 
-    private boolean isSameDescription(ReadOnlyEvent event) {
-        if (!event.getDescription().isPresent()) {
-            return true;
-        } else {
-            return getDescription().equals(event.getDescriptionToString().trim());
-        }
-    }
-
-    private boolean isSameDuration(ReadOnlyEvent event) {
-        return getEventDuration().equals(event.getDuration().toString().trim());
-    }
-
-    private boolean isSameName(ReadOnlyEvent event) {
-        return getFullEventName().equals(event.getNameWithStatus());
+    	return getFullEventName().equals(event.getEvent().fullName) 
+                && getEventDuration().equals(event.getDuration().toString())
+                && getDescription().equals(event.getDescription().value);
     }
 
     @Override

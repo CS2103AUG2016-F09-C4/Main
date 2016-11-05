@@ -13,13 +13,9 @@ import seedu.task.logic.commands.ListTaskCommand;
 import seedu.task.model.TaskBook;
 import seedu.task.model.item.Event;
 import seedu.task.model.item.Task;
-//@@author A0144702N
+
 public class ListCommandTest extends CommandTest{
 
-	/*
-	 * Test Heuristics refer to ListCommand Guitest
-	 */
-	
     @Test
     public void execute_list_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE);
@@ -27,7 +23,9 @@ public class ListCommandTest extends CommandTest{
         // not indicating which list not allowed
         assertCommandBehavior_task("list", expectedMessage);
         
-        assertCommandBehavior_task("list /wrongFlag", expectedMessage);
+        assertCommandBehavior_task("list -wrongFlag", expectedMessage);
+        
+        assertCommandBehavior_task("list -e -wrongFlag", expectedMessage);
     }
 
     @Test
@@ -45,7 +43,7 @@ public class ListCommandTest extends CommandTest{
         // prepare address book state
         helper.addTaskToModel(model, threeTasks);
 
-        assertTaskCommandBehavior("list /t",
+        assertTaskCommandBehavior("list -t",
                 ListTaskCommand.MESSAGE_INCOMPLETED_SUCCESS,
                 expectedTB,
                 expectedList);
@@ -55,8 +53,8 @@ public class ListCommandTest extends CommandTest{
     public void execute_list_showsUncompletedEvents() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        Event tTarget1 = helper.generateEventWithNameAndDuration("Event1", "yesterday 1pm","tomorrow 2pm");
-        Event tTarget2 = helper.generateEventWithNameAndDuration("Event2", "Friday 4pm","Friday 5pm");
+        Event tTarget1 = helper.generateEventWithNameAndDuration("Event1", "yesterday 1pm > tomorrow 2pm");
+        Event tTarget2 = helper.generateEventWithNameAndDuration("Event2", "Friday 4pm > Friday 5pm");
         Event tTarget3 = helper.completedEvent();
         
         List<Event> threeEvents = helper.generateEventList(tTarget1, tTarget2, tTarget3);
@@ -66,7 +64,7 @@ public class ListCommandTest extends CommandTest{
         // prepare address book state
         helper.addEventToModel(model, threeEvents);
 
-        assertEventCommandBehavior("list /e",
+        assertEventCommandBehavior("list -e",
                 ListEventCommand.MESSAGE_INCOMPLETED_SUCCESS,
                 expectedTB,
                 expectedList);
@@ -87,7 +85,7 @@ public class ListCommandTest extends CommandTest{
         // prepare address book state
         helper.addTaskToModel(model, threeTasks);
 
-        assertTaskCommandBehavior("list /t /a",
+        assertTaskCommandBehavior("list -t -a",
                 ListTaskCommand.MESSAGE_ALL_SUCCESS,
                 expectedTB,
                 expectedList);
@@ -97,8 +95,8 @@ public class ListCommandTest extends CommandTest{
     public void execute_list_showsAllEvents() throws Exception {
         // prepare expectations
     	TestDataHelper helper = new TestDataHelper();
-        Event eTarget1 = helper.generateEventWithNameAndDuration("Event1", "yesterday 1pm","tomorrow 2pm");
-        Event eTarget2 = helper.generateEventWithNameAndDuration("Event2", "Friday 4pm","Friday 5pm");
+        Event eTarget1 = helper.generateEventWithNameAndDuration("Event1", "yesterday 1pm > tomorrow 2pm");
+        Event eTarget2 = helper.generateEventWithNameAndDuration("Event2", "Friday 4pm > Friday 5pm");
         Event eTarget3 = helper.completedEvent();
         
         List<Event> threeEvents = helper.generateEventList(eTarget1, eTarget2, eTarget3);
@@ -109,7 +107,7 @@ public class ListCommandTest extends CommandTest{
         // prepare address book state
         helper.addEventToModel(model, threeEvents);
 
-        assertEventCommandBehavior("list /e /a",
+        assertEventCommandBehavior("list -e -a",
                 ListEventCommand.MESSAGE_ALL_SUCCESS,
                 expectedTB,
                 expectedList);

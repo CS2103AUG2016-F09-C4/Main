@@ -1,9 +1,9 @@
 package seedu.task.logic;
 
-import java.util.List;
-
 import javafx.collections.ObservableList;
+import seedu.task.commons.exceptions.UndoableException;
 import seedu.task.logic.commands.CommandResult;
+import seedu.task.logic.commands.UndoableCommand;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 
@@ -23,12 +23,4 @@ public interface Logic {
     
     /** Returns the filtered list of events */
     ObservableList<ReadOnlyEvent> getFilteredEventList();
-    
-    //@@author A0144702N
-    /** Convenient method returns all the events */
-    List<ReadOnlyEvent> getAllEvents();
-    
-    /** Convenient method returns all the tasks*/
-    List<ReadOnlyTask> getAllTasks();
-    
 }

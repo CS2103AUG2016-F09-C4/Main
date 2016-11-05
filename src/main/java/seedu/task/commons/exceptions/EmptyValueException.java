@@ -1,7 +1,5 @@
 package seedu.task.commons.exceptions;
 
-
-//@@author A0127570H
 /**
  * Signals that some given data is empty.
  */

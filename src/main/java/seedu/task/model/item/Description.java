@@ -1,19 +1,17 @@
 package seedu.task.model.item;
 
-import seedu.task.commons.exceptions.IllegalValueException;
 
-//@@author A0127570H
+import seedu.task.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Task's or Event's description in the task book.
  * Can be used for recording more details about the task or event.
  * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
-
 public class Description {
     
-    public static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Task/Event description should be spaces, alphanumeric characters or these symbols -.,:$#@%&()_";
-    public static final String DESCRIPTION_VALIDATION_REGEX = "[a-zA-Z0-9#\\$\\.\\(\\)%&\\s\\,\\@\\:\\_\\-]+";
+    public static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Task/Event description should be spaces, alphanumeric characters or these symbols .,:$#@%&()_";
+    public static final String DESCRIPTION_VALIDATION_REGEX = "[a-zA-Z0-9#\\$\\.\\(\\)%&\\s\\,\\@\\:\\_]+";
 
     public final String value;
 
@@ -45,12 +43,8 @@ public class Description {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || compareDescriptionValue(other); 
-    }
-
-    private boolean compareDescriptionValue(Object other) {
-        return other instanceof Description // instanceof handles nulls
-        && this.value.equals(((Description) other).value); // state check
+                || (other instanceof Description // instanceof handles nulls
+                && this.value.equals(((Description) other).value)); // state check
     }
 
     @Override

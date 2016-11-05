@@ -4,8 +4,13 @@ import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.List;
 
+import org.junit.Ignore;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 import org.junit.Test;
 
+import seedu.task.logic.TestDataHelper;
 import seedu.task.logic.commands.AddCommand;
 import seedu.task.logic.commands.AddEventCommand;
 import seedu.task.logic.commands.AddTaskCommand;
@@ -18,10 +23,6 @@ import seedu.task.model.item.EventDuration;
 import seedu.task.model.item.Name;
 import seedu.task.model.item.Task;
 
-//@@author A0127570H
-/*
- * Logic test for Add Command
- */
 public class AddCommandTest extends CommandTest{
 
 	/*
@@ -33,13 +34,14 @@ public class AddCommandTest extends CommandTest{
 	 *         -> Task with desc
 	 *         -> Task with deadline
 	 *         -> Task with desc and deadline
-	 *     - Adding duplicate event
-	 *         -> Event with duration and description
+	 *     - Adding duplicate event 
+	 *         -> Event with duration (TODO)
+	 *         -> Event with duration and description (TODO)
 	 */ 
 	
     // Invalid argument format
     @Test
-    public void execute_addInvalidArgsFormat_Unsuccessful() throws Exception {
+    public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior_task(
                 "add", expectedMessage);
@@ -47,7 +49,7 @@ public class AddCommandTest extends CommandTest{
     
     //Invalid data field format
     @Test 
-    public void execute_addTaskInvalidTaskData_Unsuccessful() throws Exception {
+    public void execute_addTask_invalidTaskData() throws Exception {
     	//Invalid Name 
     	assertCommandBehavior_task(
                 "add []\\[;] /desc nil /by 30-12-16", Name.MESSAGE_NAME_CONSTRAINTS);
@@ -69,10 +71,6 @@ public class AddCommandTest extends CommandTest{
         //empty desc abbreviation
         assertCommandBehavior_task(
                 "add validName /desc    /by 1 September 17 ", ArgumentTokenizer.MESSAGE_EMPTY_VALUE);
-        
-        //invalid desc
-        assertCommandBehavior_task(
-                "add validName /desc  //  /by 1 September 17 ", Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
     }
     
     //Invalid data field format
@@ -81,14 +79,14 @@ public class AddCommandTest extends CommandTest{
         assertCommandBehavior_task(
                 "add []\\[;] /desc nil /from 30-12-16 31-12-16", Name.MESSAGE_NAME_CONSTRAINTS);
         
-        //start time after end time
-        assertCommandBehavior_task("add valideventName /desc nil /from today /to yesterday", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
+        //invalid seperator
+        assertCommandBehavior_task("add valideventName /desc nil /from today >> yesterday", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
         
         // no start time not allowed. 
-        assertCommandBehavior_task("add valideventName /desc nil /from  /to today 5pm", ArgumentTokenizer.MESSAGE_EMPTY_VALUE);
+        assertCommandBehavior_task("add valideventName /desc nil /from  > today 5pm", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
         
         //invalid start time not allowed. 
-        assertCommandBehavior_task("add valideventName /desc nil /from  hahaha /to today 5pm", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
+        assertCommandBehavior_task("add valideventName /desc nil /from  hahaha > today 5pm", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
     }
 
     //Task with desc and deadline
@@ -311,21 +309,20 @@ public class AddCommandTest extends CommandTest{
      * 2) Successful adding of events
      *  - Event with duration
      *  - Event with desc and duration
-     *  - Event with desc and duration in varying order
-     *  - Event with end duration only
      */
     
-    //Event with duration
+    //Event with duration (TODO)
+    @Ignore
     @Test
     public void execute_addEvent_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Event toBeAdded = helper.computingNoDescUpComingEvent();
+        Event toBeAdded = helper.computingUpComingEvent();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addEvent(toBeAdded);
 
         // execute command and verify result
-        assertEventCommandBehavior(helper.generateAddNoDescEventCommand(toBeAdded),
+        assertEventCommandBehavior(helper.generateAddEventCommand(toBeAdded),
                 String.format(AddEventCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getEventList());
@@ -343,40 +340,6 @@ public class AddCommandTest extends CommandTest{
 
         // execute command and verify result
         assertEventCommandBehavior(helper.generateAddEventCommand(toBeAdded),
-                String.format(AddEventCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAB,
-                expectedAB.getEventList());
-
-    }
-    
-    //Event with desc and duration in varying order
-    @Test
-    public void execute_addEventInVaryingOrder_successful() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Event toBeAdded = helper.computingUpComingEvent();
-        TaskBook expectedAB = new TaskBook();
-        expectedAB.addEvent(toBeAdded);
-
-        // execute command and verify result
-        assertEventCommandBehavior(helper.generateDiffOrderedAddEventCommand(toBeAdded),
-                String.format(AddEventCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAB,
-                expectedAB.getEventList());
-
-    }
-    
-    //Event with end duration only
-    @Test
-    public void execute_addEvent_endDuration_successful() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Event toBeAdded = helper.computingEndDurationUpComingEvent();
-        TaskBook expectedAB = new TaskBook();
-        expectedAB.addEvent(toBeAdded);
-
-        // execute command and verify result
-        assertEventCommandBehavior(helper.generateAddNoDescEventCommand(toBeAdded),
                 String.format(AddEventCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getEventList());

@@ -1,17 +1,18 @@
 package seedu.task.commons.util;
 
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.File;
-import java.io.IOException;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.task.commons.util.FileUtil;
 import seedu.task.testutil.SerializableTestClass;
 import seedu.task.testutil.TestUtil;
+
+import java.io.File;
+import java.io.IOException;
+
+import static org.junit.Assert.assertEquals;
 
 public class FileUtilTest {
     private static final File SERIALIZATION_FILE = new File(TestUtil.getFilePathInSandboxFolder("serialize.json"));

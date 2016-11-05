@@ -1,7 +1,5 @@
 package guitests.guihandles;
 
-import java.util.logging.Logger;
-
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -11,6 +9,8 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import seedu.task.TestApp;
 import seedu.taskcommons.core.LogsCenter;
+
+import java.util.logging.Logger;
 
 /**
  * Base class for all GUI Handles used in testing.
@@ -91,24 +91,4 @@ public class GuiHandle {
         guiRobot.interact(() -> ((Stage)window.get()).close());
         focusOnMainApp();
     }
-    
-    //@@author A0121608N
-    public void keyPress(KeyCode key){
-        guiRobot.push(key);
-    }
-    
-    public void mouseClick(String query){
-        guiRobot.clickOn(query);
-    }
-    
-    public void focusOn(String query){
-        Node targetNode = getNode(query);
-        targetNode.requestFocus();
-    }
-    
-    public boolean isFocused(String query){
-        Node targetNode = getNode(query);
-        return targetNode.isFocused();
-    }
-    //@@author
 }
