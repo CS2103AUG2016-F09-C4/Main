@@ -23,16 +23,17 @@ public class SelectCommandTest extends CommandTest {
 
 	// ------------------------Tests for invalid arguments----------------
 	/*
-	 * Command input: "select (type)(index)"
+	 * Command input: "select (type) (index)   "
 	 * 
-	 * Valid arguments type: "-t", "-e" index: "1,2,3" - all numerical index of
-	 * task and event list
+	 * Valid arguments: "/t", "/e" 
+	 * index: "1,2,3" - numerical index of task and event list
 	 * 
 	 * 
-	 * Invalid arguments to test: type: "p@ssw0rd", "/z", "/ K" index: "a", "@"
+	 * Invalid arguments:
+	 * type: "p@ssw0rd", "/z", "/ K" 
+	 * index: "a", "@"
 	 * index out of range
-	 * 
-	 * 
+	 *
 	 */
 
 	@Test
@@ -56,8 +57,7 @@ public class SelectCommandTest extends CommandTest {
 		assertEventIndexNotFoundBehaviorForCommand("select /e");
 	}
 
-	// ------------------------Tests for correct execution of select
-	// command----------------
+	// ------------------------Tests for correct execution of selectcommand----------------
 	/*
 	 * Valid arguments
 	 * 
