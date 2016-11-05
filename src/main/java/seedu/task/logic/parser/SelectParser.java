@@ -17,10 +17,6 @@ import seedu.task.logic.commands.SelectTaskCommand;
  */
 
 public class SelectParser implements Parser {
-
-	public SelectParser() {
-	}
-
 	// '/' forward slashes are reserved for delimiter prefixes
 	private static final Pattern SELECT_TASK_DATA_FORMAT = Pattern.compile("(?:/t)\\s(?<index>\\d*)");
 
