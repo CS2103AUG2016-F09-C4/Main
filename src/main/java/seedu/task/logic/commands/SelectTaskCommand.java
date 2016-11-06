@@ -6,10 +6,11 @@ import seedu.taskcommons.core.EventsCenter;
 import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
+//@@author A0125534L
 /**
  * Selects an Task identified using it's last displayed index from the task
  * book.
- * @@author A0125534L
+ * @@author Yee Heng
  */
 
 public class SelectTaskCommand extends SelectCommand {
