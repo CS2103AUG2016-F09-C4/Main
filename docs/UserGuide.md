@@ -50,7 +50,7 @@ A task/event that is completed or passed will be hidden from the list by default
 
 
 #### Calendar Features
-The envents and tasks will be both sync to your calendar. You are not able to do any modification through the calendar. 
+The events and tasks will be both sync to your calendar. You are not able to do any modification through the calendar. 
 * Select on an event /task
   Your selection on task / event will be sync to calendar. When you select a task /event, the calendar will jump to the correct time frame to show the task / event as highlighted. 
 
@@ -72,10 +72,11 @@ The four main windows in which the user can traverse are:
   * Task Panel
   * Event Panel
 
-By utilizing the TAB key, the user is able to switch between the different windows in the above-mentioned order. The order of traversal is descending down the list before it loops back to the beginning. 
+By utilizing the TAB key, the user is able to switch between the different windows in the above-mentioned order. 
+The order of traversal is descending down the list before it loops back to the beginning. 
 
-The window in which the user is currently on is shown by a brown border highlight.
-
+The window in which the user is currently on is shown by a brown border highlight as shown in the figure below.
+> <img src="images/MockUI.PNG" width="600">
 
 #### Command Box Features
 When the Command Box is selected, it has 2 main features:
@@ -86,15 +87,19 @@ When the Command Box is selected, it has 2 main features:
 
 * Accessing past History of Commands
   
-  Pressing the UP key will access the previous command in the history and will copy it into the Command Box. Pressing the DOWN key will access the next command in the history and will copy it into the Command Box. 
+  Pressing the UP key will access the previous command in the history and will copy it into the Command Box. 
+  Pressing the DOWN key will access the next command in the history and will copy it into the Command Box. 
 
   The Command history resets itself after each session of usage (i.e exit the program).
+  A Command is only added into the Command history when it is executed by the Command Box (i.e ENTER key press).
 
 #### Result Display Panel Features
-When the Result Display Panel is selected, it has a scrolling feature where the UP and DOWN key would be able to control the scroll bar within the window. This prevents the need to use the mouse wheel for scrolling.
+When the Result Display Panel is selected, it has a scrolling feature where the UP and DOWN key would be able to control the scroll bar within the window. 
+This prevents the need to use the mouse wheel for scrolling.
 
 #### Task and Event Panel Features
-When the Task or Event Panel is selected, it has a scrolling feature where the UP and DOWN key would be able to control the scroll bar within the window. This prevents the need to use the mouse wheel for scrolling.
+When the Task or Event Panel is selected, it has a scrolling feature where the UP and DOWN key would be able to control the scroll bar within the window. 
+This prevents the need to use the mouse wheel for scrolling.
 
 <!-- @@author-->
 

@@ -488,7 +488,7 @@ Since it does not need to retrieve or modidfy data in the model.
 <!-- @@author A0121608N--> 
 
 <!-- Clearing an empty list of completed tasks or past events does not change `Dowat` behavior --> 
-#### Use case 13: Clear completed tasks or past events
+#### Use case 14: Clear completed tasks or past events
 
 **MSS**
 1. User requests to clear all completed tasks or all past events
@@ -499,7 +499,7 @@ Since it does not need to retrieve or modidfy data in the model.
   Use case ends.
 
 <!-- Clearing an empty list of completed tasks and past events does not change `Dowat` behavior --> 
-#### Use case 14: Clear completed tasks and past events
+#### Use case 15: Clear completed tasks and past events
 
 **MSS**
 1. User requests to clear all completed tasks and all past events
@@ -510,7 +510,7 @@ Since it does not need to retrieve or modidfy data in the model.
   Use case ends.
 
 <!-- Clearing an empty list of tasks or events does not change `Dowat` behavior --> 
-#### Use case 15: Clear all tasks or all events
+#### Use case 16: Clear all tasks or all events
 
 **MSS**
 1. User requests to clear all tasks or all events
@@ -521,7 +521,7 @@ Since it does not need to retrieve or modidfy data in the model.
   Use case ends.
   
 <!-- Clearing an empty list of tasks and events does not change `Dowat` behavior --> 
-#### Use case 16: Clear all tasks and all events
+#### Use case 17: Clear all tasks and all events
 
 **MSS**
 1. User requests to clear all tasks and all events
@@ -532,7 +532,7 @@ Since it does not need to retrieve or modidfy data in the model.
   Use case ends.
 
   
-#### Use case 17: Accessing Command history in Command Box
+#### Use case 18: Accessing Command history in Command Box
 
 **MSS**
 1. User requests to access Command history using UI controls (UP/DOWN key)
@@ -552,7 +552,7 @@ Since it does not need to retrieve or modidfy data in the model.
   Use case resumes at step 3
 
 <!-- Clearing an empty Command Box does not change `Dowat` behavior --> 
-#### Use case 18: Clearing of Command Box
+#### Use case 19: Clearing of Command Box
 
 **MSS**
 1. User requests to clear the Command Box using UI controls (DELETE key)
@@ -560,7 +560,7 @@ Since it does not need to retrieve or modidfy data in the model.
 
   Use case ends.
 
-#### Use case 19: Scrolling of Result Display Panel and Task/Event Panel
+#### Use case 20: Scrolling of Result Display Panel and Task/Event Panel
 
 **MSS**
 1. User requests to scroll the Panel using UI controls (UP/DOWN key)
@@ -579,7 +579,7 @@ Since it does not need to retrieve or modidfy data in the model.
   Use case resumes at step 3
   
 
-#### Use case 20: Traversing UI Windows/Panels
+#### Use case 21: Traversing UI Windows/Panels
 
 **MSS**
 1. User requests to traverse to the next Window/Panel using UI controls (TAB key)
@@ -589,8 +589,8 @@ Since it does not need to retrieve or modidfy data in the model.
   Use case ends.
 <!-- @@author --> 
 
-<!-- @@author A0121608N -->
-<!-- @@author A125534L -->
+
+<!-- @@author A0125534L -->
 ## Appendix C : Non Functional Requirements
 - Storage
   - Should not use relational databases. Data storage must be done using text, json, xml files you create yourself. 
@@ -603,6 +603,7 @@ Since it does not need to retrieve or modidfy data in the model.
 - Should work on the Windows 7 or later.
 - Should work on any mainstream OS as long as it has Java 8 or higher installed.
 - Should be able to hold up to 1000 tasks.
+<!-- @@author A0121608N -->
 - Should come with automated unit tests and open source code.
 - Should favor DOS style commands over Unix-style commands.
 - Should work only with Command Line Interface as the main input with minimal use of mouse/clicking. GUI only serves as the source of output of results. 
@@ -616,7 +617,6 @@ Since it does not need to retrieve or modidfy data in the model.
 - do not violate other constraints. 
 
 <!-- @@author --> 
-{More to be added}
 
 ## Appendix D : Glossary
 
