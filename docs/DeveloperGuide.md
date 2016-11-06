@@ -333,9 +333,10 @@ The SD for list events is similiar to task.
 **MSS**
 1. User requests to list tasks
 2. `Dowat` displays a list of tasks
-3. User requests to mark a task as completed with the index of task in the list
-4. `Dowat` marks the existing task as completed and archives the completed task
-5. `Dowat` displays the updated list of tasks
+3. User requests to mark a task as completed with the specified index of a task in the list
+4. `Dowat` marks the existing task as completed
+5. `Dowat` records the Mark command into UndoableCommandHistory
+6. `Dowat` displays the updated list of tasks
 
   Use case ends.
 
@@ -353,7 +354,8 @@ The SD for list events is similiar to task.
 2. `Dowat` displays a list of tasks or events
 3. User requests to delete an existing task or event with the index in the list
 4. `Dowat` deletes the task or event
-5. `Dowat` displays the updated list of tasks or events
+5. `Dowat` records the Delete command into UndoableCommandHistory
+6. `Dowat` displays the updated list of tasks or events
 
   Use case ends.
 
@@ -457,6 +459,110 @@ Notice how this command does not involve the Model Component at all. Since it do
 
 <!-- @@author --> 
 
+<!-- @@author A0121608N--> 
+
+<!-- Clearing an empty list of completed tasks or past events does not change `Dowat` behavior --> 
+#### Use case 13: Clear completed tasks or past events
+
+**MSS**
+1. User requests to clear all completed tasks or all past events
+2. `Dowat` clears all completed tasks or all past events
+3. `Dowat` records the clear command into UndoableCommandHistory
+4. `Dowat` displays the updated list of tasks or events
+
+  Use case ends.
+
+<!-- Clearing an empty list of completed tasks and past events does not change `Dowat` behavior --> 
+#### Use case 14: Clear completed tasks and past events
+
+**MSS**
+1. User requests to clear all completed tasks and all past events
+2. `Dowat` clears all completed tasks and all past events
+3. `Dowat` records the clear command into UndoableCommandHistory
+4. `Dowat` displays the updated list of tasks and events
+
+  Use case ends.
+
+<!-- Clearing an empty list of tasks or events does not change `Dowat` behavior --> 
+#### Use case 15: Clear all tasks or all events
+
+**MSS**
+1. User requests to clear all tasks or all events
+2. `Dowat` clears all tasks or all events
+3. `Dowat` records the clear command into UndoableCommandHistory
+4. `Dowat` displays the updated list of tasks or events
+
+  Use case ends.
+  
+<!-- Clearing an empty list of tasks and events does not change `Dowat` behavior --> 
+#### Use case 16: Clear all tasks and all events
+
+**MSS**
+1. User requests to clear all tasks and all events
+2. `Dowat` clears all tasks and all events
+3. `Dowat` records the clear command into UndoableCommandHistory
+4. `Dowat` displays the updated list of tasks and events
+
+  Use case ends.
+
+  
+#### Use case 17: Accessing Command history in Command Box
+
+**MSS**
+1. User requests to access Command history using UI controls (UP/DOWN key)
+2. `Dowat` accesses the specified Command of the Command history
+3. `Dowat` displays Command in the Command Box
+
+  Use case ends.
+
+**Extensions**
+2a. UP key is pressed
+  > 2a1. `Dowat` accesses command directly above the current position in Command history
+2b. DOWN key is pressed
+  > 2b1. `Dowat` accesses command directly below the current position in Command history
+2c. Position requested out of bounds
+  > 2c1. `Dowat` accesses command at current position in Command history
+  
+  Use case resumes at step 3
+
+<!-- Clearing an empty Command Box does not change `Dowat` behavior --> 
+#### Use case 18: Clearing of Command Box
+
+**MSS**
+1. User requests to clear the Command Box using UI controls (DELETE key)
+2. `Dowat` clears the Command Box
+
+  Use case ends.
+
+#### Use case 19: Scrolling of Result Display Panel and Task/Event Panel
+
+**MSS**
+1. User requests to scroll the Panel using UI controls (UP/DOWN key)
+2. `Dowat` updates the specified Panel in the direction of scroll.
+3. `Dowat` displays the updated Panel
+
+  Use case ends.
+**Extensions**
+2a. UP key is pressed
+  > 2a1. `Dowat` scrolls the Panel upwards.
+2b. DOWN key is pressed
+  > 2b1. `Dowat` scrolls the Panel downwards.
+2c. Position requested out of bounds
+  > 2c1. `Dowat` scrollbar remains in position
+  
+  Use case resumes at step 3
+  
+
+#### Use case 20: Traversing UI Windows/Panels
+
+**MSS**
+1. User requests to traverse to the next Window/Panel using UI controls (TAB key)
+2. `Dowat` selects the next Window/Panel according to traversal order.
+3. `Dowat` displays the selected panel
+
+  Use case ends.
+<!-- @@author --> 
+
 <!-- @@author A0121608N -->
 ## Appendix C : Non Functional Requirements
 - Storage
@@ -464,8 +570,8 @@ Notice how this command does not involve the Model Component at all. Since it do
   - Should be stored locally and should be in a human editable text file. The intention of this constraint is to allow advanced users to manipulate the data by editing the data file.
 
 - GUI
-  - Text should be font size 12.
-  - Text should be Times New Romans.
+  - Text in text fields should be font size 12.
+  - Text should be of the Roboto font style.
 
 - Should work on the Windows 7 or later.
 - Should work on any mainstream OS as long as it has Java 8 or higher installed.
