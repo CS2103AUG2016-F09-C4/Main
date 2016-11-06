@@ -50,7 +50,7 @@ public class Description {
 
     private boolean compareDescriptionValue(Object other) {
         return other instanceof Description // instanceof handles nulls
-        && this.value.equals(((Description) other).value); // state check
+                && this.value.equals(((Description) other).value); // state check
     }
 
     @Override
