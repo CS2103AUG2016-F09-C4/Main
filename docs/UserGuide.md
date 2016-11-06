@@ -13,7 +13,7 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `dowat.jar` from the 'releases' tab.
+1. Download the latest `Dowat.jar` from the 'releases' tab.
 2. Copy the file to the folder you want to use as the home folder for your task book.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/MockUI.PNG" width="600">
@@ -34,7 +34,7 @@
 <!-- @@author A0127570H -->
 
 #### Adding a task
-Adds a task to dowat<br>
+Adds a task to Dowat<br>
 
 Format: `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATE_TIME]` <br>
  
@@ -54,7 +54,7 @@ Examples:
 
 
 #### Adding an event
-Similar to adding a task, you can also add an event to dowat<br>
+Similar to adding a task, you can also add an event to Dowat<br>
 
 Format: `add EVENT_NAME /from START_DATE_TIME [/to END_DATE_TIME] [/desc DESCRIPTION]` <br>
 
@@ -105,7 +105,7 @@ Examples:
 <!-- @@author A0127570H -->
 
 #### Editing a task
-Edits an existing task in dowat<br>
+Edits an existing task in Dowat<br>
 
 Format: `edit /t INDEX [/name NEW_TASK_NAME] [/desc NEW_TASK_DESCRIPTION] [/by NEW_DEADLINE_DATE_TIME]` <br>
 
@@ -123,7 +123,7 @@ Examples:
 
 
 #### Editing an event
-Edits an existing event in dowat<br>
+Edits an existing event in Dowat<br>
 
 Format: `edit /e INDEX [/name NEW_EVENT_NAME] [/desc NEW_EVENT_DESCRIPTION] [/from NEW_START_DATE_TIME > NEW_END_DATE_TIME]`
 
@@ -141,29 +141,34 @@ Examples:
 <!-- @@author A0121608N -->
 
 #### Marking a task as completed
-Mark an existing task as completed in dowat.
+Mark an existing task as completed in Dowat.
 
 Format: `mark INDEX`
 
-> Marks the task at the specified `INDEX` as completed. The index refers to the index number shown in the most recent listing of tasks.
-> Completed tasks will not be shown in the list of tasks and will be archived in dowat.
+> Marks the task at the specified `INDEX` to change its completion status. The index refers to the index number shown in the most recent listing of tasks.
+> Marking an uncompleted task will change its status to completed while marking a completed task will change its status to uncompleted.
+> Completed tasks will not be shown in the list of tasks in Dowat.
+> Uncompleted tasks can be shown when listing all tasks.
+> Marked tasks in the current session can be reverted with the `undo` command.
+> An event cannot be marked completed.
 
 Examples: 
 * `mark 1`  
-  Marks the 1st task as completed
+  Marks the 1st task in the last shown listing as completed.
   
 
 #### Deleting a task/event
-Deletes an existing task/event from dowat storage completely.  
+Deletes an existing task/event from Dowat storage completely.  
 
 Format: `delete /t|/e INDEX`
 
 > Deletes the task/event at the specified `INDEX` in the most recent task/event listing.
-> Deleted tasks/event will not be shown even with `list /e|/t /a` command. 
+> Deleted tasks or events will not be shown even with `list /t|/e /a` command. 
+> Deleted tasks or events in the current session can be recovered with the `undo` command.
 
 Examples:
-* `delete /t 1`  
-  Deletes the 1st task in the most recent listing
+* `delete /t 2`  
+  Deletes the 2nd task in the most recent task listing.
 
 <!-- @@author -->
   
@@ -180,7 +185,7 @@ Examples:
 
   
 #### Changing the save location
-dowat data are saved in a file called taskbook.txt in the project root folder. You can change the location by specifying the file path as a program argument.  
+Dowat data are saved in a file called taskbook.txt in the project root folder. You can change the location by specifying the file path as a program argument.  
 
 Format: `save FILEPATH`
 
@@ -201,7 +206,7 @@ Examples:
 
 
 #### Undo modifications
-Can go back to historical versions of dowat with the use of undo commands. Only commands that modify dowat in the same session will be restored. Any versions of current session will not be accessible after restarting dowat.  
+Can go back to historical versions of Dowat with the use of undo commands. Only commands that modify Dowat in the same session will be restored. Any versions of current session will not be accessible after restarting Dowat.  
 
 Format: `undo`
 
@@ -234,13 +239,15 @@ Clears all completed tasks or clears all tasks. <br>
 
 Format: `clear /t [/a]`
 
-> An `/a` optional flag will request the TaskBook to clear all tasks, both marked done and not yet marked done. 
+> An `/a` optional flag will request Dowat to clear all tasks, both completed and uncompleted tasks. 
+> Without the optional flag, Dowat will only clear all completed tasks.
+> Cleared tasks in the current session can be recovered with the `undo` command.
 
 Examples: 
 * `clear /t` <br>
-  Clears tasks that are marked done.
+  Clears all completed tasks.
 * `clear /t /a` <br>
-  Clears all tasks.
+  Clears all completed and uncompleted tasks.
 
 
 #### Clearing of events
@@ -248,25 +255,29 @@ Clears all completed events or clears all events. <br>
 
 Format: `clear /e [/a]`
 
-> An `/a` optional flag will request the TaskBook to clear all events. 
+> An `/a` optional flag will request Dowat to clear all events, both past and upcoming events. 
+> Without the optional flag, Dowat will only clear all past events.
+> Cleared events in the current session can be recovered with the `undo` command.
 
 Examples: 
 * `clear /e` <br>
-  Clears events that are marked done.
+  Clears all past events.
 * `clear /e /a` <br>
-  Clears all events.
+  Clears all past and upcoming events.
 
   
 #### Clearing of tasks and events
-Clears all completed tasks and events or clears all tasks and events. <br>
+Clears all completed tasks and past events or clears all tasks and events. <br>
 
 Format: `clear [/a]`
 
-> An `/a` optional flag will request the TaskBook to clear all tasks and events.
+> An `/a` optional flag will request Dowat to clear all tasks and events.
+> Without the optional flag, Dowat will only clear all completed and past events.
+> Cleared tasks and events in the current session can be recovered with the `undo` command.
 
 Examples: 
 * `clear` <br>
-  Clears all completed tasks and events.
+  Clears all completed tasks and past events.
 * `clear /a` <br>
   Clears all tasks and events.
   
@@ -303,7 +314,8 @@ The four main windows in which the user can traverse are:
 	* Task Panel
 	* Event Panel
 
-By utilizing the TAB key, the user is able to switch between the different windows in the above-mentioned order. The order of traversal is descending down the list before it loops back to the beginning. 
+By utilizing the TAB key, the user is able to switch between the different windows in the above-mentioned order. 
+The order of traversal is descending down the list before it loops back to the beginning. 
 
 The window in which the user is currently on is shown by a brown border highlight.
 
@@ -339,7 +351,7 @@ When the Task or Event Panel is selected, it has a scrolling feature where the U
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous dowat.<br>
+       the file that contains the data of your previous Dowat.<br>
 
 **Q**: What is word distance? <br>
 **A**: It is the Levenshtein distance between two words is the minimum number of single-character edits (i.e. insertions, deletions or substitutions) required to change one word into the other.
