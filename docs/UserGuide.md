@@ -327,19 +327,23 @@ When the Command Box is selected, it has 2 main features:
 
 * Clearing the Command Box
 
-	Pressing the DELETE key will clear the Command Box of its text content. This allows for easy clearing of commands.
+	Pressing the DELETE key will clear the Command Box of its text content. This allows for easy clearing of commands. Once cleared, the text is irrevocable.
 
 * Accessing past History of Commands
 	
-	Pressing the UP key will access the previous command in the history and will copy it into the Command Box. Pressing the DOWN key will access the next command in the history and will copy it into the Command Box. 
+	Pressing the UP key will access the previous command in the history and will copy it into the Command Box. 
+	Pressing the DOWN key will access the next command in the history and will copy it into the Command Box. 
 
-	The Command history resets itself after each session of usage (i.e exit the program).
+The Command history resets itself after each session of usage (i.e exit the program). 
+Commands are only recorded into the Command history when commands are sent from the Command Box (i.e ENTER key is pressed).
 
 #### Result Display Panel Features
-When the Result Display Panel is selected, it has a scrolling feature where the UP and DOWN key would be able to control the scroll bar within the window. This prevents the need to use the mouse wheel for scrolling.
+When the Result Display Panel is selected, it has a scrolling feature where the UP and DOWN key would be able to control the scroll bar within the window. 
+This prevents the need to use the mouse wheel for scrolling.
 
 #### Task and Event Panel Features
-When the Task or Event Panel is selected, it has a scrolling feature where the UP and DOWN key would be able to control the scroll bar within the window. This prevents the need to use the mouse wheel for scrolling.
+When the Task or Event Panel is selected, it has a scrolling feature where the UP and DOWN key would be able to control the scroll bar within the window. 
+This prevents the need to use the mouse wheel for scrolling.
 
 <!-- @@author-->
 
@@ -367,14 +371,14 @@ When the Task or Event Panel is selected, it has a scrolling feature where the U
 [Edit Task](#editing-a-task) | `edit /t INDEX [/name NEW_TASK_NAME] [/desc NEW_TASK_DESCRIPTION] [/by NEW_DEADLINE_DATE_TIME]`
 [Edit Event](#editing-an-event) | `edit /e INDEX [/name NEW_EVENT_NAME] [/desc NEW_EVENT_DESCRIPTION] [/from NEW_START_DATE_TIME > NEW_END_DATE_TIME]`
 [Mark Task](#marking-a-task-as-completed) | `mark INDEX`
-[Delete Task or Event](#deleting-a-task/event) |`delete /t|/e INDEX`
-[Select Task or Event](#selecting-a-task/event) |`select /t|/e INDEX`
+[Delete Task or Event](#deleting-a-taskevent) |`delete /t|/e INDEX`
+[Select Task or Event](#selecting-a-taskevent) |`select /t|/e INDEX`
 [Save](#changing-the-save-location) | `save FILEPATH`
 [Help](#viewing-help) | `help [COMMAND]`
 [Undo](#undo-modifications) | `undo`
 [Find](#finding-for-events/tasks) | `find KEYWORD [/ MORE_KEYWORDS][/power]`
-[Clear Tasks or Events](#clearing-completed/uncompleted-tasks/events) |`clear /t|/e [/a]`
-[Clear Tasks and Events](#clearing-completed/uncompleted-tasks and events) |`clear [/a]`
+[Clear Tasks or Events](#clearing-of-tasks) |`clear /t|/e [/a]`
+[Clear Tasks and Events](#clearing-of-tasks-and-events) |`clear [/a]`
 [Show Day/Week view of the calendar of certain time](#toggle-calendar-view) | `show today [/day|/wk]`
 [Exit](#exiting-the-program) | `exit`
 
