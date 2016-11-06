@@ -293,7 +293,7 @@ Format: `undo`
 
 <!-- @@author A0144702N -->
 
-#### Finding for events/tasks
+#### Finding for events or tasks
 With the find command, you can find for tasks or events which contain some keywords in their **name** as well as in their **descriptions**. 
 
 Format: `find KEYWORD [/ MORE_KEYWORDS]`
@@ -404,7 +404,7 @@ Format : `exit`
 [Save](#changing-the-save-location) | `save FILEPATH`
 [Help](#viewing-help) | `help [COMMAND]`
 [Undo](#undo-modifications) | `undo`
-[Find](#finding-for-events/tasks) | `find KEYWORD [/ MORE_KEYWORDS][/power]`
+[Find](#finding-for-events-or-tasks) | `find KEYWORD [/ MORE_KEYWORDS][/power]`
 [Clear Tasks or Events](#clearing-completed/uncompleted-tasks/events) |`clear /t|/e [/a]`
 [Clear Tasks and Events](#clearing-completed/uncompleted-tasks and events) |`clear [/a]`
 [Show Day/Week view of the calendar of certain time](#toggle-calendar-view) | `show today [/day|/wk]`
