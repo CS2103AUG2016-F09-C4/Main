@@ -3,13 +3,10 @@ package seedu.task.logic.parser;
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import seedu.task.commons.exceptions.EmptyValueException;
 import seedu.task.logic.commands.Command;
@@ -24,10 +21,7 @@ import seedu.task.logic.commands.IncorrectCommand;
  *
  */
 public class FindParser implements Parser {
-	private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(?<keywords>[^/]+(?:/+[^/]+)*)"); // one or more keywords separated by '/'
-
-    /**
+	/**
      * Parses arguments in the context of the find person command.
      *
      * @param args full command args string
@@ -41,9 +35,7 @@ public class FindParser implements Parser {
 		}
 		
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(powerSearchPrefix, findKeywordPrefix);
-		
 		argsTokenizer.tokenize(args.trim());
-		
 		
 		Optional<String> keyword = Optional.empty();
 		Optional<List<String>> moreKeywords = Optional.empty();
@@ -51,13 +43,7 @@ public class FindParser implements Parser {
 		
 		moreKeywords = argsTokenizer.getAllValues(findKeywordPrefix);
 		isPowerSearch = argsTokenizer.hasPrefix(powerSearchPrefix);
-		
-		try {
-			keyword = argsTokenizer.getPreamble();
-		} catch (EmptyValueException e) {
-			//consume the exception since it is fine for find
-			//do nothing.
-		}
+		keyword = argsTokenizer.getPreambleAllowEmpty();
 		
 		final Set<String> keywordSet = combineKeywords(keyword, moreKeywords);
 		return new FindCommand(keywordSet, isPowerSearch);
@@ -71,5 +57,4 @@ public class FindParser implements Parser {
 		}
 		return new HashSet<>(keywordList);
 	}
-
 }

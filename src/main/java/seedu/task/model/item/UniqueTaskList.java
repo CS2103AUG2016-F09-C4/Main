@@ -21,7 +21,8 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    public static class DuplicateTaskException extends DuplicateDataException {
+    @SuppressWarnings("serial")
+	public static class DuplicateTaskException extends DuplicateDataException {
         protected DuplicateTaskException() {
             super("Operation would result in duplicate tasks");
         }
@@ -31,7 +32,8 @@ public class UniqueTaskList implements Iterable<Task> {
      * Signals that an operation targeting a specified task in the list would fail because
      * there is no such matching task in the list.
      */
-    public static class TaskNotFoundException extends Exception {}
+    @SuppressWarnings("serial")
+	public static class TaskNotFoundException extends Exception {}
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
@@ -50,7 +52,7 @@ public class UniqueTaskList implements Iterable<Task> {
 
     //@@author A0127570H  
     /**
-     * Adds a task to the list at the end.
+     * Adds a task to the list.
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
@@ -75,6 +77,7 @@ public class UniqueTaskList implements Iterable<Task> {
         int index = internalList.indexOf(targetTask);
         internalList.set(index, toEdit);
     }
+
     //@@author
     
     /**
