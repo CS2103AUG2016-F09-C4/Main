@@ -41,7 +41,7 @@ public class ClearCommandTest extends CommandTest {
      */
     
     @Test
-    public void execute_clear_invalidArgsFormat() throws Exception {
+    public void clear_invalidArgs_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE);
         assertCommandBehavior_task("clear  rAndOm ", expectedMessage);
         assertCommandBehavior_task("clear  /r   ", expectedMessage);
@@ -81,7 +81,7 @@ public class ClearCommandTest extends CommandTest {
     
     
     @Test
-    public void execute_clear_task_completed_successful() throws Exception {
+    public void clearTask_completed_success() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         
         Task t1 = helper.generateTask(1);
@@ -100,7 +100,7 @@ public class ClearCommandTest extends CommandTest {
     }
     
     @Test
-    public void execute_clear_event_completed_successful() throws Exception {
+    public void clearEvent_completed_success() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         
         Event expected_1 = helper.generateEvent(1);
@@ -123,7 +123,7 @@ public class ClearCommandTest extends CommandTest {
     }
     
     @Test
-    public void execute_clear_taskAndEvent_completed_successful() throws Exception {
+    public void clearTaskAndEvent_completed_success() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         
         Task t1 = helper.generateTask(1);
@@ -154,7 +154,7 @@ public class ClearCommandTest extends CommandTest {
     }
     
     @Test
-    public void execute_clear_task_all_successful() throws Exception {
+    public void clearTask_all_success() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         
         List<Task> threeTasks = helper.generateTaskList(3);
@@ -170,7 +170,7 @@ public class ClearCommandTest extends CommandTest {
     }
     
     @Test
-    public void execute_clear_event_all_successful() throws Exception {
+    public void clearEvent_all_success() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         
         Event test_1 = helper.generateEvent(1);
@@ -190,7 +190,7 @@ public class ClearCommandTest extends CommandTest {
     }
     
     @Test
-    public void execute_clear_taskAndEvent_all_successful() throws Exception {
+    public void clearTaskAndEvent_all_success() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         
         List<Task> threeTasks = helper.generateTaskList(3);
@@ -215,7 +215,7 @@ public class ClearCommandTest extends CommandTest {
     }
     
     @Test
-    public void execute_clear_taskAndEvent_all_empty_successful() throws Exception {
+    public void clearTaskAndEvent_emptyList_success() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         
         List<Task> expectedTaskList = new ArrayList<Task>();

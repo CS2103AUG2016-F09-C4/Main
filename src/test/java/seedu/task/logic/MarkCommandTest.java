@@ -31,7 +31,7 @@ public class MarkCommandTest extends CommandTest{
      */
     
     @Test
-    public void execute_MarkInvalidArgsFormat_errorMessageShown() throws Exception {
+    public void mark_invalidArgs_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE);
         assertTaskIncorrectIndexFormatBehaviorForCommand("mark", expectedMessage);
     }
@@ -48,7 +48,7 @@ public class MarkCommandTest extends CommandTest{
      */
     
     @Test
-    public void execute_MarkIndexNotFound_errorMessageShown() throws Exception {
+    public void mark_indexNotFound_errorMessageShown() throws Exception {
         assertTaskIndexNotFoundBehaviorForCommand("mark");
     }
     
@@ -67,7 +67,7 @@ public class MarkCommandTest extends CommandTest{
      */
     
     @Test
-    public void execute_mark_marksCorrectTask() throws Exception {
+    public void mark_secondIndex_success() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         
         Task t1 = helper.generateTask(1);

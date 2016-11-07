@@ -40,7 +40,7 @@ public class DeleteCommandTest extends TaskBookGuiTest {
     
     @Test
     // delete an invalid index in tasklist
-    public void deleteTask_invalidIndex_incorrectCommandResult() {
+    public void deleteTask_invalidIndex_errorMessageShown() {
         TestTask[] currentTaskList = td.getTypicalTasks();
         commandBox.runCommand("delete /t " + currentTaskList.length + 1);
         assertResultMessage("The task index provided is invalid");
@@ -69,7 +69,7 @@ public class DeleteCommandTest extends TaskBookGuiTest {
     
     @Test
     // delete an invalid index in eventlist
-    public void deleteEvent_invalidIndex_incorrectCommandResult() {
+    public void deleteEvent_invalidIndex_errorMessageShown() {
         TestEvent[] currentEventList = te.getTypicalNotCompletedEvents();
         commandBox.runCommand("delete /e " + currentEventList.length + 1);
         assertResultMessage("The event index provided is invalid");

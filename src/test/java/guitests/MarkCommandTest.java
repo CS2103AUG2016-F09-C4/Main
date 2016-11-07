@@ -38,7 +38,7 @@ public class MarkCommandTest extends TaskBookGuiTest {
     
     @Test
     //mark completed task in the list
-    public void mark_completedTask(){
+    public void mark_completedTask_success(){
         TestTask[] currentTaskList = td.getTypicalTasks();
         assertMarkTaskSuccess(1, currentTaskList);
         commandBox.runCommand("list /t /a");
@@ -48,7 +48,7 @@ public class MarkCommandTest extends TaskBookGuiTest {
     
     @Test
     // mark an invalid index
-    public void mark_invalidIndex_incorrectCommandResult() {
+    public void mark_invalidIndex_errorMessageShown() {
         TestTask[] currentTaskList = td.getTypicalTasks();
         commandBox.runCommand("mark " + currentTaskList.length + 1);
         assertResultMessage("The task index provided is invalid");
