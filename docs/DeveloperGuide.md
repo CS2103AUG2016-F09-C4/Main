@@ -261,8 +261,8 @@ Use case ends.
 
 The use case of adding a task is elaborated by the SD as follows.
 
-<img src="images/addtask.png" width="600"><br>
-<img src="images/addtaskSD.png" width="600"><br>
+<img src="images/addtask.png" width="700"><br>
+<img src="images/addtaskSD.png" width="700"><br>
 
 The SD for adding a task is similar to adding an event.
 
@@ -303,8 +303,8 @@ The SD for list events is similiar to task.
 
 The use case of editing an event is elaborated by the SD as follows.
 
-<img src="images/editevent.png" width="600"><br>
-<img src="images/editeventSD.png" width="600"><br>
+<img src="images/editevent.png" width="700"><br>
+<img src="images/editeventSD.png" width="700"><br>
 
 The SD for editing an event is similar to editing a task.
 
