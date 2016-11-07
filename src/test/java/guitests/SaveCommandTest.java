@@ -53,10 +53,10 @@ public class SaveCommandTest extends TaskBookGuiTest {
     @Test
     public void reset_ConfigFile() throws IOException {
         Config config = new Config();
-        config.setAppTitle("dowat");
+        config.setAppTitle("Dowat");
         config.setLogLevel(Level.INFO);
         config.setUserPrefsFilePath("preferences.json");
-        config.setTaskBookFilePath("data/taskmanager.xml");
+        config.setTaskBookFilePath("data/Dowat.xml");
         config.setTaskBookName("MyTaskManager");
         SaveCommand.setConfig(config);
         
