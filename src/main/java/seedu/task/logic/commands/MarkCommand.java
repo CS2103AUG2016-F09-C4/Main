@@ -4,10 +4,10 @@ import java.util.logging.Logger;
 
 import seedu.task.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.task.model.item.ReadOnlyTask;
-import seedu.taskcommons.core.EventsCenter;
-import seedu.taskcommons.core.LogsCenter;
-import seedu.taskcommons.core.Messages;
-import seedu.taskcommons.core.UnmodifiableObservableList;
+import seedu.task.commons.core.EventsCenter;
+import seedu.task.commons.core.LogsCenter;
+import seedu.task.commons.core.Messages;
+import seedu.task.commons.core.UnmodifiableObservableList;
 
 /**
  * @@author A0121608N

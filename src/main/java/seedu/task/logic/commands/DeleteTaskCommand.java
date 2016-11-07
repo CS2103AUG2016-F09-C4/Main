@@ -5,9 +5,9 @@ import java.util.logging.Logger;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.Task;
 import seedu.task.model.item.UniqueTaskList.TaskNotFoundException;
-import seedu.taskcommons.core.LogsCenter;
-import seedu.taskcommons.core.Messages;
-import seedu.taskcommons.core.UnmodifiableObservableList;
+import seedu.task.commons.core.LogsCenter;
+import seedu.task.commons.core.Messages;
+import seedu.task.commons.core.UnmodifiableObservableList;
 
 /**
  * @@author A0121608N
