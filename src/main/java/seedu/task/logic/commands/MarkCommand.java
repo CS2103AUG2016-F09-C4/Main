@@ -1,18 +1,21 @@
 package seedu.task.logic.commands;
 
+import java.util.logging.Logger;
+
 import seedu.task.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.taskcommons.core.EventsCenter;
+import seedu.taskcommons.core.LogsCenter;
 import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
 /**
- * Marks a task as completed using it's last displayed index from the task book.
+ * Marks a task as completed using it's last displayed index from the taskbook.
  * @@author A0121608N
  */
 public class MarkCommand extends UndoableCommand {
 
-    private static final boolean INCOMPLETE_STATUS = false;
+    private static final boolean UNCOMPLETE_STATUS = false;
     public static final String COMMAND_WORD = "mark";
     public static final String MESSAGE_USAGE = COMMAND_WORD + "\n"
             + "Marks the task identified by the index number used in the last task listing.\n"
@@ -21,8 +24,10 @@ public class MarkCommand extends UndoableCommand {
 
     public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked Task: %1$s";
     
-    public  Integer targetIndex;
+    private  int targetIndex;
     private ReadOnlyTask taskToMark;
+    
+    private final Logger logger = LogsCenter.getLogger(MarkCommand.class);
     
     public MarkCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -30,7 +35,9 @@ public class MarkCommand extends UndoableCommand {
 
 	@Override
     public CommandResult execute() {
-
+        assert model != null;
+        logger.info("-------[Executing MarkCommand] " + this.toString() );
+        
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex || targetIndex == 0) {
@@ -40,7 +47,7 @@ public class MarkCommand extends UndoableCommand {
         
         taskToMark = lastShownList.get(targetIndex - 1);
         model.markTask(taskToMark); // list starts at zero
-        if (taskToMark.getTaskStatus() == INCOMPLETE_STATUS) {   //Task will be selected if being marked from completed to uncompleted
+        if (taskToMark.getTaskStatus() == UNCOMPLETE_STATUS) {   //Task will be selected if being marked from completed to uncompleted
             EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(taskToMark, targetIndex - 1));
         }
 

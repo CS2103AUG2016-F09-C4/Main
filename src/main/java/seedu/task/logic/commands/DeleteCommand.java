@@ -1,7 +1,7 @@
 package seedu.task.logic.commands;
 
 /**
- * Deletes an item identified using it's last displayed index from the address book.
+ * Deletes an item identified using it's last displayed index from the taskbook.
  * @@author A0121608N
  * */
 public abstract class DeleteCommand extends UndoableCommand {
