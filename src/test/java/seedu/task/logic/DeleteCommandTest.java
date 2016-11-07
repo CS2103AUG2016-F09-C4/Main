@@ -102,14 +102,14 @@ public class DeleteCommandTest extends CommandTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
-        TaskBook expectedAB = helper.generateTaskBook_Tasks(threeTasks);
-        expectedAB.removeTask(threeTasks.get(1));
+        TaskBook expectedTB = helper.generateTaskBook_Tasks(threeTasks);
+        expectedTB.removeTask(threeTasks.get(1));
         helper.addTaskToModel(model, threeTasks);
 
         assertTaskCommandBehavior("delete /t 2",
                 String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
-                expectedAB,
-                expectedAB.getTaskList());
+                expectedTB,
+                expectedTB.getTaskList());
     }
     
 
@@ -118,13 +118,13 @@ public class DeleteCommandTest extends CommandTest {
         TestDataHelper helper = new TestDataHelper();
         List<Event> threeEvents = helper.generateEventList(3);
 
-        TaskBook expectedAB = helper.generateTaskBook_Events(threeEvents);
-        expectedAB.removeEvent(threeEvents.get(1));
+        TaskBook expectedTB = helper.generateTaskBook_Events(threeEvents);
+        expectedTB.removeEvent(threeEvents.get(1));
         helper.addEventToModel(model, threeEvents);
 
         assertTaskCommandBehavior("delete /e 2",
                 String.format(DeleteEventCommand.MESSAGE_DELETE_EVENT_SUCCESS, threeEvents.get(1)),
-                expectedAB,
-                expectedAB.getTaskList());
+                expectedTB,
+                expectedTB.getTaskList());
     }
 }

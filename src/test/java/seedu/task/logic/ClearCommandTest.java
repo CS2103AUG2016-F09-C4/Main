@@ -23,20 +23,20 @@ public class ClearCommandTest extends CommandTest {
     
     //------------------------Tests for invalid arguments----------------
     /*
-     * Command input: "clear (type) (isAll)"
-     * Equivalence partitions for type: valid arguments, word,
+     * Command input: "clear (clearType) (clearAll)"
+     * Equivalence partitions for clearType: valid arguments, word,
      *          "/r", invalid flags
-     * Equivalence partitions for isAll: valid arguments, word, 
+     * Equivalence partitions for clearAll: valid arguments, word, 
      *          valid arguments for type, valid argument with space in between
      * 
      * 
      * Valid arguments
-     * type: "/t", "/e", "/a", ""
-     * isAll: "/a", ""
+     * clearType: "/t", "/e", "/a", ""
+     * clearAll: "/a", ""
      * 
      * Invalid arguments to test: 
-     * type: "rAndOm", "/r", "/ t"
-     * isAll: "rAndOm", "/e", "/ a"
+     * clearType: "rAndOm", "/r", "/ t"
+     * clearAll: "rAndOm", "/e", "/ a"
      * 
      * The test cases below test 1 invalid argument at a time
      */
@@ -92,12 +92,12 @@ public class ClearCommandTest extends CommandTest {
         List<Task> expectedList = helper.generateTaskList(t1, t3);
         helper.addTaskToModel(model, threeTasks);
 
-        TaskBook expectedAB = helper.generateTaskBook_Tasks(expectedList);
+        TaskBook expectedTB = helper.generateTaskBook_Tasks(expectedList);
 
         assertClearTaskCommandBehavior("clear /t", "mark 2", "list -t -a", 
                 String.format(String.format(ClearCommand.MESSAGE_SUCCESS, 
                 ClearCommand.MESSAGE_COMPLETED, ClearCommand.MESSAGE_TASKS)),
-                expectedAB,expectedList);
+                expectedTB,expectedList);
     }
     
     @Test
@@ -115,12 +115,12 @@ public class ClearCommandTest extends CommandTest {
         List<Event> expectedList = helper.generateEventList(expected_1, expected_3);
         helper.addEventToModel(model, threeEvents);
 
-        TaskBook expectedAB = helper.generateTaskBook_Events(expectedList);
+        TaskBook expectedTB = helper.generateTaskBook_Events(expectedList);
 
         assertClearEventCommandBehavior("clear /e", "list -e -a",
                 String.format(String.format(ClearCommand.MESSAGE_SUCCESS, 
                 ClearCommand.MESSAGE_COMPLETED, ClearCommand.MESSAGE_EVENTS)),
-                expectedAB,expectedList);
+                expectedTB,expectedList);
     }
     
     @Test
@@ -146,12 +146,12 @@ public class ClearCommandTest extends CommandTest {
         helper.addTaskToModel(model, threeTasks);
         helper.addEventToModel(model, threeEvents);
         
-        TaskBook expectedAB = helper.generateTaskBookTasksAndEvents(expectedTaskList, expectedEventList);
+        TaskBook expectedTB = helper.generateTaskBookTasksAndEvents(expectedTaskList, expectedEventList);
 
         assertClearTaskAndEventCommandBehavior("clear", "mark 2", "list -t -a", "list -e -a", 
                 String.format(String.format(ClearCommand.MESSAGE_SUCCESS, 
                 ClearCommand.MESSAGE_COMPLETED, ClearCommand.MESSAGE_TASKS_EVENTS)),
-                expectedAB,expectedTaskList, expectedEventList);
+                expectedTB,expectedTaskList, expectedEventList);
     }
     
     @Test
@@ -162,12 +162,12 @@ public class ClearCommandTest extends CommandTest {
         List<Task> expectedList = helper.generateTaskList(0);
         helper.addTaskToModel(model, threeTasks);
 
-        TaskBook expectedAB = helper.generateTaskBook_Tasks(expectedList);
+        TaskBook expectedTB = helper.generateTaskBook_Tasks(expectedList);
 
         assertClearTaskCommandBehavior("clear /t /a", "mark 2", "list -t -a", 
                 String.format(String.format(ClearCommand.MESSAGE_SUCCESS, 
                 ClearCommand.MESSAGE_COMPLETED_UNCOMPLETED, ClearCommand.MESSAGE_TASKS)),
-                expectedAB,expectedList);
+                expectedTB,expectedList);
     }
     
     @Test
@@ -182,12 +182,12 @@ public class ClearCommandTest extends CommandTest {
         List<Event> expectedList = helper.generateEventList(0);
         helper.addEventToModel(model, threeEvents);
 
-        TaskBook expectedAB = helper.generateTaskBook_Events(expectedList);
+        TaskBook expectedTB = helper.generateTaskBook_Events(expectedList);
 
         assertClearEventCommandBehavior("clear /e /a", "list -e -a",
                 String.format(String.format(ClearCommand.MESSAGE_SUCCESS, 
                 ClearCommand.MESSAGE_COMPLETED_UNCOMPLETED, ClearCommand.MESSAGE_EVENTS)),
-                expectedAB,expectedList);
+                expectedTB,expectedList);
     }
     
     @Test
@@ -207,12 +207,12 @@ public class ClearCommandTest extends CommandTest {
         helper.addTaskToModel(model, threeTasks);
         helper.addEventToModel(model, threeEvents);
         
-        TaskBook expectedAB = helper.generateTaskBookTasksAndEvents(expectedTaskList, expectedEventList);
+        TaskBook expectedTB = helper.generateTaskBookTasksAndEvents(expectedTaskList, expectedEventList);
 
         assertClearTaskAndEventCommandBehavior("clear /a", "mark 2", "list -t -a", "list -e -a", 
                 String.format(String.format(ClearCommand.MESSAGE_SUCCESS, 
                 ClearCommand.MESSAGE_COMPLETED_UNCOMPLETED, ClearCommand.MESSAGE_TASKS_EVENTS)),
-                expectedAB,expectedTaskList, expectedEventList);
+                expectedTB,expectedTaskList, expectedEventList);
     }
     
     @Test
@@ -224,11 +224,11 @@ public class ClearCommandTest extends CommandTest {
         List<Event> expectedEventList = new ArrayList<Event>();
 
         
-        TaskBook expectedAB = helper.generateTaskBookTasksAndEvents(expectedTaskList, expectedEventList);
+        TaskBook expectedTB = helper.generateTaskBookTasksAndEvents(expectedTaskList, expectedEventList);
 
         assertClearTaskAndEventCommandBehavior("clear /a", "mark 2", "list -t -a", "list -e -a", 
                 String.format(String.format(ClearCommand.MESSAGE_SUCCESS, 
                 ClearCommand.MESSAGE_COMPLETED_UNCOMPLETED, ClearCommand.MESSAGE_TASKS_EVENTS)),
-                expectedAB,expectedTaskList, expectedEventList);
+                expectedTB,expectedTaskList, expectedEventList);
     }
 }

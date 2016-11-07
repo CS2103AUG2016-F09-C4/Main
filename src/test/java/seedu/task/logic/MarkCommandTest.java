@@ -76,16 +76,16 @@ public class MarkCommandTest extends CommandTest{
         Task t3 = helper.generateTask(3);
         
         List<Task> threeTasks = helper.generateTaskList(3);
-        List<Task> expectedABList = helper.generateTaskList(3);
+        List<Task> expectedTBList = helper.generateTaskList(3);
         List<Task> expectedList = helper.generateTaskList(t1, t3);
         helper.addTaskToModel(model, threeTasks);
 
-        TaskBook expectedAB = helper.generateTaskBook_Tasks(expectedABList);
-        expectedAB.markTask(t2);
+        TaskBook expectedTB = helper.generateTaskBook_Tasks(expectedTBList);
+        expectedTB.markTask(t2);
 
 
         assertTaskCommandBehavior("mark 2",
                 String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, 2),
-                expectedAB,expectedList);
+                expectedTB,expectedList);
     }
 }
