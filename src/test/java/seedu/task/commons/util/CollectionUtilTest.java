@@ -18,10 +18,11 @@ public class CollectionUtilTest {
 
     /**
      * Test for helper class CollectionUtil
+     * Test for null in collection
      */
 
     @Test
-    public void test() throws Exception{
+    public void collectionUtilTest() throws Exception{
         Name testName = new Name("Task 1");
         Description testDescription = new Description("finish my part");
         Deadline testDeadline = null;
