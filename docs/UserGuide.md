@@ -21,7 +21,30 @@
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list /t`** : lists all tasks that are not completed or passed will be hidden from the list by default, and shown as below.  
+   * **`add try out Dowat /by tomorrow`**: will add a task into the application. The task will be shown in the list and calendar as highlighted.   
+   <img src="images/Add.png" width="500">
+   * **`mark 1`**: after you are done with a task, simply mark it off from the list. Tasks will be sorted so you can easily find those tasks with closer deadlines at the top of the list!
+   * **`list /t /a`** : you can also lists all tasks that are completed, and shown as below.  
+   <img src="images/List_Done.png" width="500">
+   * **`undo`**: if you accidently do anything wrong, you can undo the modifications also!
+   * **`edit /t 1 /by one hour later`** Edit any field you need (description, name, deadline, event duration ...) with the edit command. Where the index `1` refers to the index of the task / event in the respective list.   
+   :wink: Check out the [Features](#features) for a complete set of commands you can use!
+
+
+
+## UI Control
+
+#### Event/Task Card    
+The default card is shown as below:  
+<img src="images/Card_Default.png" width="500"> 
+<br>
+A task that is overdue will be highlighted and shown as below:  
+<img src="images/Card_Overdue.png" width="500">
+<br>
+A task/event that is due on today will be highlighted and shown:  
+<img src="images/Card_Today.png" width="500">
+<br>
+A task/event that is completed or passed will be hidden from the list by default, and shown as below.  
 <img src="images/Card_Done.png" width="500">
 
 
