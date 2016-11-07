@@ -40,7 +40,7 @@ public class MarkCommand extends UndoableCommand {
         
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
-        if (lastShownList.size() < targetIndex || targetIndex == 0) {
+        if (outOfBounds(lastShownList.size(),targetIndex)) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
@@ -55,6 +55,10 @@ public class MarkCommand extends UndoableCommand {
 
     }
 
+    private boolean outOfBounds(int listSize, int lastShownListIndex){
+        return listSize < lastShownListIndex || lastShownListIndex < 1;
+    }
+	
 	@Override
 	public CommandResult undo() {
 		model.markTask(taskToMark);
