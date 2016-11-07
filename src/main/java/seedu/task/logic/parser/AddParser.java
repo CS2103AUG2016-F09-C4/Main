@@ -1,6 +1,6 @@
 package seedu.task.logic.parser;
 
-import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Optional;
 
@@ -60,6 +60,9 @@ public class AddParser implements Parser {
         }
     }
 
+    /*
+     * To get the values according to each field prefix
+     */
     private void getTokenizerValue(ArgumentTokenizer argsTokenizer) throws EmptyValueException {
         name = argsTokenizer.getPreamble().get();
         description = argsTokenizer.getValue(descriptionPrefix);

@@ -2,7 +2,7 @@ package seedu.task.model;
 
 import java.util.Objects;
 
-import seedu.taskcommons.core.GuiSettings;
+import seedu.task.commons.core.GuiSettings;
 
 /**
  * Represents User's preferences.
@@ -20,7 +20,7 @@ public class UserPrefs {
     }
 
     public UserPrefs(){
-        this.setGuiSettings(500, 500, 0, 0);
+        this.setGuiSettings(500, 800, 0, 0);
     }
 
     public void setGuiSettings(double width, double height, int x, int y) {

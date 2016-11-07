@@ -2,6 +2,10 @@ package seedu.task.logic.commands;
 
 import java.util.logging.Logger;
 
+import seedu.task.commons.core.EventsCenter;
+import seedu.task.commons.core.LogsCenter;
+import seedu.task.commons.core.Messages;
+import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.item.Deadline;
@@ -12,10 +16,6 @@ import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.Task;
 import seedu.task.model.item.UniqueTaskList;
 import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
-import seedu.taskcommons.core.EventsCenter;
-import seedu.taskcommons.core.LogsCenter;
-import seedu.taskcommons.core.Messages;
-import seedu.taskcommons.core.UnmodifiableObservableList;
 
 //@@author A0127570H
 /**
@@ -89,12 +89,15 @@ public class EditTaskCommand extends EditCommand  {
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editTask));
 
         } catch (UniqueTaskList.DuplicateTaskException e) {
+            logger.info("-------[Failed execution of EditTaskCommand]" + " Duplicate task");
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (IndexOutOfBoundsException ie) {
             indicateAttemptToExecuteIncorrectCommand();
+            logger.info("-------[Failed execution of EditTaskCommand]" + " Index out of bound");
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         } catch (IllegalValueException e) {
             indicateAttemptToExecuteIncorrectCommand();
+            logger.info("-------[Failed execution of EditTaskCommand]" + " Illegal value");
             return new CommandResult(e.getMessage());
         } 
     }
@@ -103,7 +106,7 @@ public class EditTaskCommand extends EditCommand  {
      * Edits the necessary fields.
      * Assumes task completion status is reinstated to not completed.
      * @return task that has the fields according to edit requirements.
-     * @throws IllegalValueException 
+     * @throws IllegalValueException requesting to remove deadline for a floating target task
      */    
     private Task editTask(ReadOnlyTask targetTask) throws IllegalValueException {
         

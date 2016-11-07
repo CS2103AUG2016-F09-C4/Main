@@ -1,8 +1,9 @@
 package seedu.task.logic.commands;
 
 //@@author A0125534L
+
+import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.events.ui.ShowHelpEvent;
-import seedu.taskcommons.core.EventsCenter;
 
 /**
  * Format full help instructions for every command for display.

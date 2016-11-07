@@ -6,7 +6,7 @@ package seedu.task.commons.events.storage;
  * @@author Yee Heng
  * */
 
-import seedu.taskcommons.core.Config;
+import seedu.task.commons.core.Config;
 import seedu.task.commons.events.BaseEvent;
 
 public class StorageLocationChangedEvent extends BaseEvent {

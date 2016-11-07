@@ -16,13 +16,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.task.commons.core.CalendarView;
+import seedu.task.commons.core.Config;
+import seedu.task.commons.core.GuiSettings;
 import seedu.task.commons.events.ui.ExitAppRequestEvent;
 import seedu.task.logic.Logic;
 import seedu.task.model.UserPrefs;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
-import seedu.taskcommons.core.Config;
-import seedu.taskcommons.core.GuiSettings;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -32,8 +33,8 @@ public class MainWindow extends UiPart {
 
     private static final String ICON = "/images/calendar.png";
     private static final String FXML = "MainWindow.fxml";
-    public static final int MIN_HEIGHT = 600;
-    public static final int MIN_WIDTH = 450;
+    public static final int MIN_HEIGHT = 500;
+    public static final int MIN_WIDTH = 800;
 	
 
     private Logic logic;
@@ -269,7 +270,7 @@ public class MainWindow extends UiPart {
 		this.calendarPanel.refresh(eventList,taskList);
 	}
 
-	public void updateCalendarView(LocalDateTime displayedDateTime, int calendarViewMode) {
+	public void updateCalendarView(LocalDateTime displayedDateTime, CalendarView calendarViewMode) {
 		this.calendarPanel.updateCalendarMode(calendarViewMode);
 		this.calendarPanel.updateCalendarShownPeriod(displayedDateTime);
 	}

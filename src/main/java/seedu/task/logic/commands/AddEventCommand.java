@@ -2,6 +2,9 @@ package seedu.task.logic.commands;
 
 import java.util.logging.Logger;
 
+import seedu.task.commons.core.EventsCenter;
+import seedu.task.commons.core.LogsCenter;
+import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.ui.JumpToEventListRequestEvent;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.item.Description;
@@ -10,9 +13,6 @@ import seedu.task.model.item.EventDuration;
 import seedu.task.model.item.Name;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.UniqueEventList;
-import seedu.taskcommons.core.EventsCenter;
-import seedu.taskcommons.core.LogsCenter;
-import seedu.taskcommons.core.UnmodifiableObservableList;
 
 //@@author A0127570H
 /**
@@ -48,7 +48,9 @@ public class AddEventCommand extends AddCommand {
 	}
 
     /*
+     * Execute method for add event command
      * Newly added event is to be selected for easy viewing
+     * To post a JumpToEventListRequestEvent
      */
 	@Override
     public CommandResult execute() {

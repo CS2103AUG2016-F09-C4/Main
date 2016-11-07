@@ -1,6 +1,7 @@
 # Developer Guide 
 
 * [Setting Up](#setting-up)
+* [Problem Domain](#problem-domain)
 * [Design](#design)
 * [Implementation](#implementation)
 * [Managing Dependencies](#managing-dependencies)
@@ -43,13 +44,13 @@
 
 ## Problem Domain
 
-With the use of Activity Diagrams, we can understand the context under which `Dowat` is used.<br>
-Users of `Dowat` receive their task and event items mainly from their email inbox.<br>
-By storing the task or event received immediately into `Dowat`, the user can archive the email immediately.<br>
-By accessing `Dowat`, the user is able to determine the important tasks at hand and upcoming events for the day or week.<br>
+With the use of Activity Diagrams, we can understand the context under which `Dowat` is used. <br>
+Users of `Dowat` receive their task and event items mainly from their email inbox. <br>
+By storing the task or event received immediately into `Dowat`, the user can archive the email immediately. <br> 
+By accessing `Dowat`, the user is able to keep track of the important tasks at hand and upcoming events for the day or week. <br>
 This will help the user plan their use of time more effectively.<br>
 
-<img src="images/ADForEmailAndDowat.png" width="850" height="500"><br>
+<img src="images/ADForEmailAndDowat.png" width="850" height="600"><br>
 
 ## Design
 
@@ -125,12 +126,13 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/seedu/task/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
-5. The UndoableCommandHistory applies the Singleton pattern which holds the sole copy of the modifications done to the `Dowat`. 
-6. We did not choose to store a list of events/tasks, or copies of `Dowat` as a history. Instead, we chose to store a stack of commands which are more lightweighted, and occupy less storage. 
+1. `Logic` uses the `ParserManager` class to parse the user command.
+2. `ParserManager` will pass the parsing of arguments to respective Command parsers which all implement `Parser` interface.
+3. This results in a `Command` object which is executed by the `LogicManager`.
+4. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+5. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
+6. The UndoableCommandHistory applies the Singleton pattern which holds the sole copy of the modifications done to the `Dowat`. 
+7. We did not choose to store a list of events/tasks, or copies of `Dowat` as a history. Instead, we chose to store a stack of commands which are more lightweighted, and occupy less storage. 
 <!-- @@author  -->
 <!-- @@author A0127570H -->
 
@@ -142,7 +144,7 @@ The `UI` component,
 
 The `Model`,
 * Stores a `UserPref` object that represents the user's preferences
-* Stores the dowat data
+* Stores the `Dowat` data
 * Exposes a `UnmodifiableObservableList<ReadOnlyTask>` as well as `UnmodifiableObservableList<ReadOnlyEvent>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
@@ -155,12 +157,16 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save dowat data in xml format and read it back.
+* can save `Dowat` data in xml format and read it back.
 <!-- @@author  -->
-
+<!-- @@author A0144702N -->
 ### Common classes
 
-Classes used by multiple components are in the `seedu.taskbook.commans` package. 
+Classes used by multiple components are in the `seedu.taskbook.commons` package.
+Some examples of common classes include:
+  - CalendarView: enum describes the calendar view.
+  - Status: enum describes the filtered status of tasks and events. 
+  - Messages: standardized messages used throughout the app. 
 
 ## Implementation
 
@@ -179,20 +185,30 @@ of loggers and handlers (for output of log messages)
 **Logging Levels**
 
 - SEVERE
-  - Critical use case affected, which may possibly cause the termination of the application
+  - Critical use case affected, which may possibly cause the termination of the application  
+  eg: Fatal error during initializing,  
+  eg: Unsync Calendar during execution. 
 
-- WARNING
-  - Can continue, but with caution
+-WARNING:
+  - Critical use case happen, but can recover and continue execution:
+    eg:Can't find stage Test App, Therefore, aborting focusin  
 
 - INFO
   - Information important for the application's purpose
-    - e.g. update to local model/request sent to cloud
-  - Information that the layman user can understand
-
-- FINE
-  - Used for superficial debugging purposes to pinpoint components that the fault/bug is likely to arise from
-  - Should include more detailed information as compared to `INFO` i.e. log useful information!
-    - e.g. print the actual list instead of just its size
+    - Setting up and init. 
+      eg:  `Setting up Calendar panel...`  
+    - User command:
+      `----------------[USER COMMAND][<Command>]`  
+      eg: `----------------[USER COMMAND][mark 1]`  
+    - System command (for undo):
+      `-----------[SYSTEM UNDO COMMAND][<Command>]`  
+      eg: `-----------[SYSTEM UNDO COMMAND][mark 1]`  
+    - Posting an event:
+      `-----[Event Posted][<Event Information>]`  
+      eg: `------[Event Posted] seedu.task.commons.events.model.TaskBookChangedEvent: [number of tasks 10] [number of events 9]`  
+    - Reveiving an event:
+      `--[Event Handled] [<Response Message>]`  
+      eg: `--[Event handled][[number of tasks 10] [number of events 9]Local data changed, saving to file]`
 
 ### Configuration
 
@@ -200,7 +216,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 (default: `config.json`):
 
 
-<!-- @@author A0144702N -->
+
 ## Managing Dependencies
 We use several external dependencies:
 
@@ -222,20 +238,23 @@ The dependencies are bound into the jar release and will not require extra depen
 
 Priority | As a ... | I want to ... | So that I can...
 ---------|----------|---------------|-----------------
-`* * *` | user | be able to add a task into the program | enter it into the database
-`* * *` | user | be able to list all the tasks in the database | keep track of all my tasks that I have to do 
-`* * *` | user | be able to list the tasks undone or done | keep track of tasks which are done which are not
-`* * *` | user | be able to edit the description of an existing task in the program | keep my tasks updated
+`* * *` | user | be able to add a task into the program | maintain a list of tasks to do
+`* * *` | user | be able to add a task with a deadline into the program | set a deadline for myself to complete the task
+`* * *` | user | be able to add an event into the program | maintain a schedule of upcoming events
+`* * *` | user | be able to list all the uncompleted tasks in the database | keep track of all my tasks that I have to do 
+`* * *` | user | be able to list all the upcoming events | keep track of my upcoming schedule 
+`* * *` | user | be able to list all completed and uncompleted tasks | keep track of tasks which are not completed and otherwise
+`* * *` | user | be able to edit the name or description of an existing task in the program | keep my tasks updated
 `* * *` | user | be able to edit the deadline of an existing task in the program | keep the deadlines for my tasks updated
 `* * *` | user | be able to edit the occurrence and duration of an event in the program | keep my events updated
 `* * *` | user | be able to mark the completion of an existing task in the program | keep update list of uncompleted tasks 
 `* * *` | user | be able to delete an existing task or event in the program | keep my tasks and events updated
-`* * *` | user | be able to specify my storage location to save my files | keep my files saved in different responsories
-`* * *` | user | be able to seek help with the operations and commands of the program | keep the program user friendly
+`* * *` | user | be able to specify my storage location to save my files | keep my files saved in different repositories
+`* * *` | user | be able to seek help with the operations and commands of the program | get command specific assistance
 `* * *` | user | be able to exit the program | keep a proper shutdown of the program
 `* * *` | user | be able to simple search for tasks using keywords that are in the name and description | retrieve tasks easily
 `* * *` | user | be able undo the most recent modification | revert from unintended modifications
-`* * *` | user | be able to use flexible commands when adding tasks | have greater flexibility in adding tasks
+`* *` | user | be able to have flexibility in order of fields in commands | have greater flexibility in keying in commands
 `* *` | user | be able to search any words related to a task | retrieve tasks more easily
 `* *` | user | see a snapshot of events in the calendar view | retrieve informaiton in a graphical way.
 
@@ -246,38 +265,30 @@ Priority | As a ... | I want to ... | So that I can...
 
 <!-- @@author A0127570H -->
 
-#### Use case 1: Add task
+#### Use case 1: Add task/event
 
 **MSS**
 
-1. User requests to add task of specified parameters
-2. `Dowat` adds task to system
+1. User requests to add task/event of specified parameters
+2. `Dowat` adds task/event to system
 Use case ends.
+
+The use case of adding a task is elaborated by the SD as follows.
+
+<img src="images/addtask.png" width="700"><br>
+<img src="images/addtaskSD.png" width="700"><br>
+
+The SD for adding a task is similar to adding an event.
 
 **Extensions**
 
-1a. The add task request has invalid format
+1a. The add task/event request has invalid format
   > 1a1. `Dowat` displays an error message
   Use case resumes at step 1
 
 <br>
-
-#### Use case 2: Add event
-
-**MSS**
-
-1. User requests to add event of specified parameters
-2. `Dowat` adds event to system
-Use case ends.
-
-**Extensions**
-1a. The add event request has invalid format
-  > 1a1. `Dowat` displays an error message
-    Use case resumes at step 1
-
-<br>
 <!-- @@author A0144702N -->
-#### Use case 3: List tasks/events
+#### Use case 2: List tasks/events
 
 **MSS**
 
@@ -287,55 +298,47 @@ Use case ends.
 
 The Use case can be elaborated by the SD as below in addition the SD mentioned in the [Design](#design):  
 
-<img src="images/ListOverall.png" width="800"><br>
-<img src="images/ListRefSD.png" width="800"><br>
+<img src="images/ListOverall.png" width="600"><br>
+<img src="images/ListRefSD.png" width="600"><br>
 
 The SD for list events is similiar to task. 
 
 <br>
 <!-- @@author A0127570H -->
 
-#### Use case 4: Edit task details
+#### Use case 3: Edit task/event details
 
 **MSS**<br>
-1. User requests to list tasks<br>
-2. `Dowat` displays a list of tasks<br>
-3. User requests to edit task in the list with new specified parameters with the index of task in the list<br>
-4. `Dowat` edits existing task in database according to new specified parameters<br>
+1. User requests to list tasks/events<br>
+2. `Dowat` displays a list of tasks/events<br>
+3. User requests to edit task/event in the list with new specified parameters with the index of task/event in the list<br>
+4. `Dowat` edits existing task/event in database according to new specified parameters<br>
   Use case ends.
+
+The use case of editing an event is elaborated by the SD as follows.
+
+<img src="images/editevent.png" width="700"><br>
+<img src="images/editeventSD.png" width="700"><br>
+
+The SD for editing an event is similar to editing a task.
 
 **Extensions**<br>
 3a. The given index is invalid
-  > 3a1. `Dowat` displays an error message that task cannot be found
-  Use case resumes at step 2
-
-<br>
-
-#### Use case 5: Edit event details
-
-**MSS**<br>
-1. User requests to list events<br>
-2. `Dowat` displays a list of events<br>
-3. User requests to edit event in the list with new specified parameters with the index of event in the list<br>
-4. `Dowat` edits existing event in database according to new specified parameters<br>
-  Use case ends.
-
-**Extensions**<br>
-3a. The given index is invalid
-  > 3a1. `Dowat` displays an error message that the event cannot be found
+  > 3a1. `Dowat` displays an error message that task/event cannot be found
   Use case resumes at step 2
 
 <br>
 <!-- @@author A0121608N -->
 
-#### Use case 6: Mark task as completed
+#### Use case 4: Mark task as completed
 
-**MSS**<br>
-1. User requests to list tasks<br>
-2. `Dowat` displays a list of tasks<br>
-3. User requests to mark a task as completed with the index of task in the list<br>
-4. `Dowat` marks the existing task as completed and archives the completed task<br>
-5. `Dowat` displays the updated list of tasks<br>
+**MSS**
+ 1. User requests to list tasks
+ 2. `Dowat` displays a list of tasks
+ 3. User requests to mark a task as completed with the specified index of a task in the list
+ 4. `Dowat` marks the existing task as completed
+ 5. `Dowat` records the Mark command into UndoableCommandHistory
+ 6. `Dowat` displays the updated list of tasks
 
   Use case ends.
 
@@ -346,14 +349,15 @@ The SD for list events is similiar to task.
 
 <br>
 
-#### Use case 7: Delete task or event
+#### Use case 5: Delete task or event
 
-**MSS**<br>
-1. User requests to list tasks or events<br>
-2. `Dowat` displays a list of tasks or events<br>
-3. User requests to delete an existing task or event with the index in the list<br>
-4. `Dowat` deletes the task or event<br>
-5. `Dowat` displays the updated list of tasks or events<br>
+**MSS**
+ 1. User requests to list tasks or events
+ 2. `Dowat` displays a list of tasks or events
+ 3. User requests to delete an existing task or event with the index in the list
+ 4. `Dowat` deletes the task or event
+ 5. `Dowat` records the Delete command into UndoableCommandHistory
+ 6. `Dowat` displays the updated list of tasks or events
 
   Use case ends.
 
@@ -365,7 +369,7 @@ The SD for list events is similiar to task.
 <br>
 <!-- @@author A0125534L -->
 
-#### Use case 8: Specify storage location
+#### Use case 6: Specify storage location
 
 **MSS**<br>
 1. User request to save file at a specific directory<br>
@@ -381,7 +385,7 @@ The SD for list events is similiar to task.
 <br>
 <!-- @@author A0125534L -->
 
-#### Use case 9: Help Command 
+#### Use case 7: Help Command 
 
 
 **MSS**<br>
@@ -398,7 +402,7 @@ The SD for list events is similiar to task.
 <br>
 <!-- @@author A0125534L -->
 
-#### Use case 10: Select task or event
+#### Use case 8: Select task or event
 
 **MSS**<br>
 1. User requests to list tasks or events<br>
@@ -416,7 +420,7 @@ The SD for list events is similiar to task.
 
 <br>
 <!-- @@author A0144702N -->
-#### Use case 11: Simple find for tasks  
+#### Use case 9: Simple find for tasks  
 
 **MSS**<br>
 1. User request to find for tasks containing a set of keywords in description<br>
@@ -430,13 +434,13 @@ The SD for list events is similiar to task.
   Use case resumes at step 1  
 
 
-<img src="images/FindOverall.png" width="800"><br>
-<img src="images/FindRefSD.png" width="800"><br>
+<img src="images/FindOverall.png" width="600"><br>
+<img src="images/FindRefSD.png" width="600"><br>
 
 <br>
 
 <!-- @@author A0144702N -->
-#### Use case 12: Undo modification
+#### Use case 10: Undo modification
 
 **MSS**<br>
 1. User requests to undo the last modification.<br>
@@ -453,10 +457,10 @@ The SD for list events is similiar to task.
 Besides the abstract SD as shown in the section [Design](#design).<br>
 A more detailed Sequence Diagram of undo a deletion of task is shown below. 
 
-<img src="images/UndoOverall.png" width="800"><br>
-<img src="images/UndoRefSD.png" width="800"><br>
+<img src="images/UndoOverall.png" width="600"><br>
+<img src="images/UndoRefSD.png" width="600"><br>
 
-#### Use case 13: Show calendar views
+#### Use case 11: Show calendar views
 
 **MSS**<br>
 1. User requests to show a certain time period with a certain view.<br>
@@ -474,24 +478,129 @@ A more detailed Sequence Diagram of undo a deletion of task is shown below.
 Notice how this command does not involve the Model Component at all.<br>
 Since it does not need to retrieve or modidfy data in the model. 
 
-<img src="images/ShowSD.png" width="800">
+<img src="images/ShowSD.png" width="600">
 <br>
 
 
-<!-- @@author A0121608N -->
-<!-- @@author A125534L -->
+<!-- @@author A0121608N--> 
+
+<!-- Clearing an empty list of completed tasks or past events does not change `Dowat` behavior --> 
+#### Use case 12: Clear completed tasks or past events
+
+**MSS**  
+ 1. User requests to clear all completed tasks or all past events
+ 2. `Dowat` clears all completed tasks or all past events
+ 3. `Dowat` records the clear command into UndoableCommandHistory
+ 4. `Dowat` displays the updated list of tasks or events
+
+  Use case ends.
+
+<!-- Clearing an empty list of completed tasks and past events does not change `Dowat` behavior --> 
+#### Use case 13: Clear completed tasks and past events
+
+**MSS**  
+ 1. User requests to clear all completed tasks and all past events
+ 2. `Dowat` clears all completed tasks and all past events
+ 3. `Dowat` records the clear command into UndoableCommandHistory
+ 4. `Dowat` displays the updated list of tasks and events
+
+  Use case ends.
+
+<!-- Clearing an empty list of tasks or events does not change `Dowat` behavior --> 
+#### Use case 14: Clear all tasks or all events
+
+**MSS**  
+ 1. User requests to clear all tasks or all events
+ 2. `Dowat` clears all tasks or all events
+ 3. `Dowat` records the clear command into UndoableCommandHistory
+ 4. `Dowat` displays the updated list of tasks or events
+
+  Use case ends.
+  
+<!-- Clearing an empty list of tasks and events does not change `Dowat` behavior --> 
+#### Use case 15: Clear all tasks and all events
+
+**MSS**  
+ 1. User requests to clear all tasks and all events
+ 2. `Dowat` clears all tasks and all events
+ 3. `Dowat` records the clear command into UndoableCommandHistory
+ 4. `Dowat` displays the updated list of tasks and events
+
+  Use case ends.
+
+  
+#### Use case 16: Accessing Command history in Command Box
+
+**MSS**  
+ 1. User requests to access Command history using UI controls (UP/DOWN key)
+ 2. `Dowat` accesses the specified Command of the Command history
+ 3. `Dowat` displays Command in the Command Box
+
+  Use case ends.
+
+**Extensions**
+2a. UP key is pressed
+  > 2a1. `Dowat` accesses command directly above the current position in Command history
+2b. DOWN key is pressed
+  > 2b1. `Dowat` accesses command directly below the current position in Command history
+2c. Position requested out of bounds
+  > 2c1. `Dowat` accesses command at current position in Command history
+  
+  Use case resumes at step 3
+
+<!-- Clearing an empty Command Box does not change `Dowat` behavior --> 
+#### Use case 17: Clearing of Command Box
+
+**MSS**  
+ 1. User requests to clear the Command Box using UI controls (DELETE key)
+ 2. `Dowat` clears the Command Box
+
+  Use case ends.
+
+#### Use case 18: Scrolling of Result Display Panel and Task/Event Panel
+
+**MSS**  
+ 1. User requests to scroll the Panel using UI controls (UP/DOWN key)
+ 2. `Dowat` updates the specified Panel in the direction of scroll.
+ 3. `Dowat` displays the updated Panel
+
+  Use case ends.
+**Extensions**
+2a. UP key is pressed
+  > 2a1. `Dowat` scrolls the Panel upwards.
+2b. DOWN key is pressed
+  > 2b1. `Dowat` scrolls the Panel downwards.
+2c. Position requested out of bounds
+  > 2c1. `Dowat` scrollbar remains in position
+  
+  Use case resumes at step 3
+  
+
+#### Use case 19: Traversing UI Windows/Panels
+
+**MSS**  
+ 1. User requests to traverse to the next Window/Panel using UI controls (TAB key)
+ 2. `Dowat` selects the next Window/Panel according to traversal order.
+ 3. `Dowat` displays the selected panel
+
+  Use case ends.
+<!-- @@author --> 
+
+
+<!-- @@author A0125534L -->
 ## Appendix C : Non Functional Requirements
 - Storage
   - Should not use relational databases. Data storage must be done using text, json, xml files you create yourself. 
   - Should be stored locally and should be in a human editable text file. The intention of this constraint is to allow advanced users to manipulate the data by editing the data file.
 
 - GUI
-  - Text should be font size 12.
-  - Text should be Times New Romans.
+  - Text in text fields should be font size 12.
+  - Text should be of the Roboto font style.
 
 - Should work on the Windows 7 or later.
 - Should work on any mainstream OS as long as it has Java 8 or higher installed.
 - Should be able to hold up to 1000 tasks.
+<!-- @@author A0121608N -->
 - Should come with automated unit tests and open source code.
 - Should favor DOS style commands over Unix-style commands.
 - Should work only with Command Line Interface as the main input with minimal use of mouse/clicking. GUI only serves as the source of output of results. 
@@ -505,7 +614,6 @@ Since it does not need to retrieve or modidfy data in the model.
 - do not violate other constraints. 
 
 <!-- @@author --> 
-{More to be added}
 
 ## Appendix D : Glossary
 
@@ -567,7 +675,7 @@ Since it does not need to retrieve or modidfy data in the model.
 > 1. No freemium reminder features
 
 **Feedback**
-> Highly recommended for all memebrs to use it. 
+> Highly recommended for all members to use it. 
 
 <!-- @@author -->
 <!-- @@author A0127570H -->
@@ -614,7 +722,7 @@ Since it does not need to retrieve or modidfy data in the model.
 
 
 <!-- @@author A0144702N -->
-## Appendix F : Pull Request
+## Appendix F : Pull Request Format
 
 None of the parts below are compulsory for a PR, but a good template to follow in general. Developers are free to add in or remove sections as stated below. 
 
