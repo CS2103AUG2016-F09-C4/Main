@@ -9,8 +9,9 @@ import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
 
 /**
- * Tests Mark Command for GUI Test.
  * @@author A0121608N
+ * Tests Mark Command for GUI Test.
+ * 
  */
 
 public class MarkCommandTest extends TaskBookGuiTest {

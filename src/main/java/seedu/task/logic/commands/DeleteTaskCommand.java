@@ -10,8 +10,9 @@ import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
 /**
- * Deletes a Task identified using it's last displayed index from the taskbook.
  * @@author A0121608N
+ * Deletes a Task identified using it's last displayed index from the taskbook.
+ * 
  */
 public class DeleteTaskCommand extends DeleteCommand {
 

@@ -12,8 +12,9 @@ import seedu.task.logic.commands.DeleteTaskCommand;
 import seedu.task.logic.commands.IncorrectCommand;
 
 /**
- * Responsible for validating and preparing the arguments for DeleteCommand execution
  * @@author A0121608N
+ * Responsible for validating and preparing the arguments for DeleteCommand execution
+ * 
  */
 public class DeleteParser implements Parser {
     

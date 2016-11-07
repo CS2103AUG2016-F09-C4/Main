@@ -11,8 +11,9 @@ import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
 
 /**
- * Tests Delete Command for GUI Test.
  * @@author A0121608N
+ * Tests Delete Command for GUI Test.
+ * 
  */
 
 public class DeleteCommandTest extends TaskBookGuiTest {

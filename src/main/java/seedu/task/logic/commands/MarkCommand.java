@@ -10,8 +10,9 @@ import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
 /**
- * Marks a task as completed using it's last displayed index from the taskbook.
  * @@author A0121608N
+ * Marks a task as completed using it's last displayed index from the taskbook.
+ * 
  */
 public class MarkCommand extends UndoableCommand {
 

@@ -10,8 +10,9 @@ import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.MarkCommand;
 
 /**
- * Responsible for validating and preparing the arguments for MarkCommand execution
  * @@author A0121608N
+ * Responsible for validating and preparing the arguments for MarkCommand execution
+ * 
  */
 
 public class MarkParser implements Parser {

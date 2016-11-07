@@ -11,8 +11,9 @@ import seedu.task.model.TaskBook;
 import seedu.task.model.item.Task;
 
 /**
- * Responsible for testing the execution of MarkCommand
  * @@author A0121608N
+ * Responsible for testing the execution of MarkCommand
+ * 
  */
 
 public class MarkCommandTest extends CommandTest{

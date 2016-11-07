@@ -14,8 +14,9 @@ import seedu.task.model.item.Event;
 import seedu.task.model.item.Task;
 
 /**
- * Responsible for testing the execution of DeleteCommand
  * @@author A0121608N
+ * Responsible for testing the execution of DeleteCommand
+ * 
  */
 
 public class DeleteCommandTest extends CommandTest {

@@ -13,8 +13,9 @@ import seedu.task.model.item.Event;
 import seedu.task.model.item.Task;
 
 /**
- * Responsible for testing the execution of ClearCommand
  * @@author A0121608N
+ * Responsible for testing the execution of ClearCommand
+ * 
  */
 
 public class ClearCommandTest extends CommandTest {

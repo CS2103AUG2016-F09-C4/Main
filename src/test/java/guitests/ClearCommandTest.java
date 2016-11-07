@@ -8,8 +8,9 @@ import seedu.task.testutil.TypicalTestEvents;
 import seedu.task.testutil.TypicalTestTasks;
 
 /**
- * Tests Clear Command for GUI Test.
  * @@author A0121608N
+ * Tests Clear Command for GUI Test.
+ * 
  */
 
 public class ClearCommandTest extends TaskBookGuiTest {

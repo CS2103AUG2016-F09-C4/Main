@@ -11,8 +11,9 @@ import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.IncorrectCommand;
 
 /**
- * Responsible for validating and preparing the arguments for ClearCommand execution
  * @@author A0121608N
+ * Responsible for validating and preparing the arguments for ClearCommand execution
+ * 
  */
 public class ClearParser implements Parser {
 

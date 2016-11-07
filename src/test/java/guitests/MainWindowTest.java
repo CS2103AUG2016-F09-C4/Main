@@ -7,8 +7,9 @@ import javafx.scene.input.KeyCode;
 import static org.junit.Assert.assertTrue;
 
 /**
- *  GUI test for Main Window
  *  @@author A0121608N
+ *  GUI test for Main Window
+ *  
  */
 
 public class MainWindowTest extends TaskBookGuiTest {
