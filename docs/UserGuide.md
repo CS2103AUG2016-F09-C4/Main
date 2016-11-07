@@ -110,7 +110,7 @@ This prevents the need to use the mouse wheel for scrolling.
 #### Adding a task
 Adds a task to Dowat<br>
 
-Format: `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATE_TIME]` <br>
+Format: `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATETIME]` <br>
  
 > Words in `UPPER_CASE` are the parameters, parameters will follow behind their corresponding keyword. 
 > With the exception of `TASK_NAME`, all other parameters are optional. The order of parameters are not fixed. 
@@ -125,28 +125,28 @@ Examples:
 * `add CS2103 V0.4 /by 30 Dec` <br>
    Adds a task "CS2103 V0.4" with deadline "23:59 30 December 2016"
 * `add heat transfer quiz /desc IVLE /by tomorrow 8pm` <br>
-<img src="images/addtask.gif" width="500">
+<img src="images/addtask.gif" width="700">
 
 
 #### Adding an event
 Similar to adding a task, you can also add an event to Dowat<br>
 
-Format: `add EVENT_NAME /from START_DATE_TIME [/to END_DATE_TIME] [/desc DESCRIPTION]` <br>
+Format: `add EVENT_NAME /from START_DATETIME [/to END_DATETIME] [/desc DESCRIPTION]` <br>
 
-> With the exception of `EVENT_NAME` and `START_DATE_TIME`, all other parameters are optional. The order of parameters are not fixed. 
-> `START_DATE_TIME` and `END_DATE_TIME` can be entered in natural language.
+> With the exception of `EVENT_NAME` and `START_DATETIME`, all other parameters are optional. The order of parameters are not fixed. 
+> `START_DATETIME` and `END_DATETIME` can be entered in natural language.
 > For date, entering words like today, tomorrow and day after are recognised.
 > Dates entered in numeric form must be in the format of MM-DD-YYYY.
 > Only valid dates are recognised correctly.
 > For time, entering 7pm, 1900 or 19.00 are recognised.
 > If no start time is entered, it is assumed to start at 00:00 hours.
-> If `END_DATE_TIME` is not provided, the start and end dates will be the same, the default timing will be set 1 hour apart.
+> If `END_DATETIME` is not provided, the start and end dates will be the same, the default timing will be set 1 hour apart.
 
 Examples:
 * `add CS2103 Exam @ MPSH3 /from 30 December 4pm /to 6pm` <br>
   Adds an event "CS2103 Exam @ MPSH3" with duration from "16:00 30 December 2016" to "18:00 30 December 2016" 
 * `add Doctor Strange /desc @ The Cathay /from friday 7pm /to friday 9pm` <br>
-<img src="images/addevent.gif" width="500">
+<img src="images/addevent.gif" width="700">
 
 <!-- @@author A0144702N -->
 
@@ -194,7 +194,7 @@ Examples:
 * `edit /t 1 /desc CS2103 Project /by 12-30-16`<br>
   Edits the description of the 1st task to “CS2103 Project” and the deadline to "30 December 2016"
 * `edit /t 1 /name Heat Transfer Test /by today 6pm /desc @ E6 LT3`<br>
-  <img src="images/edittask.gif" width="500">
+  <img src="images/edittask.gif" width="700">
 
 
 #### Editing an event
@@ -211,7 +211,7 @@ Examples:
 * `edit /e 1 /desc CS2103 Workshop /from 10-03-16 0000 /to 10-05-16 2359`  
   Edits the description of the 1st event to “CS2103 Workshop” and the duration to the period of 0000 hours, 3-10-16 to 2359 hours, 5-10-16
 * `edit /e 1 /desc @ Serangoon Nex`  
-<img src="images/editevent.gif" width="500">
+<img src="images/editevent.gif" width="700">
 
 <!-- @@author A0121608N -->
 
