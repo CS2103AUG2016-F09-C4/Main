@@ -1,12 +1,9 @@
 package seedu.task.logic.commands;
 
-import java.util.logging.Logger;
-
 import seedu.task.model.ReadOnlyTaskBook;
 import seedu.task.model.TaskBook;
 import seedu.task.model.item.UniqueEventList;
 import seedu.task.model.item.UniqueTaskList;
-import seedu.taskcommons.core.LogsCenter;
 
 /**
  * Clears the taskbook's tasks and events according to the tags called
